@@ -1,4 +1,7 @@
-#include "minishell.h"
+//  main.c (나)
+//  Description: 쉘 기능을 하는 프로세스를 생성하고, 명령어를 입력받아서 이를 처리하는 프로그램
+
+#include "mysh.h"
 
 void	ft_putendl_fd(char *s, int fd)
 {
@@ -9,8 +12,6 @@ void	ft_putendl_fd(char *s, int fd)
 	}
 }
 
-//  main.c 
-//  Description: 쉘 기능을 하는 프로세스를 생성하고, 명령어를 입력받아서 이를 처리하는 프로그램
 int         main(int argc, char **argv, char **envp)
 {
     char    command[MAXSIZE] = {0}; // 인자로 받은 명령어들

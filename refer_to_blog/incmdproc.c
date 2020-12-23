@@ -1,12 +1,13 @@
 // File Name: incmdproc.c (마)
 // Description: 쉘 내부에서 처리되는 명령어들을 구현
 
-#include "minishell.h"
-
+#include "mysh.h"
+//////////////////////////////////////////////////////////////////////
 // Function : int incmdproc(char **argvp)
 // Input    : command를 분리한 argument vector
 // Output   : 쉘 내부 명령어 처리를 했으면 1, 안했으면 0
 // Purpose  : 명령어가 쉘 내부 명령이라면 그에 해당하는 함수를 호출
+//////////////////////////////////////////////////////////////////////
 int incmdproc(char **argvp)
 {
     int n = 1;
@@ -46,10 +47,12 @@ int incmdproc(char **argvp)
     return n;
 }
 
+//////////////////////////////////////////////////////////////////////
 // Function : void __set(char **argvp)
 // Input    : command를 분리한 argument vector
 // Output   : 없음
 // Purpose  : 인자가 있으면 쉘 변수 설정하고 인자가 없으면 쉘 변수를 출력함
+//////////////////////////////////////////////////////////////////////
 void __set(char **argvp)
 {
     int n;
@@ -80,10 +83,12 @@ void __set(char **argvp)
     }
 }
 
+//////////////////////////////////////////////////////////////////////
 // Function : void __export(char **argvp)
 // Input    : command를 분리한 argument vector
 // Output   : 없음
 // Purpose  : 환경 변수를 설정한다.
+//////////////////////////////////////////////////////////////////////
 void __export(char **argvp)
 {
     char tmp[MAXSIZE];
@@ -103,10 +108,12 @@ void __export(char **argvp)
     }
 }
 
+//////////////////////////////////////////////////////////////////////
 // Function : void __env(char **argvp)
 // Input    : command를 분리한 argument vector
 // Output   : 없음
 // Purpose  : 환경 변수를 출력한다.
+//////////////////////////////////////////////////////////////////////
 void __env(char **argvp)
 {
     int n;
@@ -114,11 +121,12 @@ void __env(char **argvp)
         printf("%s\n", environ[n]);
 }
 
-
+//////////////////////////////////////////////////////////////////////
 // Function : void __cd(char **argvp)
 // Input    : command를 분리한 argument vector
 // Output   : 없음
 // Purpose  : argvp에 저장된 상대 경로 또는 절대 경로 위치로 현재 위치를 이동한다.
+//////////////////////////////////////////////////////////////////////
 void __cd(char **argvp)
 {
     char curpath[MAXSIZE];
@@ -133,10 +141,12 @@ void __cd(char **argvp)
     setenv("PWD", curpath, 1);
 }
 
+//////////////////////////////////////////////////////////////////////
 // Function : void __pwd(char **argvp)
 // Input    : command를 분리한 argument vector
 // Output   : 없음
 // Purpose  : 현재 위치를 절대경로로 화면에 출력한다.
+//////////////////////////////////////////////////////////////////////
 void __pwd(char **argvp)
 {
     char buf[MAXSIZE] = {0};
@@ -144,10 +154,12 @@ void __pwd(char **argvp)
     printf("%s\n", buf);
 }
 
+//////////////////////////////////////////////////////////////////////
 // Function : void __alias(char **argvp)
 // Input    : command를 분리한 argument vector
 // Output   : 없음
 // Purpose  : 명령어 라인을 하나의 별칭으로 설정하고 alias 리스트에 추가
+//////////////////////////////////////////////////////////////////////
 void __alias(char **argvp)
 {
     list_t *t;
@@ -194,10 +206,12 @@ void __alias(char **argvp)
     }
 }
 
+//////////////////////////////////////////////////////////////////////
 // Function : void __unalias(char **argvp)
 // Input    : command를 분리한 argument vector
 // Output   : 없음
 // Purpose  : 설정된 별칭을 alias 리스트에서 제거
+//////////////////////////////////////////////////////////////////////
 void __unalias(char **argvp)
 {
     list_t *t, *del;
@@ -220,10 +234,12 @@ void __unalias(char **argvp)
     }
 }
 
+//////////////////////////////////////////////////////////////////////
 // Function : void __umask(char **argvp)
 // Input    : command를 분리한 argument vector
 // Output   : 없음
 // Purpose  : 사용자 파일 생성 마스크값을 설정하거나 출력한다.
+//////////////////////////////////////////////////////////////////////
 void __umask(char **argvp)
 {
     mode_t mode;
@@ -311,10 +327,12 @@ void __trap(char **argvp)
     trapproc(argvp);
 }
 
+//////////////////////////////////////////////////////////////////////
 // Function : void __kill(char **argvp)
 // Input    : command를 분리한 argument vector
 // Output   : 없음
 // Purpose  : 프로세스에 시그널 신호를 보냄
+//////////////////////////////////////////////////////////////////////
 void __kill(char **argvp)
 {
     int signo;
@@ -329,10 +347,12 @@ void __kill(char **argvp)
         perror("Failed to send signal");
 }
 
+//////////////////////////////////////////////////////////////////////
 // Function : void __exit(char **argvp)
 // Input    : command를 분리한 argument vector
 // Output   : 없음
 // Purpose  : 인자를 상태값으로 가지고 프로세스 종료
+//////////////////////////////////////////////////////////////////////
 void __exit(char **argvp)
 {
     int n;

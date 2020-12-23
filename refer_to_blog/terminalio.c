@@ -1,12 +1,12 @@
 // File Name: terminalio.c (다)
 // Description: 터미널 상에서 입력 처리
 
-#include "minishell.h"
-
+#include "mysh.h"
+//////////////////////////////////////////////////////////////////////
 // Input    : command(명령어 라인)
 // Output   : commnad에 내용이 있으면 1, 없으면 0
 // Purpose  : 터미널에서 개행문자까지 입력받아서 command에 저장
-
+//////////////////////////////////////////////////////////////////////
 int getcommand(char *command)
 {
     int n = 0
@@ -127,10 +127,10 @@ int getcommand(char *command)
     return 0;
 }
 
-
+//////////////////////////////////////////////////////////////////////
 // Function : void set_keypress(void)
 // Purpose  : 터미널을 non-canonical mode로 변경
-
+//////////////////////////////////////////////////////////////////////
 void set_keypress(void)
 {
     struct termios term;
@@ -146,9 +146,10 @@ void set_keypress(void)
     tcsetattr(0, TCSANOW, &term);
 }
 
+//////////////////////////////////////////////////////////////////////
 // Function : void reset_keypress(void)
 // Purpose  : 터미널을 canonical mode로 변경
-
+//////////////////////////////////////////////////////////////////////
 void reset_keypress(void)
 {
     tcsetattr(0, TCSANOW, &termstat);
