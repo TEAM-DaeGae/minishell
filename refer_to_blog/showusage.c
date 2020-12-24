@@ -33,18 +33,8 @@ int		showusage(char **argvp)
 				usage_export();
 		else if(strcmp(argvp[0], "set") == 0)
 				usage_set();
-		else if(strcmp(argvp[0], "history") == 0)
-				usage_history();
-		else if(strcmp(argvp[0], "alias") == 0)
-				usage_alias();
-		else if(strcmp(argvp[0], "unalias") == 0)
-				usage_unalias();
 		else if(strcmp(argvp[0], "pwd") == 0)
 				usage_pwd();
-		else if(strcmp(argvp[0], "umask") == 0)
-				usage_umask();
-		else if(strcmp(argvp[0], "trap") == 0)
-				usage_trap();
 		else
 				return 0;
 
@@ -111,30 +101,8 @@ void	usage_history(void)
 	printf(" -w \t\t write history list to [filename]\n");
 }
 
-void	usage_alias(void)
-{
-	printf("usage: alias [name[=value] ...]\n");
-}
-
-void	usage_unalias(void)
-{
-	printf("usage: unalias [name ...]\n");
-}
-
 void	usage_pwd(void)
 {
 	printf("usage: pwd\n");
 }
 
-void	usage_umask(void)
-{
-	printf("usage: umask [-S] [mode]\n");
-	printf(" -S \t\t print current umask\n");
-}
-
-void usage_trap(void)
-{
-	printf("usage: trap [arg] [signal_spec ...] or trap [-lp]\n");
-	printf(" -l \t\t print trap signal_spec list\n");
-	printf(" -p \t\t print setting trap list\n");
-}

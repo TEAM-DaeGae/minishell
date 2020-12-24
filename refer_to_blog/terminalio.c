@@ -9,8 +9,8 @@
 //////////////////////////////////////////////////////////////////////
 int getcommand(char *command)
 {
-    int n = 0
-    space_chk = 0;
+    int n = 0;
+    //space_chk = 0;
     char path[MAXSIZE] = {0};
     char c;
     nowhistory = histail;
@@ -61,43 +61,7 @@ int getcommand(char *command)
                     break;
 
             switch(fgetc(stdin)) // [ 기호가 들어왔다면
-            {
-                case 65: // ^[[A 기호, 즉 key가 up일 때 history 내용 출력
-                    nowhistory = nowhistory->prev;
-                    if(nowhistory != hishead)
-                    {
-                        fprintf(stdout, "\r%80s", " ");
-                        fprintf(stdout, "\r%s%s", path,
-                        nowhistory->value);
-                        strcpy(command,
-                        nowhistory->value);
-                        n = strlen(command);
-                    }
-                    else
-                    {
-                        nowhistory = hishead->next;
-                    }
-                    break;
-                
-                case 66: // ^[[B 기호, 즉 key가 down일 때 history 내용 출력
-                    nowhistory = nowhistory->next;
-                    if(nowhistory != histail)
-                    {
-                        fprintf(stdout, "\r%80s", " ");
-                        fprintf(stdout, "\r%s%s", path,
-                        nowhistory->value);
-                        strcpy(command,
-                        nowhistory->value);
-                        n = strlen(command);
-                    }
-                    else
-                    {
-                        fprintf(stdout, "\r%80s", " ");
-                        fprintf(stdout, "\r%s", path);
-                        n = 0;
-                    }
-                    break;
-                    
+            {       
                 case 67: // ^[[C 기호, 즉 key가 right일 때 아무 처리 안함
                     break;
                 

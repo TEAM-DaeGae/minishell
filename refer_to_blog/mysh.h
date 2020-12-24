@@ -12,7 +12,9 @@
 #include <sys/stat.h>
 #include <pwd.h>
 #include <signal.h>
-#include <termio.h>
+#include <termios.h>
+#include <stdlib.h>
+#include <errno.h>
 
 #define MAXSIZE 1024
 
@@ -83,24 +85,12 @@ void	__export(char **argvp);
 void	__env(char **argvp);
 void	__cd(char **argvp);
 void	__pwd(char **argvp);
-void	__alias(char **argvp);
-void	__unalias(char **argvp);
-void	__umask(char **argvp);
 void	__echo(char **argvp);
-void	__trap(char **argvp);
 void	__kill(char **argvp);
 void	__exit(char **argvp);
 
-// history 처리 함수
-void	hisproc(char **argvp);
-void	init_list(void);
-void	open_list(void);
-void	add_list(char *command);
-void	del_list(char **argvp);
-void	prn_list(char **argvp);
-void	sav_list(char **argvp);
 
-// trap 처리 함수
+//trap 처리 함수
 void	sig_init_list(void);
 void	trapproc(char **argvp);
 void	siglist(void);
@@ -125,10 +115,12 @@ void	usage_env(void);
 void	usage_export(void);
 void	usage_set(void);
 void	usage_history(void);
-void	usage_alias(void);
-void	usage_unalias(void);
 void	usage_pwd(void);
-void	usage_umask(void);
-void	usage_trap(void);
 
+void	set_keypress(void);
+void	reset_keypress(void);
+void				ft_putstr_fd(char *s, int fd);
+void				ft_putendl_fd(char *s, int fd);
+void				ft_putchar_fd(char c, int fd);
+int		issig(char *signal);
 #endif //__MYSH_H__
