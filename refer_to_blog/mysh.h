@@ -106,8 +106,6 @@ int		ispipe(char **argvp);
 void	redirectionin(char **argvp);
 void	redirectionout(char **argvp, int choice);
 
-void	set_keypress(void);
-void	reset_keypress(void);
 void				ft_putstr_fd(char *s, int fd);
 void				ft_putendl_fd(char *s, int fd);
 void				ft_putchar_fd(char c, int fd);

@@ -90,31 +90,3 @@ int getcommand(char *command)
 
     return 0;
 }
-
-//////////////////////////////////////////////////////////////////////
-// Function : void set_keypress(void)
-// Purpose  : 터미널을 non-canonical mode로 변경
-//////////////////////////////////////////////////////////////////////
-void set_keypress(void)
-{
-    struct termios term;
-
-    tcgetattr(0, &termstat);
-    memcpy(&term, &termstat, sizeof(struct termios));
-
-    term.c_lflag &= (~ICANON);
-    term.c_lflag &= (~ECHO);
-    term.c_cc[VTIME] = 0;
-    term.c_cc[VMIN] = 1;
-
-    tcsetattr(0, TCSANOW, &term);
-}
-
-//////////////////////////////////////////////////////////////////////
-// Function : void reset_keypress(void)
-// Purpose  : 터미널을 canonical mode로 변경
-//////////////////////////////////////////////////////////////////////
-void reset_keypress(void)
-{
-    tcsetattr(0, TCSANOW, &termstat);
-}
