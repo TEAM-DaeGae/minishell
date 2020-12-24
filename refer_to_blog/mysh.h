@@ -87,20 +87,10 @@ void	__cd(char **argvp);
 void	__pwd(char **argvp);
 void	__alias(char **argvp);
 void	__unalias(char **argvp);
-void	__umask(char **argvp);
 void	__echo(char **argvp);
-void	__trap(char **argvp);
 void	__kill(char **argvp);
 void	__exit(char **argvp);
 
-// history 처리 함수
-void	hisproc(char **argvp);
-void	init_list(void);
-void	open_list(void);
-void	add_list(char *command);
-void	del_list(char **argvp);
-void	prn_list(char **argvp);
-void	sav_list(char **argvp);
 
 // trap 처리 함수
 void	sig_init_list(void);

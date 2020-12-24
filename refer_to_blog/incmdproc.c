@@ -27,16 +27,10 @@ int incmdproc(char **argvp)
         __alias(argvp);
     else if(strcmp(argvp[0], "unalias") == 0)
         __unalias(argvp);
-    else if(strcmp(argvp[0], "umask") == 0)
-        __umask(argvp);
     else if(strcmp(argvp[0], "echo") == 0)
         __echo(argvp);
-    else if(strcmp(argvp[0], "trap") == 0)
-        __trap(argvp);
     else if(strcmp(argvp[0], "kill") == 0)
         __kill(argvp);
-    else if(strcmp(argvp[0], "history") == 0)
-        hisproc(argvp);
     else if(strcmp(argvp[0], "exit") == 0)
         __exit(argvp);
     else
@@ -235,51 +229,6 @@ void __unalias(char **argvp)
 }
 
 //////////////////////////////////////////////////////////////////////
-// Function : void __umask(char **argvp)
-// Input    : command를 분리한 argument vector
-// Output   : 없음
-// Purpose  : 사용자 파일 생성 마스크값을 설정하거나 출력한다.
-//////////////////////////////////////////////////////////////////////
-void __umask(char **argvp)
-{
-    mode_t mode;
-    int n[3] = {0};
-    int oct, i, err=0;
-
-    // 인자가 없거나 -S 옵션이면 현재 umask 모드 출력
-    // umask(0)하면 umask값이 0으로 바뀌므로
-    // mode를 통하여 원래대로 복귀시켜놓음
-    if(argvp[1] == 0 || strcmp(argvp[1], "-S") == 0)
-    {
-        printf("%03o\n", mode = umask(0));
-        umask(mode);
-    }
-    // 설정 값이 있으면 해당 값으로 umask 설정
-    else
-        {
-        // 인자 중에 숫자가 아닌 것이 있는지 검색
-        for(i=0; i<3; i++)
-        {
-            if(argvp[1][i] < 48 || argvp[1][i] > 57)
-                err = 1;
-        }
-
-        // 인자수가 틀리거나 인자 중에 숫자가 아닌 것이 있으면 에러
-        if(strlen(argvp[1]) != 3 || err == 1)
-            perror("Can't set umask");
-        else
-        {
-            n[0] = (int)(argvp[1][0]-48);
-            n[1] = (int)(argvp[1][1]-48);
-            n[2] = (int)(argvp[1][2]-48);
-
-            oct = 64*n[0] + 8*n[1] + n[2];
-            umask(oct);
-        }
-    }
-}
-
-//////////////////////////////////////////////////////////////////////
 // Function : void __echo(char **argvp)
 // ============================================
 // Input    : command를 분리한 argument vector
@@ -318,15 +267,6 @@ void __echo(char **argvp)
     printf("\n");
 }
 
-// Function : void __trap(char **argvp)
-// Input    : command를 분리한 argument vector
-// Output   : 없음
-// Purpose  : trapporc() 함수 호출
-void __trap(char **argvp)
-{
-    trapproc(argvp);
-}
-
 //////////////////////////////////////////////////////////////////////
 // Function : void __kill(char **argvp)
 // Input    : command를 분리한 argument vector
@@ -363,8 +303,6 @@ void __exit(char **argvp)
     else
         n = 0;
 
-    // history 파일 저장
-    sav_list(argvp);
 
     // canonical mode로 복원
     reset_keypress();

@@ -57,7 +57,6 @@ int         main(int argc, char **argv, char **envp)
     userinfo = getpwuid(getuid()); // 사용자 이름 파악
     getcwd(abspath, MAXSIZE); // mysh가 위치한 절대 경로 저장
     memset(shell, 0, sizeof(shell));   // 쉘 변수 초기화
-    init_list();     // history 및 alias list 초기화
     sig_init_list();  // signal action list 초기화
     signal(SIGINT, SIG_IGN);     // SIGINT 신호 무시함
     set_keypress();     // non-canonical mode 설정
@@ -70,7 +69,6 @@ int         main(int argc, char **argv, char **envp)
     {
         if(getcommand(command) == 0) // 프롬프트 띄우고 명령 입력 받음
             continue;
-        add_list(command); // 입력받은 명령어 history에 저장
         if((com_tmp = (char *)malloc(strlen(command)+1)) == NULL) // command를 임시 문자열 com_tmp에 저장, 에러시 다시 프롬프트 띄움
         {
             perror("Can't allocate command's temp string variable");
@@ -146,7 +144,7 @@ int         main(int argc, char **argv, char **envp)
             argvp(인자)에 환경변수 또는 alias된 인자가 포함되어 있는지
             검사한 뒤 원래 대로 바꾸어줌
             */
-            convargvp(argvp);
+            //convargvp(argvp);
 
             /*
             [ 쉘 내부 명령어 처리 ]

@@ -33,8 +33,6 @@ int		showusage(char **argvp)
 				usage_export();
 		else if(strcmp(argvp[0], "set") == 0)
 				usage_set();
-		else if(strcmp(argvp[0], "history") == 0)
-				usage_history();
 		else if(strcmp(argvp[0], "alias") == 0)
 				usage_alias();
 		else if(strcmp(argvp[0], "unalias") == 0)
