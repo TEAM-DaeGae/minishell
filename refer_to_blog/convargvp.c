@@ -18,47 +18,6 @@ void convargvp(char **argvp)
 
     for(n=0; argvp[n]!=NULL; n++)
     {
-        if(strcmp(argvp[0], "unalias") == 0) // unalias라면 치환하지 않음
-            break;
-
-        // 인자가 alias 인자라면 원래대로 치환
-        t = ahead->next;
-        while(t != atail)
-        {
-            if(strcmp(argvp[n], t->name) == 0)
-            {
-                // alias 배열에 value의 명령어 구분하여 넣어줌
-                // ex> 'ls -l'이였다면 ls와 -l 저장
-                strcpy(argtmp, t->value);
-                argtmp[0] = ' ';
-                argtmp[strlen(argtmp)-1] = '\0';
-                tmp = strtok(argtmp, " ");
-                strcpy(alias[i++], tmp);
-                while((tmp = strtok(NULL, " ")))
-                {
-                    strcpy(alias[i], tmp);
-                    i++;
-                }
-
-                // argvp에 있는 인자들을 새로이 치환된 alias 인자들이
-                // 들어올 수 있도록 공간 확보 차원에서 뒤로 옮김
-                while(argvp[++end]);
-                for(end; end>n; end--)
-                {
-                    argvp[end+i-1] = argvp[end];
-                }
-
-                // 비어있는 공간에 alias 인자 삽입
-                for(start=n, j=0; j<i; start++, j++)
-                {
-                    tmp = (char *)malloc(strlen(alias[j])+1);
-                    strcpy(tmp, alias[j]);
-                    argvp[start] = tmp;
-                }
-            }
-            t = t->next;
-        }
-
         // 인자 중에 쉘/환경 변수가 있다면
         if(argvp[n][0] == '$')
         {

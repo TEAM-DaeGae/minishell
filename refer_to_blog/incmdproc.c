@@ -23,10 +23,6 @@ int incmdproc(char **argvp)
         __cd(argvp);
     else if(strcmp(argvp[0], "pwd") == 0)
         __pwd(argvp);
-    else if(strcmp(argvp[0], "alias") == 0)
-        __alias(argvp);
-    else if(strcmp(argvp[0], "unalias") == 0)
-        __unalias(argvp);
     else if(strcmp(argvp[0], "echo") == 0)
         __echo(argvp);
     else if(strcmp(argvp[0], "kill") == 0)
@@ -146,86 +142,6 @@ void __pwd(char **argvp)
     char buf[MAXSIZE] = {0};
     getcwd(buf, MAXSIZE);
     printf("%s\n", buf);
-}
-
-//////////////////////////////////////////////////////////////////////
-// Function : void __alias(char **argvp)
-// Input    : command를 분리한 argument vector
-// Output   : 없음
-// Purpose  : 명령어 라인을 하나의 별칭으로 설정하고 alias 리스트에 추가
-//////////////////////////////////////////////////////////////////////
-void __alias(char **argvp)
-{
-    list_t *t;
-    int n;
-    char *name, *value;
-    char alias[MAXSIZE] = {0};
-
-    // alias 명령어만 쳤으면 alias list 출력
-    if(argvp[1] == 0)
-    {
-        t = ahead->next;
-        while(t != atail)
-        {
-            printf("%s=%s\n", t->name, t->value);
-            t = t->next;
-        }
-    }
-    else
-    {
-        // argvp로 분리되어있는 alias 내용을 합침
-        n = 1;
-        while(argvp[n] != NULL)
-        {
-            strcat(alias, argvp[n]);
-            strcat(alias, " ");
-            n++;
-        }
-        alias[strlen(alias)-1] = '\0';
-
-        // 새로운 alias list entry에 name과 value 저장
-        t = (list_t *)malloc(sizeof(list_t));
-        name = strtok(alias, "=");
-        value = strtok(NULL, "");
-        t->name = (char *)malloc(strlen(name)+1);
-        t->value = (char *)malloc(strlen(value)+1);
-        strcpy(t->name, name);
-        strcpy(t->value, value);
-
-        // alias list의 마지막에 삽입
-        t->prev = atail->prev;
-        t->next = atail;
-        atail->prev->next = t;
-        atail->prev = t;
-    }
-}
-
-//////////////////////////////////////////////////////////////////////
-// Function : void __unalias(char **argvp)
-// Input    : command를 분리한 argument vector
-// Output   : 없음
-// Purpose  : 설정된 별칭을 alias 리스트에서 제거
-//////////////////////////////////////////////////////////////////////
-void __unalias(char **argvp)
-{
-    list_t *t, *del;
-
-    // alias list를 순회
-    t = ahead->next;
-    while(t != atail)
-    {
-        // 삭제할 alias가 존재하면 list에서 제거함
-        if(strcmp(t->name, argvp[1]) == 0)
-        {
-            del = t;
-            del->prev->next = del->next;
-            del->next->prev = del->prev;
-            t = t->next;
-            free(del);
-        }
-        else
-            t = t->next;
-    }
 }
 
 //////////////////////////////////////////////////////////////////////

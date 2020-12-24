@@ -85,14 +85,12 @@ void	__export(char **argvp);
 void	__env(char **argvp);
 void	__cd(char **argvp);
 void	__pwd(char **argvp);
-void	__alias(char **argvp);
-void	__unalias(char **argvp);
 void	__echo(char **argvp);
 void	__kill(char **argvp);
 void	__exit(char **argvp);
 
 
-// trap 처리 함수
+//trap 처리 함수
 void	sig_init_list(void);
 void	trapproc(char **argvp);
 void	siglist(void);
@@ -117,11 +115,7 @@ void	usage_env(void);
 void	usage_export(void);
 void	usage_set(void);
 void	usage_history(void);
-void	usage_alias(void);
-void	usage_unalias(void);
 void	usage_pwd(void);
-void	usage_umask(void);
-void	usage_trap(void);
 
 void	set_keypress(void);
 void	reset_keypress(void);
