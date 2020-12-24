@@ -9,8 +9,8 @@
 //////////////////////////////////////////////////////////////////////
 int getcommand(char *command)
 {
-    int n = 0
-    space_chk = 0;
+    int n = 0;
+    //space_chk = 0;
     char path[MAXSIZE] = {0};
     char c;
     nowhistory = histail;

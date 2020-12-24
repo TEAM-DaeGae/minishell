@@ -34,7 +34,7 @@ void convargvp(char **argvp)
                 argtmp[strlen(argtmp)-1] = '\0';
                 tmp = strtok(argtmp, " ");
                 strcpy(alias[i++], tmp);
-                while(tmp = strtok(NULL, " "))
+                while((tmp = strtok(NULL, " ")))
                 {
                     strcpy(alias[i], tmp);
                     i++;

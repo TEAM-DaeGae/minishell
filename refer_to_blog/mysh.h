@@ -12,7 +12,9 @@
 #include <sys/stat.h>
 #include <pwd.h>
 #include <signal.h>
-#include <termio.h>
+#include <termios.h>
+#include <stdlib.h>
+#include <errno.h>
 
 #define MAXSIZE 1024
 
@@ -131,4 +133,10 @@ void	usage_pwd(void);
 void	usage_umask(void);
 void	usage_trap(void);
 
+void	set_keypress(void);
+void	reset_keypress(void);
+void				ft_putstr_fd(char *s, int fd);
+void				ft_putendl_fd(char *s, int fd);
+void				ft_putchar_fd(char c, int fd);
+int		issig(char *signal);
 #endif //__MYSH_H__

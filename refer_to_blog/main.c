@@ -3,6 +3,25 @@
 
 #include "mysh.h"
 
+void	ft_putchar_fd(char c, int fd)
+{
+	write(fd, &c, 1);
+}
+
+void	ft_putstr_fd(char *s, int fd)
+{
+	int		idx;
+
+	if (!s)
+		return ;
+	idx = 0;
+	while (s[idx])
+	{
+		ft_putchar_fd(s[idx], fd);
+		idx++;
+	}
+}
+
 void	ft_putendl_fd(char *s, int fd)
 {
 	if (s)
