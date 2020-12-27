@@ -106,19 +106,6 @@ int		ispipe(char **argvp);
 void	redirectionin(char **argvp);
 void	redirectionout(char **argvp, int choice);
 
-// usage 처리 함수
-int		showusage(char **argvp);
-void	usage_myls(void);
-void	usage_myfind(void);
-void	usage_mygrep(void);
-void	usage_env(void);
-void	usage_export(void);
-void	usage_set(void);
-void	usage_history(void);
-void	usage_pwd(void);
-
-void	set_keypress(void);
-void	reset_keypress(void);
 void				ft_putstr_fd(char *s, int fd);
 void				ft_putendl_fd(char *s, int fd);
 void				ft_putchar_fd(char c, int fd);

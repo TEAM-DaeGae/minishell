@@ -218,10 +218,5 @@ void __exit(char **argvp)
         n = atoi(argvp[1]);
     else
         n = 0;
-
-
-    // canonical mode로 복원
-    reset_keypress();
-
     exit(n);
 }

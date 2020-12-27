@@ -59,7 +59,6 @@ int         main(int argc, char **argv, char **envp)
     memset(shell, 0, sizeof(shell));   // 쉘 변수 초기화
     //sig_init_list();  // signal action list 초기화
     signal(SIGINT, SIG_IGN);     // SIGINT 신호 무시함
-    set_keypress();     // non-canonical mode 설정
 
     /* 
     [사용자가 입력한 명령을 받아서 처리함]
@@ -172,6 +171,5 @@ int         main(int argc, char **argv, char **envp)
 
         }   // for end
     }   // while end
-    reset_keypress(); // canonical mode로 전환
     return 0;
 }
