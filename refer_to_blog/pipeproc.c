@@ -4,6 +4,46 @@
 #include "mysh.h"
 
 //////////////////////////////////////////////////////////////////////
+// Function : int ispipe(char **argvp)
+// ============================================
+// Input : command를 분리한 argument vector
+// Output : 명령어가 파이프 / 리다이렉션이면 1, 아니면 0
+// Purpose : 명령어가 파이프 / 리다이렉션인지 여부 확인
+//////////////////////////////////////////////////////////////////////
+int		ispipe(char **argvp)
+{
+	int	n, check = 0;
+
+	for(n=0; argvp[n]!=NULL; n++)
+	{
+		if(strcmp(argvp[n], "<") == 0)
+		{
+			check = 1;
+			break;
+		}
+		else if(strcmp(argvp[n], ">") == 0)
+		{
+			check = 1;
+			break;
+		}
+		else if(strcmp(argvp[n], ">>") == 0)
+		{
+			check = 1;
+			break;
+		}
+		else if(strcmp(argvp[n], "|") == 0)
+		{
+			check = 1;
+			break;
+		}
+		else
+			check = 0;
+	}
+
+	return check;
+}
+
+//////////////////////////////////////////////////////////////////////
 // Function : void pipeproc(char **argvp)
 // ============================================
 // Input : command를 분리한 argument vector
@@ -126,46 +166,6 @@ void	redirectproc(char **argvp)
 			execvp(*argvp, argvp);
 		}
 	}
-}
-
-//////////////////////////////////////////////////////////////////////
-// Function : int ispipe(char **argvp)
-// ============================================
-// Input : command를 분리한 argument vector
-// Output : 명령어가 파이프 / 리다이렉션이면 1, 아니면 0
-// Purpose : 명령어가 파이프 / 리다이렉션인지 여부 확인
-//////////////////////////////////////////////////////////////////////
-int		ispipe(char **argvp)
-{
-	int	n, check = 0;
-
-	for(n=0; argvp[n]!=NULL; n++)
-	{
-		if(strcmp(argvp[n], "<") == 0)
-		{
-			check = 1;
-			break;
-		}
-		else if(strcmp(argvp[n], ">") == 0)
-		{
-			check = 1;
-			break;
-		}
-		else if(strcmp(argvp[n], ">>") == 0)
-		{
-			check = 1;
-			break;
-		}
-		else if(strcmp(argvp[n], "|") == 0)
-		{
-			check = 1;
-			break;
-		}
-		else
-			check = 0;
-	}
-
-	return check;
 }
 
 //////////////////////////////////////////////////////////////////////
