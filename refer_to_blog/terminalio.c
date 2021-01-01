@@ -72,13 +72,12 @@ int getcommand(char *command)
 
             // 그 외 일반적인 문자이면
             default:
-                fputc(c, stdout);
+                // fputc(c, stdout);
                 command[n++] = (char)c;
                 break;
         }
     }
     command[n] = '\0';
-
     
     if(strlen(command) == 0) // 아무런 입력이 없었으면 프롬프트 다시 띄움
         return 0;
