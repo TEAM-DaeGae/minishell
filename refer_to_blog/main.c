@@ -90,7 +90,7 @@ int         main(int argc, char **argv, char **envp)
             strcpy(com_tmp, command);
             token = strtok(com_tmp, ";"); // i 위치에 해당하는 명령을 token으로 분리
             for(n = 1; n < i; n++)
-            token = strtok(NULL, ";");
+				token = strtok(NULL, ";");
 
             // 분리한 token을 buff와 buff_tmp에 저장해 둠
             if((buff = (char *)malloc(strlen(token)+1)) == NULL) 
@@ -111,7 +111,7 @@ int         main(int argc, char **argv, char **envp)
 
             // buff_tmp에 저장된 토큰의 수를 셈
             if(strtok(buff_tmp, " ") != NULL)
-            for(buff_count = 1; strtok(NULL, " ") != NULL; buff_count++);
+				for(buff_count = 1; strtok(NULL, " ") != NULL; buff_count++);
 
             // 각 토큰을 가리키는 포인터들이 들어갈 인자 배열 만듬
             if((argvp = (char **)malloc((buff_count+1)*sizeof(char *))) == NULL)
@@ -154,9 +154,12 @@ int         main(int argc, char **argv, char **envp)
             단 리다이렉션 또는 파이프일 경우엔 fork후 사용해야 하므로 건너뜀
             */
             if(!ispipe(argvp))
+            {
                 if(incmdproc(argvp))
+                {
                     continue;
-            
+                }
+            }
             /*
             [ 자식과 부모 프로세스의 수행 과정 ]
             fork() 수행, 에러시 에러 메세지 출력 후 for문 탈출
@@ -170,6 +173,6 @@ int         main(int argc, char **argv, char **envp)
             ////////////////////////////////////////////////////////////////////
 
         }   // for end
-    }   // while end
-    return 0;
+	}   // while end
+   	return 0;
 }
