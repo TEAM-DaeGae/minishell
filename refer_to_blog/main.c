@@ -3,32 +3,12 @@
 
 #include "mysh.h"
 
-void	ft_putchar_fd(char c, int fd)
+void        show_prompt(char *curpath)
 {
-	write(fd, &c, 1);
-}
-
-void	ft_putstr_fd(char *s, int fd)
-{
-	int		idx;
-
-	if (!s)
-		return ;
-	idx = 0;
-	while (s[idx])
-	{
-		ft_putchar_fd(s[idx], fd);
-		idx++;
-	}
-}
-
-void	ft_putendl_fd(char *s, int fd)
-{
-	if (s)
-	{
-		ft_putstr_fd(s, fd);
-		ft_putchar_fd('\n', fd);
-	}
+    ft_putstr_fd(userinfo->pw_name, 1);
+    ft_putstr_fd("@", 1);
+    ft_putstr_fd(getcwd(curpath, MAXSIZE), 1);
+    ft_putstr_fd(" > ", 1);
 }
 
 int         main(int argc, char **argv, char **envp)
