@@ -3,37 +3,17 @@
 
 #include "mysh.h"
 
-void	ft_putchar_fd(char c, int fd)
+void        show_prompt(char *curpath)
 {
-	write(fd, &c, 1);
-}
-
-void	ft_putstr_fd(char *s, int fd)
-{
-	int		idx;
-
-	if (!s)
-		return ;
-	idx = 0;
-	while (s[idx])
-	{
-		ft_putchar_fd(s[idx], fd);
-		idx++;
-	}
-}
-
-void	ft_putendl_fd(char *s, int fd)
-{
-	if (s)
-	{
-		ft_putstr_fd(s, fd);
-		ft_putchar_fd('\n', fd);
-	}
+    ft_putstr_fd(userinfo->pw_name, 1);
+    ft_putstr_fd("@", 1);
+    ft_putstr_fd(getcwd(curpath, MAXSIZE), 1);
+    ft_putstr_fd(" > ", 1);
 }
 
 int         main(int argc, char **argv, char **envp)
 {
-    char    command[MAXSIZE] = {0}; // 인자로 받은 명령어들
+    char    *command; // 인자로 받은 명령어들
     char    *com_tmp;   // command 저장하는 임시 문자열
     char    *buff;  // 여러 명령어 중 하나를 저장
     char    *buff_tmp;  // buff를 저장하는 임시 문자열
@@ -44,6 +24,7 @@ int         main(int argc, char **argv, char **envp)
     int     com_count = 1;  // 명령어 개수
     int     buff_count = 0; // 명령어가 몇 개의 인자로 이루어져 있는지 저장
     int     i=0, n=0;   // 임시 변수
+    int     ret;
 
     memset(abspath, 0, sizeof(abspath));    // mysh가 위치한 절대 경로
     background = 0; // 백그라운드인지 여부를 체크
@@ -66,8 +47,13 @@ int         main(int argc, char **argv, char **envp)
     */
     while(1)
     {
-        if(getcommand(command) == 0) // 프롬프트 띄우고 명령 입력 받음
-            continue;
+        ret = 1;
+        while (ret)
+        {
+            show_prompt(curpath);
+            if ((ret = get_next_line(0, &command)) == 1)
+                break;  // ft_putendl_fd(": command not found", 1); //추후 수정 (허용 커맨드가 아닐 시)
+        }
         if((com_tmp = (char *)malloc(strlen(command)+1)) == NULL) // command를 임시 문자열 com_tmp에 저장, 에러시 다시 프롬프트 띄움
         {
             perror("Can't allocate command's temp string variable");

@@ -37,3 +37,4 @@ minishell
 *.nfs
 launch.json
 *test*
+.vscode

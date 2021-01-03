@@ -15,8 +15,10 @@
 #include <termios.h>
 #include <stdlib.h>
 #include <errno.h>
+# include "../Libft/libft.h"
 
 #define MAXSIZE 1024
+
 
 // 리다이렉션 명령 처리시 파일 open을 위한 flag 및 mode
 #define OUTFLAG (O_WRONLY | O_CREAT | O_TRUNC)
@@ -109,5 +111,8 @@ void	redirectionout(char **argvp, int choice);
 void				ft_putstr_fd(char *s, int fd);
 void				ft_putendl_fd(char *s, int fd);
 void				ft_putchar_fd(char c, int fd);
-int		issig(char *signal);
+int					issig(char *signal);
+
+void        		show_prompt(char *curpath);
+
 #endif //__MYSH_H__
