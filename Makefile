@@ -5,7 +5,7 @@ SRCS	= 	refer_to_blog/main.c \
 			refer_to_blog/forkproc.c \
 			refer_to_blog/incmdproc.c \
 			refer_to_blog/pipeproc.c \
-			refer_to_blog/terminalio.c \
+			refer_to_blog/parser.c \
 			refer_to_blog/trapproc.c \
 
 LEAKS	=	-g3 -fsanitize=address
