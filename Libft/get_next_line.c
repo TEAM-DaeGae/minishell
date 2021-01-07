@@ -58,7 +58,11 @@ int					get_next_line(int fd, char **line)
 	char			buf[BUFFER_SIZE + 1];
 	int				read_size;
 	int				cut_idx;
+    int             i;
 
+    i = 0;
+    while (i < OPEN_MAX)
+        backup[i++] = ft_strdup("");
 	if ((fd < 0) || (line == 0) || (BUFFER_SIZE <= 0))
 		return (-1);
 	while ((read_size = read(fd, buf, BUFFER_SIZE)) > 0)
