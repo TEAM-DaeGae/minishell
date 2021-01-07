@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gaekim <gaekim@42.fr>                      +#+  +:+       +#+        */
+/*   By: daelee <daelee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/17 00:11:45 by gaekim            #+#    #+#             */
-/*   Updated: 2021/01/03 18:52:15 by gaekim           ###   ########.fr       */
+/*   Updated: 2021/01/07 22:55:36 by daelee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,15 @@
 # define LIBFT_H
 # include <stdlib.h>
 # include <unistd.h>
+# include <fcntl.h>
+
+# ifndef BUFFER_SIZE
+#  define BUFFER_SIZE 5000
+# endif
+
+# ifndef OPEN_MAX
+#  define OPEN_MAX 32
+# endif
 
 typedef struct	s_list
 {
@@ -65,9 +74,7 @@ void			ft_lstclear(t_list **lst, void (*del)(void *));
 void			ft_lstiter(t_list *lst, void (*f)(void *));
 t_list			*ft_lstmap(t_list *lst, void *(*f)(void *), \
 		void (*del)(void *));
-
 char			*ft_strtok(char *str, char sepa);
-
-int				get_next_line(int fd, char **line);
+int					get_next_line(int fd, char **line);
 
 #endif

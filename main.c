@@ -6,13 +6,11 @@
 /*   By: daelee <daelee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/07 09:46:05 by daelee            #+#    #+#             */
-/*   Updated: 2021/01/07 21:29:27 by daelee           ###   ########.fr       */
+/*   Updated: 2021/01/07 22:55:06 by daelee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-
 
 t_list		*init_envs(int argc, char **argv, char **envp)
 {
@@ -62,6 +60,7 @@ int		    main(int argc, char **argv, char **envp)
         //printf("%zu\n", ft_strlen(input));
         // free(input);
         // input = NULL;
+        
     }
 	return (0);
 }
