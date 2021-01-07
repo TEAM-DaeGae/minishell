@@ -11,8 +11,9 @@
 # include <sys/stat.h>
 # include "Libft/libft.h"
 
+# define MAXSIZE 1024
+
 char    **g_envp;
-char	*g_env_user;
 
 typedef struct	s_env
 {

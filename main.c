@@ -6,7 +6,7 @@
 /*   By: daelee <daelee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/07 09:46:05 by daelee            #+#    #+#             */
-/*   Updated: 2021/01/07 22:55:06 by daelee           ###   ########.fr       */
+/*   Updated: 2021/01/07 23:48:38 by daelee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,13 +33,11 @@ t_list		*init_envs(int argc, char **argv, char **envp)
 	return (envs);
 }
 
-void        show_prompt()
+void               show_prompt()
 {
-    char    *curpath;
-    //ft_putstr_fd(userinfo->pw_name, 1);
-    ft_putstr_fd("@", 1);
-    ft_putstr_fd(getcwd(curpath, 1024), 1);
-    ft_putstr_fd(" > ", 1);
+    static char    *curpath;
+    ft_putstr_fd(getcwd(curpath, MAXSIZE), 1);
+    ft_putstr_fd("$ ", 1);
 }
 
 int		    main(int argc, char **argv, char **envp)
@@ -50,17 +48,15 @@ int		    main(int argc, char **argv, char **envp)
     int     ret;
     
     g_envp = envp;
-    //envs = init_envs(argc, argv, envp);
+    envs = init_envs(argc, argv, envp);
     ret = 1;
     while (ret)
     {
         show_prompt();
         ret = get_next_line(0, &input); //-1인 경우 에러메세지?
         //parsing(&data, input); //free(data, input)
-        //printf("%zu\n", ft_strlen(input));
-        // free(input);
-        // input = NULL;
-        
+        printf("%s\n", input);
+        free(input);
     }
 	return (0);
 }
