@@ -36,5 +36,7 @@ void			free_double_arr(char **arr);
 int				exec_builtin(char **cmdline);
 int				env(char **envp);
 void			pwd(void);
+void			echo(char **program);
+
 
 #endif

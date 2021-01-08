@@ -6,7 +6,7 @@
 /*   By: daelee <daelee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/08 09:46:25 by daelee            #+#    #+#             */
-/*   Updated: 2021/01/08 19:06:29 by daelee           ###   ########.fr       */
+/*   Updated: 2021/01/08 19:19:01 by daelee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,8 +31,8 @@ int				exec_builtin(char **cmdline)
     builtin = cmdline[0];
 	// if (!ft_strncmp(builtin, "cd", ft_strlen(builtin)))
 	// 	cd(cmdline);
-	//if (!ft_strncmp(builtin, "echo", ft_strlen(builtin)))
-	// 	echo(cmdline);
+	if (!ft_strncmp(builtin, "echo", ft_strlen(builtin)))
+		echo(cmdline);
 	else if (!ft_strncmp(builtin, "pwd", ft_strlen(builtin)))
 	 	pwd();
 	else if (!ft_strncmp(builtin, "env", ft_strlen(builtin)))

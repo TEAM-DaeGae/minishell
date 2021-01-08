@@ -6,31 +6,31 @@
 /*   By: daelee <daelee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/08 10:59:48 by daelee            #+#    #+#             */
-/*   Updated: 2021/01/08 11:03:31 by daelee           ###   ########.fr       */
+/*   Updated: 2021/01/08 19:25:00 by daelee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	echo(char **argv)
+void	echo(char **program)
 {
-	int		idx;
+	int		i;
 	int		endl;
 
-	idx = 0;
+	i = 0;
 	endl = 0;
-	while (argv[++idx])
+	while (program[++i])
 	{
-		while (argv[idx] && (endl + 1) == idx &&
-		!ft_strncmp(argv[idx], "-n", ft_strlen(argv[idx])))
+		while (program[i] && (endl + 1) == i &&
+		!ft_strncmp(program[i], "-n", ft_strlen(program[i])))
 		{
-			if (argv[idx + 1] == NULL)
+			if (program[i + 1] == NULL)
 				return ;
 			endl++;
-			idx++;
+			i++;
 		}
-		ft_putstr_fd(argv[idx], 1);
-		if (argv[idx + 1] != NULL)
+		ft_putstr_fd(program[i], 1);
+		if (program[i + 1] != NULL)
 			ft_putstr_fd(" ", 1);
 	}
 	if (!endl)
