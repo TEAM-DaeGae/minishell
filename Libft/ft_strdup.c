@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strdup.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gaekim <gaekim@student.42.fr>              +#+  +:+       +#+        */
+/*   By: daelee <daelee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/06 20:23:06 by gaekim            #+#    #+#             */
-/*   Updated: 2020/04/17 14:49:29 by gaekim           ###   ########.fr       */
+/*   Updated: 2021/01/08 18:59:07 by daelee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,8 @@ char	*ft_strdup(const char *s1)
 	int		i;
 	int		len;
 
+	if (s1 == 0)
+		return (0);
 	len = 0;
 	while (s1[len])
 		len++;

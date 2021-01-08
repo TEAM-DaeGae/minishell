@@ -6,13 +6,19 @@
 #    By: daelee <daelee@student.42seoul.kr>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/03/09 18:24:09 by daelee            #+#    #+#              #
-#    Updated: 2021/01/07 23:44:55 by daelee           ###   ########.fr        #
+#    Updated: 2021/01/08 19:02:40 by daelee           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME	=	minishell
 
 SRCS	= 	main.c \
+			exec_cmds.c \
+			builtins/echo.c\
+			builtins/env.c \
+			builtins/pwd.c \
+			
+			
 
 LEAKS	=	-g3 -fsanitize=address
 
@@ -27,6 +33,8 @@ FLAG	=
 CC		=	gcc
 
 RM		=	rm -rf
+
+DEBUG	=	-g -fsanitize=address
 
 all		: $(NAME)
 

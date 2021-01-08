@@ -6,40 +6,54 @@
 /*   By: daelee <daelee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/08 09:46:25 by daelee            #+#    #+#             */
-/*   Updated: 2021/01/08 11:02:52 by daelee           ###   ########.fr       */
+/*   Updated: 2021/01/08 19:06:29 by daelee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-int				exec_builtin(t_data data, t_list *envs)
+#include "minishell.h"
+
+void	free_double_arr(char **arr)
+{
+	int		idx;
+
+	if (!arr)
+		return ;
+	idx = -1;
+	while (arr[++idx])
+		free(arr[idx]);
+	free(arr);
+}
+
+int				exec_builtin(char **cmdline)
 {
     char        *builtin;
     
-    builtin = data->program[0];
-	if (!ft_strncmp(builtin, "cd", ft_strlen(builtin)))
-		cd(data->program, envs);
-	else if (!ft_strncmp(builtin, "echo", ft_strlen(builtin)))
-		echo(data->program);
+    builtin = cmdline[0];
+	// if (!ft_strncmp(builtin, "cd", ft_strlen(builtin)))
+	// 	cd(cmdline);
+	//if (!ft_strncmp(builtin, "echo", ft_strlen(builtin)))
+	// 	echo(cmdline);
 	else if (!ft_strncmp(builtin, "pwd", ft_strlen(builtin)))
-		pwd();
+	 	pwd();
 	else if (!ft_strncmp(builtin, "env", ft_strlen(builtin)))
-		env(data->program, envs);
-	else if (!ft_strncmp(builtin, "export", ft_strlen(builtin)))
-		export(data->program, envs);
-	else if (!ft_strncmp(builtin, "unset", ft_strlen(builtin)))
-		unset(data->program, envs);
-	else if (!ft_strncmp(builtin, "exit", ft_strlen(builtin)))
-		exit(data->program);
+		env(g_envp);
+	// else if (!ft_strncmp(builtin, "export", ft_strlen(builtin)))
+	// 	export(data->program);
+	// else if (!ft_strncmp(builtin, "unset", ft_strlen(builtin)))
+	// 	unset(data->program);
+	// else if (!ft_strncmp(builtin, "exit", ft_strlen(builtin)))
+	// 	exit(data->program);
 	else
 	{
-		//free_double_arr(data);
+		free_double_arr(cmdline);
 		return (0);
 	}
-	//free_double_arr(data);
-	//g_exit_value = 0;
+	free_double_arr(cmdline);
+	g_exit_status = 0;
 	return (1);
 }
 
-void			exec_cmds(t_data data, t_list *envs)
-{
-    exec_builtin(data, envs);
-}
+// void			exec_cmds(char **cmdline)
+// {
+//     exec_builtin(cmdline);
+// }

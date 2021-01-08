@@ -13,7 +13,8 @@
 
 # define MAXSIZE 1024
 
-char    **g_envp;
+char    		**g_envp;
+int				g_exit_status ;
 
 typedef struct	s_env
 {
@@ -27,6 +28,13 @@ typedef struct	s_data
 	int     flag;
 }				t_data;
 
-t_list		*init_envs(int argc, char **argv, char **envp);
+
+void			free_double_arr(char **arr);
+
+
+// builtin functions
+int				exec_builtin(char **cmdline);
+int				env(char **envp);
+void			pwd(void);
 
 #endif
