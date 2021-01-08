@@ -6,7 +6,7 @@
 /*   By: daelee <daelee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/07 09:46:05 by daelee            #+#    #+#             */
-/*   Updated: 2021/01/07 23:48:38 by daelee           ###   ########.fr       */
+/*   Updated: 2021/01/08 10:42:38 by daelee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,8 @@ int		    main(int argc, char **argv, char **envp)
         show_prompt();
         ret = get_next_line(0, &input); //-1인 경우 에러메세지?
         //parsing(&data, input); //free(data, input)
-        printf("%s\n", input);
+        //printf("%s\n", input);
+        exec_cmds(data, envs);
         free(input);
     }
 	return (0);
