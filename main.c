@@ -6,26 +6,32 @@
 /*   By: daelee <daelee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/07 09:46:05 by daelee            #+#    #+#             */
-/*   Updated: 2021/01/08 19:23:14 by daelee           ###   ########.fr       */
+/*   Updated: 2021/01/09 10:44:48 by daelee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
+void               show_daegae(void)
+{
+    int		fd;
+	char	*line;
+
+	fd = open("ascii_art", O_RDONLY);
+	while (get_next_line(fd, &line))
+	{
+		ft_putstr_fd("\033[36m", 1);
+		ft_putendl_fd(line, STDOUT_FILENO);
+		free(line);
+	}
+    ft_putendl_fd(line, STDOUT_FILENO);
+	close(fd);
+	free(line);
+	ft_putendl_fd("\033[0m", 1);
+}
+
 void               show_prompt()
 {
-    // int		fd;
-	// char	*line;
-
-	// fd = open("ascii_art", O_RDONLY);
-	// while (get_next_line(fd, &line))
-	// {
-	// 	printf("%s\n", line);
-	// 	free(line);
-	// }
-    // printf("%s\n", line);
-	// close(fd);
-	// free(line);
     static char    *curpath;
     ft_putstr_fd(" \033[1;96m", 1);
     ft_putstr_fd(getcwd(curpath, MAXSIZE), 1);
@@ -44,6 +50,7 @@ int		    main(int argc, char **argv, char **envp)
     
     g_envp = envp;
     ret = 1;
+    show_daegae();
     while (ret)
     {
         show_prompt();
