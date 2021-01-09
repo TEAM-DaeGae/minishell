@@ -6,7 +6,7 @@
 /*   By: daelee <daelee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/08 09:46:25 by daelee            #+#    #+#             */
-/*   Updated: 2021/01/08 19:19:01 by daelee           ###   ########.fr       */
+/*   Updated: 2021/01/09 15:23:46 by daelee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,15 +24,15 @@ void	free_double_arr(char **arr)
 	free(arr);
 }
 
-int				exec_builtin(char **cmdline)
+int				exec_builtin(char **program)
 {
     char        *builtin;
     
-    builtin = cmdline[0];
-	// if (!ft_strncmp(builtin, "cd", ft_strlen(builtin)))
-	// 	cd(cmdline);
-	if (!ft_strncmp(builtin, "echo", ft_strlen(builtin)))
-		echo(cmdline);
+    builtin = program[0];
+	if (!ft_strncmp(builtin, "cd", ft_strlen(builtin)))
+	 	cd(program, g_envp);
+	else if (!ft_strncmp(builtin, "echo", ft_strlen(builtin)))
+		echo(program);
 	else if (!ft_strncmp(builtin, "pwd", ft_strlen(builtin)))
 	 	pwd();
 	else if (!ft_strncmp(builtin, "env", ft_strlen(builtin)))
@@ -45,10 +45,10 @@ int				exec_builtin(char **cmdline)
 	// 	exit(data->program);
 	else
 	{
-		free_double_arr(cmdline);
+		free_double_arr(program);
 		return (0);
 	}
-	free_double_arr(cmdline);
+	free_double_arr(program);
 	g_exit_status = 0;
 	return (1);
 }

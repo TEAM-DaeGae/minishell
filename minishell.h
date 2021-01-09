@@ -28,15 +28,23 @@ typedef struct	s_data
 	int     flag;
 }				t_data;
 
-
+// utils
 void			free_double_arr(char **arr);
+
+// envp
+char			*find_value(char *key, char **envs);
+
 
 
 // builtin functions
 int				exec_builtin(char **cmdline);
-int				env(char **envp);
+int				env(char **envs);
 void			pwd(void);
 void			echo(char **program);
+void			cd(char **program, char **envs);
+
+// errors
+int				ft_puterror_fd(char *s1, char *s2, int fd);
 
 
 #endif
