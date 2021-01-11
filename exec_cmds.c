@@ -6,7 +6,7 @@
 /*   By: daelee <daelee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/08 09:46:25 by daelee            #+#    #+#             */
-/*   Updated: 2021/01/09 15:23:46 by daelee           ###   ########.fr       */
+/*   Updated: 2021/01/11 09:10:29 by daelee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ int				exec_builtin(char **program)
     
     builtin = program[0];
 	if (!ft_strncmp(builtin, "cd", ft_strlen(builtin)))
-	 	cd(program, g_envp);
+		cd(program, g_envp);
 	else if (!ft_strncmp(builtin, "echo", ft_strlen(builtin)))
 		echo(program);
 	else if (!ft_strncmp(builtin, "pwd", ft_strlen(builtin)))

@@ -6,7 +6,7 @@
 #    By: daelee <daelee@student.42seoul.kr>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/03/09 18:24:09 by daelee            #+#    #+#              #
-#    Updated: 2021/01/09 15:38:50 by daelee           ###   ########.fr        #
+#    Updated: 2021/01/09 18:35:19 by daelee           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -43,7 +43,7 @@ $(LIBFT):
 	$(MAKE) -C ./Libft
 
 $(NAME)	: $(LIBFT)
-	$(CC) $(SRCS) $(LIBS) $(HEADER) $(FLAG) $(DEBUG) -o $(NAME) 
+	$(CC) $(SRCS) $(LIBS) $(HEADER) $(FLAG) -o $(NAME) 
 
 clean	:
 	$(MAKE) -C ./Libft clean

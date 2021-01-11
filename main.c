@@ -6,7 +6,7 @@
 /*   By: daelee <daelee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/07 09:46:05 by daelee            #+#    #+#             */
-/*   Updated: 2021/01/09 15:54:15 by daelee           ###   ########.fr       */
+/*   Updated: 2021/01/11 09:11:25 by daelee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,21 +42,19 @@ int		    main(int argc, char **argv, char **envp)
 {
     char    *input;
     t_list  *data_list;
-    int     ret;
     char    **program = malloc(sizeof(char *) * 5);
     program[0] = ft_strdup("cd");
-    program[1] = ft_strdup("Libft");
+    program[1] = ft_strdup("~");
     program[2] = ft_strdup(0);
     program[3] = ft_strdup(0);
     program[4] = ft_strdup(0);
     
     g_envp = envp;
-    ret = 1;
     show_daegae();
-    while (ret)
+    while (1)
     {
         show_prompt();
-        ret = get_next_line(0, &input); //-1인 경우 에러메세지?
+        get_next_line(0, &input); //-1인 경우 에러메세지?
         //parsing(&data, input); //free(data, input)
         //printf("%s\n", input);
         //exec_cmds(program);
