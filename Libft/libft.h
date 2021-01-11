@@ -6,7 +6,7 @@
 /*   By: daelee <daelee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/17 00:11:45 by gaekim            #+#    #+#             */
-/*   Updated: 2021/01/11 08:54:51 by daelee           ###   ########.fr       */
+/*   Updated: 2021/01/11 09:58:30 by daelee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,5 +77,6 @@ t_list			*ft_lstmap(t_list *lst, void *(*f)(void *), \
 char			*ft_strtok(char *str, char sepa);
 int				get_next_line(int fd, char **line);
 int				ft_double_strlen(char **str);
+int         	ft_isdigit_str(char *str);
 
 #endif

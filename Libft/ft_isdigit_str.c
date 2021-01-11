@@ -1,23 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_double_strlen.c                                 :+:      :+:    :+:   */
+/*   ft_isdigit_str.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: daelee <daelee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/01/11 08:54:17 by daelee            #+#    #+#             */
-/*   Updated: 2021/01/11 09:56:42 by daelee           ###   ########.fr       */
+/*   Created: 2021/01/11 09:56:14 by daelee            #+#    #+#             */
+/*   Updated: 2021/01/11 09:58:12 by daelee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int		ft_double_strlen(char **str)
+int         ft_isdigit_str(char *str)
 {
-	int i;
+	int     idx;
 
-	i = 0;
-	while (str[i])
-		i++;
-	return (i);
+	idx = 0;
+	while (str[idx])
+	{
+		if (!ft_isdigit(str[idx]))
+			return (0);
+		idx++;
+	}
+	return (1);
 }

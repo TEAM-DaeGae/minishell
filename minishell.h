@@ -38,10 +38,11 @@ char			*find_value(char *key, char **envs);
 
 // builtin functions
 int				exec_builtin(char **cmdline);
-int				env(char **envs);
-void			pwd(void);
-void			echo(char **program);
-void			cd(char **program, char **envs);
+int				ft_env(char **envs);
+void			ft_pwd(void);
+void			ft_echo(char **program);
+void			ft_cd(char **program, char **envs);
+void			ft_exit(char **argv);
 
 // errors
 int				ft_puterror_fd(char *s1, char *s2, int fd);

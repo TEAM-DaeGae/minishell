@@ -6,7 +6,7 @@
 #    By: daelee <daelee@student.42seoul.kr>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/03/09 18:24:09 by daelee            #+#    #+#              #
-#    Updated: 2021/01/09 18:35:19 by daelee           ###   ########.fr        #
+#    Updated: 2021/01/11 10:05:49 by daelee           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,10 +14,11 @@ NAME	=	minishell
 
 SRCS	= 	main.c \
 			exec_cmds.c \
-			builtins/echo.c\
-			builtins/env.c \
-			builtins/pwd.c \
-			builtins/cd.c \
+			builtins/ft_echo.c\
+			builtins/ft_env.c \
+			builtins/ft_pwd.c \
+			builtins/ft_cd.c \
+			builtins/ft_exit.c \
 			
 			
 
