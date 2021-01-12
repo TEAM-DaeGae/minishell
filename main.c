@@ -6,7 +6,7 @@
 /*   By: daelee <daelee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/07 09:46:05 by daelee            #+#    #+#             */
-/*   Updated: 2021/01/12 19:51:29 by daelee           ###   ########.fr       */
+/*   Updated: 2021/01/12 22:55:16 by daelee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ int		    main(int argc, char **argv, char **envp)
     char    *input;
     t_list  *data_list;
     char    **program = malloc(sizeof(char *) * 3);
-    program[0] = ft_strdup("export");
+    program[0] = ft_strdup("unset");
     program[1] = ft_strdup(0);
     program[2] = ft_strdup(0);
     

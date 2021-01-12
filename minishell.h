@@ -45,6 +45,8 @@ void			ft_echo(char **program);
 void			ft_cd(char **program, char **envs);
 void			ft_exit(char **program);
 int		    	ft_export(char **program);
+int				ft_unset(char **program);
+
 
 
 // errors

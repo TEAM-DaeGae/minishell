@@ -6,7 +6,7 @@
 /*   By: daelee <daelee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/08 09:46:25 by daelee            #+#    #+#             */
-/*   Updated: 2021/01/12 19:48:22 by daelee           ###   ########.fr       */
+/*   Updated: 2021/01/12 22:44:08 by daelee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,8 +43,8 @@ int				exec_builtin(char **program)
 		ft_env(g_envp);
 	else if (!ft_strncmp(builtin, "export", ft_strlen(builtin)))
 		ft_export(program);
-	// else if (!ft_strncmp(builtin, "unset", ft_strlen(builtin)))
-	// 	unset(data->program);
+	else if (!ft_strncmp(builtin, "unset", ft_strlen(builtin)))
+		ft_unset(program);
 	else if (!ft_strncmp(builtin, "exit", ft_strlen(builtin)))
 		ft_exit(program);
 	else
