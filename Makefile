@@ -6,7 +6,7 @@
 #    By: daelee <daelee@student.42seoul.kr>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/03/09 18:24:09 by daelee            #+#    #+#              #
-#    Updated: 2021/01/11 10:05:49 by daelee           ###   ########.fr        #
+#    Updated: 2021/01/12 19:48:04 by daelee           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,6 +19,7 @@ SRCS	= 	main.c \
 			builtins/ft_pwd.c \
 			builtins/ft_cd.c \
 			builtins/ft_exit.c \
+			builtins/ft_export.c \
 			
 			
 

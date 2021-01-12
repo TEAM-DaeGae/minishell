@@ -12,9 +12,10 @@
 # include "Libft/libft.h"
 
 # define MAXSIZE 1024
-
-char    		**g_envp;
-int				g_exit_status ;
+# define FALSE 0
+# define TRUE 1 
+# define ERROR 0
+# define SUCCESS 1
 
 typedef struct	s_env
 {
@@ -42,7 +43,9 @@ int				ft_env(char **envs);
 void			ft_pwd(void);
 void			ft_echo(char **program);
 void			ft_cd(char **program, char **envs);
-void			ft_exit(char **argv);
+void			ft_exit(char **program);
+int		    	ft_export(char **program);
+
 
 // errors
 int				ft_puterror_fd(char *s1, char *s2, int fd);

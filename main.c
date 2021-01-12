@@ -6,11 +6,31 @@
 /*   By: daelee <daelee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/07 09:46:05 by daelee            #+#    #+#             */
-/*   Updated: 2021/01/11 10:08:29 by daelee           ###   ########.fr       */
+/*   Updated: 2021/01/12 19:51:29 by daelee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+int		g_exit_status = 0;
+char	**g_envp = NULL;
+
+char	**ft_first_envv(char **envv)
+{
+	char	**new;
+	int		i;
+
+	i = 0;
+	while (envv[++i] != NULL)
+		i++;
+	if (!(new = malloc(sizeof(char*) * (i + 1))))
+		return (NULL);
+	i = -1;
+	while (envv[++i])
+		new[i] = ft_strdup(envv[i]);
+	new[i] = NULL;
+	return (new);
+}
 
 void               show_daegae(void)
 {
@@ -42,21 +62,18 @@ int		    main(int argc, char **argv, char **envp)
 {
     char    *input;
     t_list  *data_list;
-    char    **program = malloc(sizeof(char *) * 5);
-    program[0] = ft_strdup("exit");
-    program[1] = ft_strdup("hello");
-    program[2] = ft_strdup("world");
-    program[3] = ft_strdup("daelee");
-    program[4] = ft_strdup(0);
+    char    **program = malloc(sizeof(char *) * 3);
+    program[0] = ft_strdup("export");
+    program[1] = ft_strdup(0);
+    program[2] = ft_strdup(0);
     
-    g_envp = envp;
+    g_envp = ft_first_envv(envp);
     show_daegae();
     while (1)
     {
         show_prompt();
         get_next_line(0, &input); //-1인 경우 에러메세지?
         //parsing(&data, input); //free(data, input)
-        //printf("%s\n", input);
         //exec_cmds(program);
         exec_builtin(program);
         //free(input);

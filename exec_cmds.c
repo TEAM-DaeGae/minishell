@@ -6,11 +6,15 @@
 /*   By: daelee <daelee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/08 09:46:25 by daelee            #+#    #+#             */
-/*   Updated: 2021/01/11 10:04:26 by daelee           ###   ########.fr       */
+/*   Updated: 2021/01/12 19:48:22 by daelee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+extern 	char **g_envp;
+extern 	int  g_exit_status;
+char    **program;
 
 void	free_double_arr(char **arr)
 {
@@ -37,8 +41,8 @@ int				exec_builtin(char **program)
 	 	ft_pwd();
 	else if (!ft_strncmp(builtin, "env", ft_strlen(builtin)))
 		ft_env(g_envp);
-	// else if (!ft_strncmp(builtin, "export", ft_strlen(builtin)))
-	// 	export(data->program);
+	else if (!ft_strncmp(builtin, "export", ft_strlen(builtin)))
+		ft_export(program);
 	// else if (!ft_strncmp(builtin, "unset", ft_strlen(builtin)))
 	// 	unset(data->program);
 	else if (!ft_strncmp(builtin, "exit", ft_strlen(builtin)))
@@ -48,7 +52,7 @@ int				exec_builtin(char **program)
 		free_double_arr(program);
 		return (0);
 	}
-	free_double_arr(program);
+	free_double_arr(program); //얘가 문제!! 수정필요!!!
 	g_exit_status = 0;
 	return (1);
 }

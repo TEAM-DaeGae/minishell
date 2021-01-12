@@ -6,7 +6,7 @@
 /*   By: daelee <daelee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/08 10:56:00 by daelee            #+#    #+#             */
-/*   Updated: 2021/01/11 10:04:41 by daelee           ###   ########.fr       */
+/*   Updated: 2021/01/12 12:11:34 by daelee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,11 +41,9 @@ void	ft_cd(char **program, char **envs)
 	{
 		path = find_value(program[1] + 1, envs);
 		if (chdir(path) == -1)
-			printf("$ err");
-			//ft_putendl_fd(strerror(errno), 2);
+			ft_putendl_fd(strerror(errno), 2);
 		return ;
 	}
 	if (chdir(program[1]) == -1)
-		printf("cd err");
-		//ft_putendl_fd(strerror(errno), 2);
+		ft_putendl_fd(strerror(errno), 2);
 }
