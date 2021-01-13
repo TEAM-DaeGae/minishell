@@ -6,7 +6,7 @@
 /*   By: daelee <daelee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/12 20:12:47 by daelee            #+#    #+#             */
-/*   Updated: 2021/01/12 22:55:43 by daelee           ###   ########.fr       */
+/*   Updated: 2021/01/13 22:51:16 by daelee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,11 +29,6 @@ int		isvalid_env(char *name)
 	return (TRUE);
 }
 
-/*
-** envs : name=value
-** str	 : name
-*/
-
 int			check_key_value(char *str, char *envs)
 {
 	int		i;
@@ -42,25 +37,6 @@ int			check_key_value(char *str, char *envs)
 	while (str[i] && envs[i] && (str[i] == envs[i]) && (envs[i] != '='))
 		i++;
 	if ((str[i] == '\0') && (envs[i] == '='))
-		return (TRUE);
-	return (FALSE);
-}
-
-/*
-** envs	: name
-** str	: name
-*/
-
-static int	check_key(char *str, char *envs)
-{
-	int		i;
-
-	i = 0;
-	if (ft_strlen(str) != ft_strlen(envs))
-		return (FALSE);
-	while (str[i] && envs[i] && (str[i] == envs[i]))
-		i++;
-	if (i == (int)ft_strlen(str))
 		return (TRUE);
 	return (FALSE);
 }
@@ -77,7 +53,7 @@ int			unset_env(char *str, char ***envs)
 		return (ERROR);
 	i = -1;
 	while ((*envs)[++i] != NULL)
-		if (check_key(str, (*envs)[i]) || check_key_value(str, (*envs)[i]))
+		if (check_key_value(str, (*envs)[i]))
 		{
 			free((*envs)[i]);
 			(*envs)[i] = ft_strdup((*envs)[last - 1]);

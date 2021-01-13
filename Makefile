@@ -6,14 +6,13 @@
 #    By: daelee <daelee@student.42seoul.kr>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/03/09 18:24:09 by daelee            #+#    #+#              #
-#    Updated: 2021/01/12 22:08:05 by daelee           ###   ########.fr        #
+#    Updated: 2021/01/13 19:03:35 by daelee           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME	=	minishell
 
 SRCS	= 	main.c \
-			exec_cmds.c \
 			builtins/ft_echo.c\
 			builtins/ft_env.c \
 			builtins/ft_pwd.c \
@@ -21,6 +20,8 @@ SRCS	= 	main.c \
 			builtins/ft_exit.c \
 			builtins/ft_export.c \
 			builtins/ft_unset.c \
+			execute/exec_cmds.c \
+			utils/utils_setup.c \
 			
 			
 

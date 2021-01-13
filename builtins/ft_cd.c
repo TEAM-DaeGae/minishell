@@ -6,7 +6,7 @@
 /*   By: daelee <daelee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/08 10:56:00 by daelee            #+#    #+#             */
-/*   Updated: 2021/01/12 20:25:21 by daelee           ###   ########.fr       */
+/*   Updated: 2021/01/13 19:11:40 by daelee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,9 +37,9 @@ void	ft_cd(char **program, char **envs)
 			ft_putendl_fd(strerror(errno), 2);
 		return ;
 	}
-	else if (*program[1] == '$')
+	else if (program[1][0] == '$')
 	{
-		path = find_value(program[1] + 1, envs);
+		path = find_value(&program[1][1], envs);
 		if (chdir(path) == -1)
 			ft_putendl_fd(strerror(errno), 2);
 		return ;

@@ -6,7 +6,7 @@
 /*   By: daelee <daelee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/11 11:44:44 by daelee            #+#    #+#             */
-/*   Updated: 2021/01/12 20:15:09 by daelee           ###   ########.fr       */
+/*   Updated: 2021/01/13 22:58:17 by daelee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ int	        check_export(char *str, char ***envs)
 	int		i;
 	char	**new;
 
-	if (str[0] == '=' || str[0] == '\0')
+	if (str[0] == '=' || str[0] == '\0' || ft_strlen(str) == 1)
 		return (ERROR);
 	i = -1;
 	while ((*envs)[++i] != NULL)

@@ -29,13 +29,21 @@ typedef struct	s_data
 	int     flag;
 }				t_data;
 
+//setup
+void    		set_signal(void);
+char			**copy_envp(char **envs);
+void            show_prompt(void);
+void        	show_daegae(void);
+void			handle_signal(int signo);
+
+
+
+
 // utils
 void			free_double_arr(char **arr);
 
 // envp
 char			*find_value(char *key, char **envs);
-
-
 
 // builtin functions
 int				exec_builtin(char **cmdline);
