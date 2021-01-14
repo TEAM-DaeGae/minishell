@@ -40,7 +40,7 @@ void			handle_child_signal(int signo);
 // utils_exec.c
 char			*find_value(char *key, char **envs);
 void			free_double_arr(char **arr);
-char			*find_path(char *progam, char **envs);
+char			*find_path(char *cmdline, char **envs);
 
 // exec
 void			exec_cmds(char **cmdline);

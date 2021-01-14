@@ -6,7 +6,7 @@
 /*   By: daelee <daelee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/14 12:11:52 by daelee            #+#    #+#             */
-/*   Updated: 2021/01/14 14:08:36 by daelee           ###   ########.fr       */
+/*   Updated: 2021/01/14 15:01:37 by daelee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ char		*find_value(char *key, char **envs)
 	return ("");
 }
 
-char		*find_path(char *progam, char **envs)
+char		*find_path(char *cmdline, char **envs)
 {
 	int			i;
 	char		*temp;
@@ -49,12 +49,12 @@ char		*find_path(char *progam, char **envs)
 	char		**paths;
 	struct stat	s;
 
-	temp = find_value("PATH", envs); // PATH=/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin
-	paths = ft_split(temp, ':'); //paths[0] == /usr/local/bin, paths[1] == /usr/bin, 
+	temp = find_value("PATH", envs);
+	paths = ft_split(temp, ':');
 	i = -1;
 	while (paths[++i])
 	{
-		temp = ft_strjoin("/", progam);
+		temp = ft_strjoin("/", cmdline);
 		new_path = ft_strjoin(paths[i], temp);
 		free(temp);
 		if (stat(new_path, &s) == 0)
@@ -65,5 +65,5 @@ char		*find_path(char *progam, char **envs)
 		free(new_path);
 	}
 	free_double_arr(paths);
-	return (ft_strdup(progam));
+	return (ft_strdup(cmdline));
 }
