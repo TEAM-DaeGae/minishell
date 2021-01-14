@@ -17,16 +17,27 @@
 # define ERROR 0
 # define SUCCESS 1
 
-typedef struct	s_env
+typedef	struct	s_list
 {
-	char		*key;
-	char		*value;
-}				t_env;
+	void			*content;
+	struct s_list	*next;
+}				t_list;
+
+typedef struct	s_cmd
+{
+	char	**cmdline;
+	int		flag;
+	char	quote;
+}				t_cmd;
 
 typedef struct	s_data
 {
-	char		**cmdline; // ex. cmdline = {"ls", "-al", NULL}
-	int     flag;
+	t_list	*lst;
+	t_cmd	*cmd;
+	char	*buff;
+	int		i;
+	int		j;
+	int		k;
 }				t_data;
 
 //setup
