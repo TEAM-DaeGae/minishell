@@ -6,7 +6,7 @@
 /*   By: daelee <daelee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/07 09:46:05 by daelee            #+#    #+#             */
-/*   Updated: 2021/01/14 14:06:30 by daelee           ###   ########.fr       */
+/*   Updated: 2021/01/14 14:09:21 by daelee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,10 +46,10 @@ int		    main(int argc, char **argv, char **envp)
 {
     char    *input;
     t_list  *data_list;
-    char    **program = malloc(sizeof(char *) * 3);
-    program[0] = ft_strdup("ls");
-    program[1] = ft_strdup("-al");
-    program[2] = ft_strdup(0);
+    char    **cmdline = malloc(sizeof(char *) * 3);
+    cmdline[0] = ft_strdup("ls");
+    cmdline[1] = ft_strdup("-al");
+    cmdline[2] = ft_strdup(0);
     
     g_envp = copy_envp(envp);
     set_signal();
@@ -59,7 +59,7 @@ int		    main(int argc, char **argv, char **envp)
         show_prompt();
         get_next_line(0, &input);
         //parsing(&data, input); //free(data, input)
-        exec_cmds(program);
+        exec_cmds(cmdline);
         //free(input);
     }
 	return (0);

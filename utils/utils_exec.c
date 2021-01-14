@@ -6,7 +6,7 @@
 /*   By: daelee <daelee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/14 12:11:52 by daelee            #+#    #+#             */
-/*   Updated: 2021/01/14 13:51:45 by daelee           ###   ########.fr       */
+/*   Updated: 2021/01/14 14:08:36 by daelee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 extern 	char **g_envp;
 extern 	int  g_exit_status;
-char    **program;
+char    **cmdline;
 
 void	free_double_arr(char **arr)
 {

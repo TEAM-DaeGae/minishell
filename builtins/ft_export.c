@@ -6,7 +6,7 @@
 /*   By: daelee <daelee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/11 11:44:44 by daelee            #+#    #+#             */
-/*   Updated: 2021/01/13 22:58:17 by daelee           ###   ########.fr       */
+/*   Updated: 2021/01/14 14:08:36 by daelee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,20 +62,20 @@ int	        check_export(char *str, char ***envs)
 	return (SUCCESS);
 }
 
-int		    ft_export(char **program)
+int		    ft_export(char **cmdline)
 {
 	int     i;
 	int     res;
 
 	i = 0;
 	res = 1;
-	if (ft_double_strlen(program) == 1)
+	if (ft_double_strlen(cmdline) == 1)
 		res = print_export(g_envp);
 	else
 	{
-		while (program[++i])
+		while (cmdline[++i])
 		{
-			if (check_export(program[i], &g_envp))
+			if (check_export(cmdline[i], &g_envp))
 				;
 			else
 				res = 0;

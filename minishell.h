@@ -25,7 +25,7 @@ typedef struct	s_env
 
 typedef struct	s_data
 {
-	char		**program; // ex. program = {"ls", "-al", NULL}
+	char		**cmdline; // ex. cmdline = {"ls", "-al", NULL}
 	int     flag;
 }				t_data;
 
@@ -44,15 +44,15 @@ char			*find_path(char *progam, char **envs);
 
 // exec
 void			exec_cmds(char **cmdline);
-void			exec_bin(char **program);
-int				exec_builtin(char **program);
+void			exec_bin(char **cmdline);
+int				exec_builtin(char **cmdline);
 int				ft_env(char **envs);
 void			ft_pwd(void);
-void			ft_echo(char **program);
-void			ft_cd(char **program, char **envs);
-void			ft_exit(char **program);
-int		    	ft_export(char **program);
-int				ft_unset(char **program);
+void			ft_echo(char **cmdline);
+void			ft_cd(char **cmdline, char **envs);
+void			ft_exit(char **cmdline);
+int		    	ft_export(char **cmdline);
+int				ft_unset(char **cmdline);
 
 
 
