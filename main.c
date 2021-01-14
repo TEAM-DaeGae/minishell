@@ -6,7 +6,7 @@
 /*   By: daelee <daelee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/07 09:46:05 by daelee            #+#    #+#             */
-/*   Updated: 2021/01/14 19:06:00 by gaekim           ###   ########.fr       */
+/*   Updated: 2021/01/14 14:09:21 by daelee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,33 +64,7 @@ int		main(int argc, char **argv, char **envp)
 		{
 		
 		}
-        //parsing(&data, input); //free(data, input)
-        //exec_cmds(program);
-		exec_builtin(program);
-        //free(input);
+    //free(input);
 	}
 	return (0);
 }
-
-/*
-int		main(int argc, char **argv, char **envp)
-{
-    char    input[];
-	input = "ls -al; echo 'Hello'";
-
-	t_list	*head; // command 정보를 담은 연결리스트의 헤드포인터
-	t_list	*curr;
-
-	(void)argc; // unused value 오류 탈피
-	(void)argv;
-
-	head = parsing(input); // parsing 함수가 연결리스트 헤드포인터 반환
-	curr = head; // 포인터 curr를 연결리스트의 헤드포인터(노드1)로 초기화
-	while (curr != NULL)
-	{
-		minishell_execute(curr->content);
-		curr = curr->next;
-	}
-	return (0);
-}
-*/
