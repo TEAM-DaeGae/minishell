@@ -1,37 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strdup.c                                        :+:      :+:    :+:   */
+/*   ft_env.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: daelee <daelee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/04/06 20:23:06 by gaekim            #+#    #+#             */
-/*   Updated: 2021/01/08 18:59:07 by daelee           ###   ########.fr       */
+/*   Created: 2021/01/08 11:05:25 by daelee            #+#    #+#             */
+/*   Updated: 2021/01/11 10:04:50 by daelee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "minishell.h"
 
-char	*ft_strdup(const char *s1)
+int		ft_env(char **envs)
 {
-	char	*p;
-	int		i;
-	int		len;
+	int	i;
 
-	if (s1 == 0)
-		return (0);
-	len = 0;
-	while (s1[len])
-		len++;
-	p = (char *)malloc(sizeof(char) * (len + 1));
-	if (p == NULL)
-		return (NULL);
 	i = 0;
-	while (s1[i])
+	while (envs[i])
 	{
-		p[i] = s1[i];
+		write(1, envs[i], ft_strlen(envs[i]));
+		write(1, "\n", 1);
 		i++;
 	}
-	p[i] = '\0';
-	return (p);
+	return (1);
 }

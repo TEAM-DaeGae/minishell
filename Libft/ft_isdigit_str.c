@@ -1,37 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strdup.c                                        :+:      :+:    :+:   */
+/*   ft_isdigit_str.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: daelee <daelee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/04/06 20:23:06 by gaekim            #+#    #+#             */
-/*   Updated: 2021/01/08 18:59:07 by daelee           ###   ########.fr       */
+/*   Created: 2021/01/11 09:56:14 by daelee            #+#    #+#             */
+/*   Updated: 2021/01/11 09:58:12 by daelee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char	*ft_strdup(const char *s1)
+int         ft_isdigit_str(char *str)
 {
-	char	*p;
-	int		i;
-	int		len;
+	int     idx;
 
-	if (s1 == 0)
-		return (0);
-	len = 0;
-	while (s1[len])
-		len++;
-	p = (char *)malloc(sizeof(char) * (len + 1));
-	if (p == NULL)
-		return (NULL);
-	i = 0;
-	while (s1[i])
+	idx = 0;
+	while (str[idx])
 	{
-		p[i] = s1[i];
-		i++;
+		if (!ft_isdigit(str[idx]))
+			return (0);
+		idx++;
 	}
-	p[i] = '\0';
-	return (p);
+	return (1);
 }

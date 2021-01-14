@@ -6,7 +6,7 @@
 /*   By: gaekim <gaekim@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/17 00:11:45 by gaekim            #+#    #+#             */
-/*   Updated: 2021/01/09 21:33:28 by gaekim           ###   ########.fr       */
+/*   Updated: 2021/01/14 20:38:43 by gaekim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,5 +69,7 @@ t_list			*ft_lstmap(t_list *lst, void *(*f)(void *), \
 int				get_next_line(int fd, char **line);
 char			*ft_strtok(char *str, char sepa);
 char			*ft_strcpy(char *dest, char *src);
+int				ft_double_strlen(char **str);
+int				ft_isdigit_str(char *str);
 
 #endif

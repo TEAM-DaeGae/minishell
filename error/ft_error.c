@@ -1,37 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strdup.c                                        :+:      :+:    :+:   */
+/*   ft_error.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: daelee <daelee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/04/06 20:23:06 by gaekim            #+#    #+#             */
-/*   Updated: 2021/01/08 18:59:07 by daelee           ###   ########.fr       */
+/*   Created: 2021/01/09 15:31:38 by daelee            #+#    #+#             */
+/*   Updated: 2021/01/09 15:33:59 by daelee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "minishell.h"
 
-char	*ft_strdup(const char *s1)
+int		ft_puterror_fd(char *s1, char *s2, int fd)
 {
-	char	*p;
-	int		i;
-	int		len;
-
-	if (s1 == 0)
-		return (0);
-	len = 0;
-	while (s1[len])
-		len++;
-	p = (char *)malloc(sizeof(char) * (len + 1));
-	if (p == NULL)
-		return (NULL);
-	i = 0;
-	while (s1[i])
-	{
-		p[i] = s1[i];
-		i++;
-	}
-	p[i] = '\0';
-	return (p);
+	ft_putstr_fd(s1, fd);
+	ft_putendl_fd(s2, fd);
+	return (127);
 }
