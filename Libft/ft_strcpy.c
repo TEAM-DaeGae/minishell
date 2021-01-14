@@ -1,41 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strtok.c                                        :+:      :+:    :+:   */
+/*   ft_strcpy.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gaekim <gaekim@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/04/07 20:43:13 by gaekim            #+#    #+#             */
-/*   Updated: 2021/01/09 22:25:58 by gaekim           ###   ########.fr       */
+/*   Created: 2020/04/07 19:11:40 by gaekim            #+#    #+#             */
+/*   Updated: 2021/01/09 22:01:10 by gaekim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char	*ft_strtok(char *str, char sepa)
+char	*ft_strcpy(char *dest, char *src)
 {
-	static char	*stock = NULL;
-	char		*p;
-	int			i;
+	int	i;
 
 	i = 0;
-	p = NULL;
-	if (str != NULL)
-		stock = ft_strdup(str);
-	while (*stock != '\0')
+	while (*(src + i) != '\0')
 	{
-		if (i == 0 && *stock != sepa)
-		{
-			i = 1;
-			p = stock;
-		}
-		else if (i == 1 && *stock == sepa)
-		{
-			*stock = '\0';
-			stock += 1;
-			break ;
-		}
-		stock++;
+		*(dest + i) = *(src + i);
+		i++;
 	}
-	return (p);
+	dest[i] = '\0';
+	return (dest);
 }

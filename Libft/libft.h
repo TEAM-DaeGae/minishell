@@ -3,16 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: daelee <daelee@student.42seoul.kr>         +#+  +:+       +#+        */
+/*   By: gaekim <gaekim@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/17 00:11:45 by gaekim            #+#    #+#             */
-/*   Updated: 2021/01/11 09:58:30 by daelee           ###   ########.fr       */
+/*   Updated: 2021/01/14 20:38:43 by gaekim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef LIBFT_H
 # define LIBFT_H
-
 # include <stdlib.h>
 # include <unistd.h>
 
@@ -67,8 +66,9 @@ void			ft_lstiter(t_list *lst, void (*f)(void *));
 t_list			*ft_lstmap(t_list *lst, void *(*f)(void *), \
 		void (*del)(void *));
 
-char			*ft_strtok(char *str, char sepa);
 int				get_next_line(int fd, char **line);
+char			*ft_strtok(char *str, char sepa);
+char			*ft_strcpy(char *dest, char *src);
 int				ft_double_strlen(char **str);
 int				ft_isdigit_str(char *str);
 

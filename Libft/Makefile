@@ -6,7 +6,7 @@
 #    By: gaekim <gaekim@42.fr>                      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/04/17 00:17:56 by gaekim            #+#    #+#              #
-#    Updated: 2021/01/03 18:30:46 by gaekim           ###   ########.fr        #
+#    Updated: 2021/01/14 20:49:01 by gaekim           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,12 +19,11 @@ SRCS = ft_isalnum.c ft_isalpha.c ft_isascii.c ft_isdigit.c ft_isprint.c \
 		ft_memchr.c ft_memcmp.c ft_calloc.c ft_strdup.c \
 		ft_substr.c ft_strjoin.c ft_strtrim.c ft_split.c ft_itoa.c ft_strmapi.c \
 		ft_putchar_fd.c ft_putstr_fd.c ft_putendl_fd.c ft_putnbr_fd.c \
-		ft_strtok.c \
-		get_next_line.c \
 		ft_lstnew.c ft_lstadd_front.c ft_lstsize.c ft_lstlast.c ft_lstadd_back.c \
 		ft_lstdelone.c ft_lstclear.c ft_lstiter.c ft_lstmap.c \
+		ft_strtok.c ft_strcpy.c \
+		get_next_line.c \
 		ft_double_strlen.c ft_isdigit_str.c
-
 
 OBJS = $(SRCS:%.c=%.o)
 
