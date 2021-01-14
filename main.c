@@ -16,9 +16,9 @@ int		g_exit_status = 0;
 int		g_signal = 1;
 char	**g_envp = NULL;
 
-void        show_daegae(void)
+void	show_daegae(void)
 {
-    int		fd;
+	int		fd;
 	char	*line;
 
 	fd = open("utils/ascii_art", O_RDONLY);
@@ -28,39 +28,43 @@ void        show_daegae(void)
 		ft_putendl_fd(line, STDOUT_FILENO);
 		free(line);
 	}
-    ft_putendl_fd(line, STDOUT_FILENO);
+	ft_putendl_fd(line, STDOUT_FILENO);
 	close(fd);
 	free(line);
 	ft_putendl_fd("\033[0m", 1);
 }
 
-void               show_prompt()
+void	show_prompt(void)
 {
-    static char    *curpath;
-    ft_putstr_fd(" \033[1;96m", 1);
-    ft_putstr_fd(getcwd(curpath, MAXSIZE), 1);
-    ft_putstr_fd("\033[1;93m $\033[0m ", 1);
+	static char	*curpath;
+
+	ft_putstr_fd(" \033[1;96m", 1);
+	ft_putstr_fd(getcwd(curpath, MAXSIZE), 1);
+	ft_putstr_fd("\033[1;93m $\033[0m ", 1);
 }
 
-int		    main(int argc, char **argv, char **envp)
+int		main(int argc, char **argv, char **envp)
 {
-    char    *input;
-    t_list  *data_list;
-    char    **cmdline = malloc(sizeof(char *) * 3);
-    cmdline[0] = ft_strdup("ls");
-    cmdline[1] = ft_strdup("-al");
-    cmdline[2] = ft_strdup(0);
-    
-    g_envp = copy_envp(envp);
-    set_signal();
-    show_daegae();
-    while (1)
-    {
-        show_prompt();
-        get_next_line(0, &input);
-        //parsing(&data, input); //free(data, input)
-        exec_cmds(cmdline);
-        //free(input);
-    }
+	char	*input;
+	t_list	*data_list;
+
+	(void)argc;
+	(void)argv;
+	g_envp = copy_envp(envp);
+	set_signal();
+	show_daegae();
+	while (1)
+	{
+		show_prompt();
+		if (!get_next_line(0, &input))
+		{
+		
+		}
+		else if (parsing(input))
+		{
+		
+		}
+    //free(input);
+	}
 	return (0);
 }
