@@ -6,7 +6,7 @@
 #    By: daelee <daelee@student.42seoul.kr>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/03/09 18:24:09 by daelee            #+#    #+#              #
-#    Updated: 2021/01/13 19:03:35 by daelee           ###   ########.fr        #
+#    Updated: 2021/01/14 14:06:47 by daelee           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,8 +21,9 @@ SRCS	= 	main.c \
 			builtins/ft_export.c \
 			builtins/ft_unset.c \
 			execute/exec_cmds.c \
-			utils/utils_setup.c \
-			
+			utils/utils_main.c \
+			utils/utils_exec.c \
+			error/ft_error.c
 			
 
 LEAKS	=	-g3 -fsanitize=address

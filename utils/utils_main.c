@@ -6,7 +6,7 @@
 /*   By: daelee <daelee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/12 23:29:46 by daelee            #+#    #+#             */
-/*   Updated: 2021/01/13 18:48:14 by daelee           ###   ########.fr       */
+/*   Updated: 2021/01/14 12:51:39 by daelee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,12 @@ void    set_signal(void)
     signal(SIGINT, handle_signal);
 	signal(SIGQUIT, handle_signal);
 	signal(SIGTERM, handle_signal);
+}
+
+void	handle_child_signal(int signo)
+{
+	if (signo == SIGINT)
+		write(2, "\n", 1);
 }
 
 void	handle_signal(int signo)

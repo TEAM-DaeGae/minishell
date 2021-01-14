@@ -35,18 +35,17 @@ char			**copy_envp(char **envs);
 void            show_prompt(void);
 void        	show_daegae(void);
 void			handle_signal(int signo);
+void			handle_child_signal(int signo);
 
-
-
-
-// utils
-void			free_double_arr(char **arr);
-
-// envp
+// utils_exec.c
 char			*find_value(char *key, char **envs);
+void			free_double_arr(char **arr);
+char			*find_path(char *progam, char **envs);
 
-// builtin functions
-int				exec_builtin(char **cmdline);
+// exec
+void			exec_cmds(char **cmdline);
+void			exec_bin(char **program);
+int				exec_builtin(char **program);
 int				ft_env(char **envs);
 void			ft_pwd(void);
 void			ft_echo(char **program);

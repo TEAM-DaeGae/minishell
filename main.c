@@ -6,7 +6,7 @@
 /*   By: daelee <daelee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/07 09:46:05 by daelee            #+#    #+#             */
-/*   Updated: 2021/01/13 22:52:50 by daelee           ###   ########.fr       */
+/*   Updated: 2021/01/14 14:06:30 by daelee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,8 +47,8 @@ int		    main(int argc, char **argv, char **envp)
     char    *input;
     t_list  *data_list;
     char    **program = malloc(sizeof(char *) * 3);
-    program[0] = ft_strdup("export");
-    program[1] = ft_strdup("z");
+    program[0] = ft_strdup("ls");
+    program[1] = ft_strdup("-al");
     program[2] = ft_strdup(0);
     
     g_envp = copy_envp(envp);
@@ -57,10 +57,9 @@ int		    main(int argc, char **argv, char **envp)
     while (1)
     {
         show_prompt();
-        get_next_line(0, &input); //-1인 경우 에러메세지?
+        get_next_line(0, &input);
         //parsing(&data, input); //free(data, input)
-        //exec_cmds(program);
-        exec_builtin(program);
+        exec_cmds(program);
         //free(input);
     }
 	return (0);
