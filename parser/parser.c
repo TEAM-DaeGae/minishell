@@ -1,116 +1,102 @@
-#include <stdio.h>
+#include "minishell.h"
 
-typedef	struct	s_list
+void	put_buff_into_cmdline(t_data *data)
 {
-	void			*content;
-	struct s_list	*next;
-}				t_list;
-
-typedef struct	s_cmd
-{
-	char	**cmdline; 
-	int		flag;
-	char	quote;
-}				t_cmd;
-
-typedef struct	s_data
-{
-	char	*buff;
-
-	int		i;
-	int		j;
-	int		k;
-
-	t_cmd	*cmd;
-	t_list	*lst;
-}				t_data;
-
-int		put_buff_into_cmdline(t_data *data)
-{
+	if (*(data->buff) == 0)
+		return ;
+	
 	data->cmdline[data->k] = ft_strdup(data->buff);
-	(data->k)++;
+	data->k++;
 
 	ft_bzero(data->buff, ft_strlen(data->buff) + 1);
-
 	data->j= 0;
 }
 
-int		cmd_count(char *input)
+/*  ** 수정하기 **
+t_list	*check_flag(t_list *cur_node) // 각 함수로 이동해서 거기에서 exec_builtin 함수 실행함
 {
-	int		cmd_count;
-	char	*p;
+	t_cmd	*cmd;
 
-	cmd_count = 1;
-	if (!(p = ft_calloc(ft_strlen(input) + 1, sizeof(char))))
-		return (NULL);
-	ft_strcpy(p, input);
-	if (ft_strtok(p, ' ') != NULL)
-	{
-		while (ft_strtok(NULL, ' ') != NULL)
-			cmd_count++;
-	}
-	return (cmd_count);
+	cmd = (t_cmd *)(cur_node->content);
+	if (cmd->flag == 0)
+		return (ft_semicolon(cur_node));
+	else if (cmd->flag == 1)
+		return (ft_pipe(cur_node));
+	else if (cmd->flag == 2)
+		return (redirection(cur_node));
+	else if (cmd->flag == 3)
+		return (redirection(cur_node));
+	else if (cmd->flag == 4)
+		return (redirection(cur_node));
+	else
+		return (cur_node);
 }
+*/
 
-void	initialize(char *input, t_list **head, t_data *data)
+void	add_node(t_data *data, t_list *head, char *input, int symbol)
 {
-	if (!(data->cmd->cmdline = malloc(sizeof(char *) * (cmd_count(input) + 1))))
-		return (NULL);
-	data->cmd->flag = 0;
-	data->cmd->quote = 0;
-	
-	if (!(data->buff = ft_calloc(ft_strlen(input) + 1, sizeof(char))))
-		return (NULL);
-	
-	data->i = 0;
-	data->j = 0;
+	data->cmd->flag = symbol;
 	data->k = 0;
+	if (symbol == 4)
+		data->i++;
 
-	if (!(data->cmd = ft_calloc(1, sizeof(t_cmd))))
-		return (NULL);
+	if (*(data->buff))
+		put_buff_into_cmdline(data);
 	
-	*head = ft_lstnew(NULL);
-	data->lst = *head;
+	ft_lstadd_back(&head, ft_lstnew(data->cmd));
+	data->cmd = ft_calloc(1, sizeof(t_cmd));
+	data->cmd->cmdline = ft_calloc(count_token(input) + 1, sizeof(char *));
+	data->lst = ft_lstlast(head);
 }
 
-void	parsing(char *input)
+t_list	*parsing_all(char *input, t_data *data, t_list *head)
 {
-	t_list	*head;
-	t_data	data;	
-
-	initialize(input, &head, &data);
-
-	while (input[data.i])
+	while (input[data->i])
 	{
-		if (data.cmd->quote != '\'' && input[data.i] == '\'')
-			until_close_quote();
-		else if (data.cmd->quote != '\"' && input[data.i] == '\"')
-			until_close_quote();
-		else if (data.cmd->quote == 0 && input[data.i] == ' ')
+		if (data->cmd->quote == input[data->i])
+			data->cmd->quote = 0;
+		else if (data->cmd->quote == 0 && (data->cmd->quote == '\'' || input[data->i] == '\"'))
+			data->cmd->quote = input[data->i];
+
+		else if (data->cmd->quote == 0 && input[data->i] == ' ')
 			put_buff_into_cmdline(&data);
-		else if (data.cmd->quote == 0 && (input[data.i] == ';' || input[data.i] == NULL))
-			add_content(  , 1);
-		else if (data.cmd->quote == 0 && input[data.i] == '|')
-			add_content(  , 2);
-		else if (data.cmd->quote == 0 && input[data.i] == '>' && input[i + 1] != '>')
-			add_content(   , 3);
-		else if (data.cmd->quote == 0 && input[data.i] == '>' && input[i + 1] == '>')
-			add_content(   , 4);
-		else if (data.cmd->quote == 0 && input[data.i] == '<' && input[i + 1] != '<')
-			add_content(   , 5);
+		
+		else if (data->cmd->quote == 0 && (input[data->i] == ';' || input[data->i] == NULL))
+			add_node(data, head, input, 1);
+		else if (data->cmd->quote == 0 && input[data->i] == '|')
+			add_node(data, head, input, 2);
+		else if (data->cmd->quote == 0 && input[data->i] == '>' && input[data->i + 1] != '>')
+			add_node(data, head, input, 3);
+		else if (data->cmd->quote == 0 && input[data->i] == '>' && input[data->i + 1] == '>')
+		{
+			data->i++;
+			add_node(data, head, input, 4);
+		}
+		else if (data->cmd->quote == 0 && input[data->i] == '<' && input[data->i + 1] != '<')
+			add_node(data, head, input, 5);
+		
 		else
-			data.buff[(data.j)++] = input[data.i];
-		i++;
+			data->buff[data->j++] = input[data->i];
+
+		if (input[data->i] != NULL)
+			data->i++;
 	}
+	return (head);
 }
 
-int		main(int argc, char **argv, char **envp)
+void	*parsing(char *input_temp)
 {
-    char    input[];
+	t_data	data;
+	t_list	*head;
+	char	*input;
 
-	input = "ls -al; echo 'Hello'";
+	input = ft_strtrim(input_temp, " ");
+	initialize(input, &data, &head);
+	parsing_all(input, &data, &head);
+	if (*(data.buff))
+		put_buff_into_cmdline(&data);
+	free(input);
+	free(data.buff);
 
-	parsing(input);
-
-	return (0);
+	return (head);
 }
