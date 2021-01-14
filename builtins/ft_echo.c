@@ -1,37 +1,38 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strdup.c                                        :+:      :+:    :+:   */
+/*   ft_echo.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: daelee <daelee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/04/06 20:23:06 by gaekim            #+#    #+#             */
-/*   Updated: 2021/01/08 18:59:07 by daelee           ###   ########.fr       */
+/*   Created: 2021/01/08 10:59:48 by daelee            #+#    #+#             */
+/*   Updated: 2021/01/14 14:08:36 by daelee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "minishell.h"
 
-char	*ft_strdup(const char *s1)
+void		ft_echo(char **cmdline)
 {
-	char	*p;
 	int		i;
-	int		len;
+	int		option;
 
-	if (s1 == 0)
-		return (0);
-	len = 0;
-	while (s1[len])
-		len++;
-	p = (char *)malloc(sizeof(char) * (len + 1));
-	if (p == NULL)
-		return (NULL);
 	i = 0;
-	while (s1[i])
+	option = 0;
+	while (cmdline[++i])
 	{
-		p[i] = s1[i];
-		i++;
+		while (cmdline[i] && (option + 1) == i &&
+		!ft_strncmp(cmdline[i], "-n", ft_strlen(cmdline[i])))
+		{
+			if (cmdline[i + 1] == NULL)
+				return ;
+			option++;
+			i++;
+		}
+		ft_putstr_fd(cmdline[i], 1);
+		if (cmdline[i + 1] != NULL)
+			ft_putstr_fd(" ", 1);
 	}
-	p[i] = '\0';
-	return (p);
+	if (option == 0)
+		ft_putstr_fd("\n", 1);
 }

@@ -1,76 +1,94 @@
 #include "libft.h"
 
-int					is_newline(char *backup)
+static void	ft_strfree(char **s)
 {
-	int				i;
-
-	i = 0;
-	while (backup[i])
+	if (s != NULL && *s != NULL)
 	{
-		if (backup[i] == '\n')
-			return (i);
-		i++;
+		free(*s);
+		*s = NULL;
 	}
-	return (-1);
 }
 
-int					split_line(char **backup, char **line, int cut_idx)
+static int	put_str_into_line(char **s, int fd, char **line)
 {
-	char			*temp;
-	int				len;
+	int			len;
+	char		*temp;
 
-	(*backup)[cut_idx] = '\0';
-	*line = ft_strdup(*backup);
-	len = ft_strlen(*backup + cut_idx + 1);
-	if (len == 0)
+	len = 0;
+	while (s[fd][len] != '\n' && s[fd][len] != '\0')
+		len++;
+	if (s[fd][len] == '\n')
 	{
-		free(*backup);
-		*backup = 0;
-		return (1);
+		if (len == 0)
+			*line = ft_strdup("");
+		else
+			*line = ft_substr(s[fd], 0, len);
+		temp = ft_strdup(&s[fd][len + 1]);
+		ft_strfree(&s[fd]);
+		s[fd] = temp;
+		if (s[fd][0] == 0)
+			ft_strfree(&s[fd]);
 	}
-	temp = ft_strdup(*backup + cut_idx + 1);
-	free(*backup);
-	*backup = temp;
+	else
+	{
+		*line = ft_strdup(s[fd]);
+		ft_strfree(&s[fd]);
+		return (0);
+	}
 	return (1);
 }
 
-int					return_all(char **backup, char **line, int read_size)
+static int	return_value(char **s, int fd, int r_size, char **line)
 {
-	int				cut_idx;
+	int			ret;
 
-	if (read_size < 0)
-		return (-1);
-	if (*backup && (cut_idx = is_newline(*backup)) >= 0)
-		return (split_line(backup, line, cut_idx));
-	else if (*backup)
+	ret = 0;
+	if (r_size < 0)
+		ret = -1;
+	else if (r_size == 0 && s[fd] == 0)
 	{
-		*line = *backup;
-		*backup = 0;
-		return (0);
+		*line = ft_strdup("");
+		ft_strfree(&s[fd]);
+		ret = 0;
 	}
-	*line = ft_strdup("");
+	else
+		ret = put_str_into_line(s, fd, line);
+	return (ret);
+}
+
+static int	find_enter(char *s)
+{
+	while (*s)
+	{
+		if (*s == '\n')
+			return (1);
+		s++;
+	}
 	return (0);
 }
 
-int					get_next_line(int fd, char **line)
+int			get_next_line(int fd, char **line)
 {
-	static char		*backup[OPEN_MAX];
-	char			buf[BUFFER_SIZE + 1];
-	int				read_size;
-	int				cut_idx;
-    int             i;
+	static char	*backup[OPEN_MAX];
+	char		buff[BUFFER_SIZE + 1];
+	int			r_size;
+	char		*temp;
 
-    i = 0;
-    while (i < OPEN_MAX)
-        backup[i++] = ft_strdup("");
-	if ((fd < 0) || (line == 0) || (BUFFER_SIZE <= 0))
+	if (fd < 0 || line == 0 || fd > OPEN_MAX || BUFFER_SIZE <= 0)
 		return (-1);
-	while ((read_size = read(fd, buf, BUFFER_SIZE)) > 0)
+	while ((r_size = read(fd, buff, BUFFER_SIZE)) > 0)
 	{
-		buf[read_size] = '\0';
-		backup[fd] = ft_strjoin(backup[fd], buf);
-		if ((cut_idx = is_newline(backup[fd])) >= 0)
-			return (split_line(&backup[fd], line, cut_idx));
+		buff[r_size] = '\0';
+		if (backup[fd] == NULL)
+			backup[fd] = ft_strdup(buff);
+		else
+		{
+			temp = ft_strjoin(backup[fd], buff);
+			ft_strfree(&backup[fd]);
+			backup[fd] = temp;
+		}
+		if (find_enter(backup[fd]) != 0)
+			break ;
 	}
-	return (return_all(&backup[fd], line, read_size));
+	return (return_value(backup, fd, r_size, line));
 }
