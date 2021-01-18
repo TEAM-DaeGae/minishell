@@ -6,7 +6,7 @@
 /*   By: daelee <daelee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/07 09:46:05 by daelee            #+#    #+#             */
-/*   Updated: 2021/01/14 14:09:21 by daelee           ###   ########.fr       */
+/*   Updated: 2021/01/18 21:15:29 by daelee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,14 +56,16 @@ int		main(int argc, char **argv, char **envp)
 	while (1)
 	{
 		show_prompt();
-		if (!get_next_line(0, &input))
+		if (!get_next_line(0, &input) && !ft_strlen(input))
 		{
-		
+			g_signal = 0;
+			free(input);
+			exit(EXIT_SUCCESS);
 		}
-		else if (parsing(input))
-		{
+		// else if (parsing(input))
+		// {
 		
-		}
+		// }
     //free(input);
 	}
 	return (0);
