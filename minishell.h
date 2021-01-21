@@ -17,12 +17,6 @@
 # define ERROR 0
 # define SUCCESS 1
 
-typedef	struct	s_list
-{
-	void			*content;
-	struct s_list	*next;
-}				t_list;
-
 typedef struct	s_cmd
 {
 	char	**cmdline;
