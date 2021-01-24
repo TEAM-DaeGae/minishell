@@ -6,7 +6,7 @@
 /*   By: daelee <daelee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/07 09:46:05 by daelee            #+#    #+#             */
-/*   Updated: 2021/01/24 10:00:14 by daelee           ###   ########.fr       */
+/*   Updated: 2021/01/24 21:47:01 by daelee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void	show_daegae(void)
 	fd = open("utils/ascii_art", O_RDONLY);
 	while (get_next_line(fd, &line))
 	{
-		ft_putstr_fd("\033[36m", 1);
+		ft_putstr_fd("\033[36m", STDIN_FILENO);
 		ft_putendl_fd(line, STDOUT_FILENO);
 		free(line);
 	}
@@ -37,9 +37,9 @@ void	show_prompt(void)
 {
 	static char	*curpath;
 
-	ft_putstr_fd(" \033[1;96m", 1);
-	ft_putstr_fd(getcwd(curpath, MAXSIZE), 1);
-	ft_putstr_fd("\033[1;93m $\033[0m ", 1);
+	ft_putstr_fd(" \033[1;96m", STDIN_FILENO);
+	ft_putstr_fd(getcwd(curpath, MAXSIZE), STDIN_FILENO);
+	ft_putstr_fd("\033[1;93m $\033[0m ", STDIN_FILENO);
 }
 
 int		main(int argc, char **argv, char **envp)
@@ -58,7 +58,8 @@ int		main(int argc, char **argv, char **envp)
 		if (!get_next_line(0, &input) && !ft_strlen(input))
 		{
 			free(input);
-			ft_putendl_fd("exit", 1);
+			ft_putstr_fd("  \b\b", STDIN_FILENO);
+			ft_putstr_fd("exit\n", STDIN_FILENO);
 			exit(EXIT_SUCCESS);
 		}
 		// else if (parsing(input))

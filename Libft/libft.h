@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gaekim <gaekim@42.fr>                      +#+  +:+       +#+        */
+/*   By: daelee <daelee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/17 00:11:45 by gaekim            #+#    #+#             */
-/*   Updated: 2021/01/14 20:38:43 by gaekim           ###   ########.fr       */
+/*   Updated: 2021/01/24 21:35:20 by daelee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,29 @@
 # define LIBFT_H
 # include <stdlib.h>
 # include <unistd.h>
+# include <limits.h>
+
+# ifndef BUFFER_SIZE
+#  define BUFFER_SIZE 1
+# endif
+
+# ifndef FD_NUMBER
+#  define FD_NUMBER 256
+# endif
 
 typedef struct	s_list
 {
 	void			*content;
 	struct s_list	*next;
 }				t_list;
+
+typedef struct	s_gnl_material
+{
+	int			value_to_print_exist;
+	char		buffer[BUFFER_SIZE];
+	size_t		start_idx;
+	size_t		last_idx;
+}				t_gnl_material;
 
 int				ft_isalnum(int c);
 int				ft_isalpha(int c);

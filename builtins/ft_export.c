@@ -6,7 +6,7 @@
 /*   By: daelee <daelee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/11 11:44:44 by daelee            #+#    #+#             */
-/*   Updated: 2021/01/14 14:08:36 by daelee           ###   ########.fr       */
+/*   Updated: 2021/01/24 21:46:35 by daelee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ int	        print_export(char **envs)
 	i = -1;
 	while (envs[++i])
 	{
-		ft_putstr_fd(envs[i], 1);
+		ft_putstr_fd(envs[i], STDIN_FILENO);
 		write(1, "\n", 1);
 	}
 	return (SUCCESS);
