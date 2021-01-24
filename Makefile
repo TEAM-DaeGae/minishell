@@ -24,8 +24,8 @@ SRCS	= 	main.c \
 			utils/utils_main.c \
 			utils/utils_exec.c \
 			error/ft_error.c \
-			# parser/parser.c \
-			# parser/parser_utils.c \
+			parser/parser.c \
+			parser/parser_utils.c \
 			
 
 LEAKS	=	-g3 -fsanitize=address
