@@ -6,14 +6,13 @@
 /*   By: daelee <daelee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/07 09:46:05 by daelee            #+#    #+#             */
-/*   Updated: 2021/01/14 14:09:21 by daelee           ###   ########.fr       */
+/*   Updated: 2021/01/24 10:00:14 by daelee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
 int		g_exit_status = 0;
-int		g_signal = 1;
 char	**g_envp = NULL;
 
 void	show_daegae(void)
@@ -56,15 +55,17 @@ int		main(int argc, char **argv, char **envp)
 	while (1)
 	{
 		show_prompt();
-		if (!get_next_line(0, &input))
+		if (!get_next_line(0, &input) && !ft_strlen(input))
 		{
-		
+			free(input);
+			ft_putendl_fd("exit", 1);
+			exit(EXIT_SUCCESS);
 		}
-		else if (parsing(input))
-		{
+		// else if (parsing(input))
+		// {
 		
-		}
-    //free(input);
+		// }
+    free(input);
 	}
 	return (0);
 }
