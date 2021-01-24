@@ -6,7 +6,7 @@
 #    By: daelee <daelee@student.42seoul.kr>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/03/09 18:24:09 by daelee            #+#    #+#              #
-#    Updated: 2021/01/18 21:14:12 by daelee           ###   ########.fr        #
+#    Updated: 2021/01/24 11:20:37 by daelee           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,8 +25,6 @@ SRCS	= 	main.c \
 			utils/utils_exec.c \
 			error/ft_error.c \
 			# parser/parser.c \
-			# parser/parser_utils.c \
-			
 
 LEAKS	=	-g3 -fsanitize=address
 
@@ -35,6 +33,7 @@ LIBFT	=	libft.a
 LIBS	=	-L./Libft -lft
 
 HEADER	=	-I./
+# 추후 minishell_gaekim.h 와 병합
 
 FLAG	= 	
 
