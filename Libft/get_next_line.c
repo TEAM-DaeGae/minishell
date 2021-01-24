@@ -3,106 +3,101 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gaekim <gaekim@student.42seoul.kr>         +#+  +:+       +#+        */
+/*   By: daelee <daelee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/04/25 17:00:51 by gaekim            #+#    #+#             */
-/*   Updated: 2021/01/14 20:52:48 by gaekim           ###   ########.fr       */
+/*   Created: 2020/03/24 22:04:43 by kycho             #+#    #+#             */
+/*   Updated: 2021/01/24 21:45:00 by daelee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <limits.h>
-#define BUFFER_SIZE 1000000
 #include "libft.h"
 
-static void	ft_strfree(char **s)
+static ssize_t	read_to_buffer(int fd, t_gnl_material *material)
 {
-	if (s != NULL && *s != NULL)
-	{
-		free(*s);
-		*s = NULL;
-	}
+	ssize_t readn;
+
+	readn = read(fd, material->buffer, BUFFER_SIZE);
+	if (readn == -1 || readn == 0)
+		return (readn);
+	material->last_idx = readn - 1;
+	material->start_idx = 0;
+	material->value_to_print_exist = 1;
+	return (readn);
 }
 
-static int	put_str_into_line(char **s, int fd, char **line)
+static int		expand_line_size(char **line, size_t *line_size)
 {
-	int			len;
-	char		*temp;
+	char *new_line;
 
-	len = 0;
-	while (s[fd][len] != '\n' && s[fd][len] != '\0')
-		len++;
-	if (s[fd][len] == '\n')
+	if (*line_size == 0 && *line == NULL)
 	{
-		if (len == 0)
-			*line = ft_strdup("");
-		else
-			*line = ft_substr(s[fd], 0, len);
-		temp = ft_strdup(&s[fd][len + 1]);
-		ft_strfree(&s[fd]);
-		s[fd] = temp;
-		if (s[fd][0] == 0)
-			ft_strfree(&s[fd]);
+		if (!(*line = ft_calloc(BUFFER_SIZE + 1, sizeof(char))))
+			return (-1);
+		*line_size = BUFFER_SIZE + 1;
 	}
 	else
 	{
-		*line = ft_strdup(s[fd]);
-		ft_strfree(&s[fd]);
-		return (0);
+		new_line = ft_calloc(*line_size + BUFFER_SIZE, sizeof(char));
+		if (new_line == NULL)
+			return (-1);
+		ft_memccpy(new_line, *line, '\0', *line_size);
+		free(*line);
+		*line = new_line;
+		*line_size += BUFFER_SIZE;
 	}
 	return (1);
 }
 
-static int	return_value(char **s, int fd, int r_size, char **line)
+static int		copy_buffer(char **line, t_gnl_material *material)
 {
-	int			ret;
+	char	ch;
+	size_t	line_idx;
 
-	ret = 0;
-	if (r_size < 0)
-		ret = -1;
-	else if (r_size == 0 && s[fd] == 0)
+	line_idx = ft_strlen(*line);
+	while (material->start_idx <= material->last_idx)
 	{
-		*line = ft_strdup("");
-		ft_strfree(&s[fd]);
-		ret = 0;
-	}
-	else
-		ret = put_str_into_line(s, fd, line);
-	return (ret);
-}
-
-static int	find_enter(char *s)
-{
-	while (*s)
-	{
-		if (*s == '\n')
-			return (1);
-		s++;
-	}
-	return (0);
-}
-
-int			get_next_line(int fd, char **line)
-{
-	static char	*backup[OPEN_MAX];
-	char		buff[BUFFER_SIZE + 1];
-	int			r_size;
-	char		*temp;
-
-	if (fd < 0 || line == 0 || fd > OPEN_MAX || BUFFER_SIZE <= 0)
-		return (-1);
-	while ((r_size = read(fd, buff, BUFFER_SIZE)) > 0)
-	{
-		buff[r_size] = '\0';
-		if (backup[fd] == NULL)
-			backup[fd] = ft_strdup(buff);
-		else
+		ch = material->buffer[material->start_idx];
+		if (ch == '\n')
 		{
-			temp = ft_strjoin(backup[fd], buff);
-			ft_strfree(&backup[fd]);
-			backup[fd] = temp;
+			if (material->start_idx == material->last_idx)
+				material->value_to_print_exist = 0;
+			else
+				material->start_idx++;
+			return (0);
 		}
-		if (find_enter(backup[fd]) != 0)
-			break ;
+		(*line)[line_idx] = ch;
+		line_idx++;
+		material->start_idx++;
 	}
-	return (return_value(backup, fd, r_size, line));
+	material->value_to_print_exist = 0;
+	return (1);
+}
+
+int				get_next_line(int fd, char **line)
+{
+	static t_gnl_material	material[FD_NUMBER];
+	size_t					line_size;
+	ssize_t					readn;
+
+	if (fd < 0 || line == NULL || BUFFER_SIZE <= 0)
+		return (-1);
+	*line = NULL;
+	line_size = 0;
+	if (expand_line_size(line, &line_size) == -1)
+		return (-1);
+	if (material[fd].value_to_print_exist == 0)
+	{
+		readn = read_to_buffer(fd, &material[fd]);
+		if (readn == -1 || readn == 0)
+			return (readn);
+	}
+	while (copy_buffer(line, &material[fd]) == 1)
+	{
+		readn = read_to_buffer(fd, &material[fd]);
+		if (readn == -1 || readn == 0)
+			return (readn);
+		if (expand_line_size(line, &line_size) == -1)
+			return (-1);
+	}
+	return (1);
 }
