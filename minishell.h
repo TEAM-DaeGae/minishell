@@ -16,11 +16,11 @@
 # define FALSE 0
 # define TRUE 1 
 
-# define ERROR 0
+# define ERROR -1
 # define SUCCESS 1
 
 # define ERROR_P NULL
-# define BASH_SUCCESS 0
+# define ERR_SUCCESS  0
 # define BASH_ERR_NOL 1
 # define BASH_ERR_SYN 2 // 잘못 사용된 builtin 명령, syntax error
 # define BASH_ERR_EXE 126 // 명령 실행 불가, 명령은 존재하지만 excutable 이 아니거나 퍼미션 문제

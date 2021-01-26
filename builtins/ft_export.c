@@ -6,7 +6,7 @@
 /*   By: daelee <daelee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/11 11:44:44 by daelee            #+#    #+#             */
-/*   Updated: 2021/01/24 21:46:35 by daelee           ###   ########.fr       */
+/*   Updated: 2021/01/26 18:20:17 by daelee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ int	        check_export(char *str, char ***envs)
 		return (ERROR);
 	i = -1;
 	while ((*envs)[++i] != NULL)
-		if (!ft_strncmp((*envs)[i], str, ft_strlen(str)))
+		if (!ft_strcmp((*envs)[i], str))
 		{
 			free((*envs)[i]);
 			(*envs)[i] = ft_strdup(str);

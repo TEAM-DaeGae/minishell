@@ -6,7 +6,7 @@
 /*   By: daelee <daelee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/14 12:11:52 by daelee            #+#    #+#             */
-/*   Updated: 2021/01/14 15:01:37 by daelee           ###   ########.fr       */
+/*   Updated: 2021/01/26 18:20:30 by daelee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ char		*find_value(char *key, char **envs)
 	i = -1;
 	while (envs[++i])
 	{
-		if (!ft_strncmp(envs[i], key, ft_strlen(key)))
+		if (!ft_strcmp(envs[i], key))
 			return(envs[i] + ft_strlen(key) + 1);
 	}
 	return ("");

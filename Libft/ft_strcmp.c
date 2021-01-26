@@ -1,20 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_error.c                                         :+:      :+:    :+:   */
+/*   ft_strcmp.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: daelee <daelee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/01/09 15:31:38 by daelee            #+#    #+#             */
-/*   Updated: 2021/01/26 18:00:10 by daelee           ###   ########.fr       */
+/*   Created: 2021/01/26 18:16:01 by daelee            #+#    #+#             */
+/*   Updated: 2021/01/26 18:17:21 by daelee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "libft.h"
 
-int		ft_puterror_fd(char *s1, char *s2, int fd)
+int		ft_strcmp(const char *s1, const char *s2)
 {
-	ft_putstr_fd(s1, fd);
-	ft_putendl_fd(s2, fd);
-	return (127);
+	size_t max_len;
+	size_t s1_len;
+	size_t s2_len;
+
+	s1_len = ft_strlen(s1);
+	s2_len = ft_strlen(s2);
+	if (s1_len > s2_len)
+		max_len = s1_len;
+	else
+		max_len = s2_len;
+	return (ft_strncmp(s1, s2, max_len));
 }

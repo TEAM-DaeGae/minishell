@@ -6,7 +6,7 @@
 /*   By: daelee <daelee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/07 09:46:05 by daelee            #+#    #+#             */
-/*   Updated: 2021/01/24 21:47:01 by daelee           ###   ########.fr       */
+/*   Updated: 2021/01/26 18:21:16 by daelee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,11 @@ int		main(int argc, char **argv, char **envp)
 	char	*input;
 	t_list	*data_list;
 
+	char    **cmdline = malloc(sizeof(char *) * 3);
+     cmdline[0] = ft_strdup("cd");
+     cmdline[1] = ft_strdup("sds");
+     cmdline[2] = ft_strdup(0);
+	 
 	(void)argc;
 	(void)argv;
 	g_envp = copy_envp(envp);
@@ -62,6 +67,7 @@ int		main(int argc, char **argv, char **envp)
 			ft_putstr_fd("exit\n", STDIN_FILENO);
 			exit(EXIT_SUCCESS);
 		}
+		exec_builtin(cmdline);
 		// else if (parsing(input))
 		// {
 		

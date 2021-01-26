@@ -6,7 +6,7 @@
 /*   By: daelee <daelee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/08 09:46:25 by daelee            #+#    #+#             */
-/*   Updated: 2021/01/14 14:39:18 by daelee           ###   ########.fr       */
+/*   Updated: 2021/01/26 18:19:36 by daelee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,19 +20,19 @@ int				exec_builtin(char **cmdline)
     char        *builtin;
     
     builtin = cmdline[0];
-	if (!ft_strncmp(builtin, "cd", ft_strlen(builtin)))
+	if (!ft_strcmp(builtin, "cd"))
 		ft_cd(cmdline, g_envp);
-	else if (!ft_strncmp(builtin, "echo", ft_strlen(builtin)))
+	else if (!ft_strcmp(builtin, "echo"))
 		ft_echo(cmdline);
-	else if (!ft_strncmp(builtin, "pwd", ft_strlen(builtin)))
+	else if (!ft_strcmp(builtin, "pwd"))
 	 	ft_pwd();
-	else if (!ft_strncmp(builtin, "env", ft_strlen(builtin)))
+	else if (!ft_strcmp(builtin, "env"))
 		ft_env(g_envp);
-	else if (!ft_strncmp(builtin, "export", ft_strlen(builtin)))
+	else if (!ft_strcmp(builtin, "export"))
 		ft_export(cmdline);
-	else if (!ft_strncmp(builtin, "unset", ft_strlen(builtin)))
+	else if (!ft_strcmp(builtin, "unset"))
 		ft_unset(cmdline);
-	else if (!ft_strncmp(builtin, "exit", ft_strlen(builtin)))
+	else if (!ft_strcmp(builtin, "exit"))
 		ft_exit(cmdline);
 	else
 		return (0);
