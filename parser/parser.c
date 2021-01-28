@@ -1,5 +1,5 @@
 #include "minishell_gaekim.h"
-#include "minishell.h"
+#include "../minishell.h"
 
 int		count_token(char *input)
 {
