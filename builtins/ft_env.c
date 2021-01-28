@@ -6,7 +6,7 @@
 /*   By: daelee <daelee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/08 11:05:25 by daelee            #+#    #+#             */
-/*   Updated: 2021/01/11 10:04:50 by daelee           ###   ########.fr       */
+/*   Updated: 2021/01/29 02:29:44 by daelee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,8 @@ int		ft_env(char **envs)
 	i = 0;
 	while (envs[i])
 	{
-		write(1, envs[i], ft_strlen(envs[i]));
-		write(1, "\n", 1);
+		write(STDOUT, envs[i], ft_strlen(envs[i]));
+		write(STDOUT, "\n", 1);
 		i++;
 	}
 	return (1);

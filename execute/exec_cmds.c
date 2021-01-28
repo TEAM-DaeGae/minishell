@@ -6,18 +6,15 @@
 /*   By: daelee <daelee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/08 09:46:25 by daelee            #+#    #+#             */
-/*   Updated: 2021/01/26 18:19:36 by daelee           ###   ########.fr       */
+/*   Updated: 2021/01/29 02:35:00 by daelee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-extern 	char **g_envp;
-extern 	int  g_exit_status;
-
-int				exec_builtin(char **cmdline)
+int			exec_builtin(char **cmdline)
 {
-    char        *builtin;
+    char	*builtin;
     
     builtin = cmdline[0];
 	if (!ft_strcmp(builtin, "cd"))
@@ -41,7 +38,7 @@ int				exec_builtin(char **cmdline)
 	return (1);
 }
 
-void			exec_bin(char **cmdline)
+void		exec_bin(char **cmdline)
 {
 	int		status;
 	char	*path;
@@ -56,7 +53,10 @@ void			exec_bin(char **cmdline)
 	if (child == 0)
 	{
 		if (execve(path, cmdline, g_envp) == -1)
-			exit(ft_puterror_fd(cmdline[0], ": command not found", 2));
+		{
+			print_execute_err(cmdline[0], "command not found");
+			exit(127);
+		}
 		exit(EXIT_SUCCESS);
 	}
 	signal(SIGINT, handle_child_signal);
@@ -64,7 +64,7 @@ void			exec_bin(char **cmdline)
 	signal(SIGINT, handle_signal);
 	free(path);
 	free_double_arr(cmdline);
-	g_exit_status = status / 256;
+	g_exit_status = status % 256;
 }
 
 void			exec_cmds(char **cmdline)

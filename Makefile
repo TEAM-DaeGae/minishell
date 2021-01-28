@@ -6,7 +6,7 @@
 #    By: daelee <daelee@student.42seoul.kr>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/03/09 18:24:09 by daelee            #+#    #+#              #
-#    Updated: 2021/01/24 11:20:37 by daelee           ###   ########.fr        #
+#    Updated: 2021/01/29 02:24:12 by daelee           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,7 +23,9 @@ SRCS	= 	main.c \
 			execute/exec_cmds.c \
 			utils/utils_main.c \
 			utils/utils_exec.c \
-			error/ft_error.c \
+			error/envv_err.c \
+			error/execute_err.c \
+			error/exit_err.c \
 			# parser/parser.c \
 
 LEAKS	=	-g3 -fsanitize=address

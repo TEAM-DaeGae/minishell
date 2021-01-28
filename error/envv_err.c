@@ -1,28 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strncmp.c                                       :+:      :+:    :+:   */
+/*   envv_err.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: daelee <daelee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/04/06 20:26:01 by gaekim            #+#    #+#             */
-/*   Updated: 2021/01/29 00:30:00 by daelee           ###   ########.fr       */
+/*   Created: 2021/01/29 01:33:33 by daelee            #+#    #+#             */
+/*   Updated: 2021/01/29 02:26:07 by daelee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "minishell.h"
 
-int	ft_strncmp(const char *s1, const char *s2, size_t n)
+void	print_identifier_err(char *token1, char *token2)
 {
-	size_t	i;
-
-	i = 0;
-	if (n == 0)
-		return (0);
-	if (n > 0)
-	{
-		while (s1[i] == s2[i] && s1[i] != '\0' && s2[i] != '\0' && i + 1 < n)
-			i++;
-	}
-	return ((unsigned char)s1[i] - (unsigned char)s2[i]);
+	ft_putstr_fd("minishell", STDERR);
+	ft_putstr_fd(": ", STDERR);
+	ft_putstr_fd(token1, STDERR);
+	ft_putstr_fd(": `", STDERR);
+	ft_putstr_fd(token2, STDERR);
+	ft_putstr_fd("': not a valid identifier\n", STDERR);
 }

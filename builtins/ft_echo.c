@@ -6,7 +6,7 @@
 /*   By: daelee <daelee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/08 10:59:48 by daelee            #+#    #+#             */
-/*   Updated: 2021/01/26 18:20:08 by daelee           ###   ########.fr       */
+/*   Updated: 2021/01/29 02:28:30 by daelee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,10 +29,10 @@ void		ft_echo(char **cmdline)
 			option++;
 			i++;
 		}
-		ft_putstr_fd(cmdline[i], STDIN_FILENO);
+		ft_putstr_fd(cmdline[i], STDIN);
 		if (cmdline[i + 1] != NULL)
-			ft_putstr_fd(" ", STDIN_FILENO);
+			ft_putstr_fd(" ", STDIN);
 	}
 	if (option == 0)
-		ft_putstr_fd("\n", STDIN_FILENO);
+		ft_putstr_fd("\n", STDIN);
 }

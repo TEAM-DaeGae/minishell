@@ -1,20 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_error.c                                         :+:      :+:    :+:   */
+/*   execute_err.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: daelee <daelee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/01/09 15:31:38 by daelee            #+#    #+#             */
-/*   Updated: 2021/01/26 18:00:10 by daelee           ###   ########.fr       */
+/*   Created: 2021/01/29 01:32:55 by daelee            #+#    #+#             */
+/*   Updated: 2021/01/29 02:25:49 by daelee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int		ft_puterror_fd(char *s1, char *s2, int fd)
+int     print_execute_err(char *token, char *err_msg)
 {
-	ft_putstr_fd(s1, fd);
-	ft_putendl_fd(s2, fd);
-	return (127);
+	ft_putstr_fd("minishell", STDERR);
+	ft_putstr_fd(": ", STDERR);
+	ft_putstr_fd(token, STDERR);
+	ft_putstr_fd(": ", STDERR);
+    ft_putendl_fd(err_msg, STDERR);
+	return (ERROR);
 }

@@ -6,7 +6,7 @@
 /*   By: daelee <daelee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/08 11:00:19 by daelee            #+#    #+#             */
-/*   Updated: 2021/01/11 10:05:02 by daelee           ###   ########.fr       */
+/*   Updated: 2021/01/29 01:09:27 by daelee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ void		ft_pwd(void)
 {
 	char	*pwd;
 
-	pwd = getcwd(0, 1024);
+	pwd = getcwd(0, MAXSIZE);
 	ft_putendl_fd(pwd, 1);
 	free(pwd);
 }
