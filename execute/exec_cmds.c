@@ -6,7 +6,7 @@
 /*   By: daelee <daelee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/08 09:46:25 by daelee            #+#    #+#             */
-/*   Updated: 2021/01/29 02:35:00 by daelee           ###   ########.fr       */
+/*   Updated: 2021/01/29 03:11:04 by daelee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ void		exec_bin(char **cmdline)
 	{
 		if (execve(path, cmdline, g_envp) == -1)
 		{
-			print_execute_err(cmdline[0], "command not found");
+			print_execute_err_1(cmdline[0], "command not found");
 			exit(127);
 		}
 		exit(EXIT_SUCCESS);

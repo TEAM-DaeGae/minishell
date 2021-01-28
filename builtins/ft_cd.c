@@ -6,7 +6,7 @@
 /*   By: daelee <daelee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/08 10:56:00 by daelee            #+#    #+#             */
-/*   Updated: 2021/01/29 01:16:26 by daelee           ###   ########.fr       */
+/*   Updated: 2021/01/29 03:19:41 by daelee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ int			ft_cd(char **cmdline, char **envs)
 	{
 		path = cmdline[1];
 		if (chdir(path) == -1)
-			ft_putendl_fd(strerror(errno), 2);
+			print_execute_err_2("cd", path, strerror(errno));
 		if (!(tmp = malloc(sizeof(char) * MAXSIZE)))
 			return (0);
 		cur_pwd = ft_strjoin("PWD=", getcwd(tmp, MAXSIZE));
@@ -38,14 +38,14 @@ int			ft_cd(char **cmdline, char **envs)
 	{
 		path = find_value("HOME", envs);
 		if (chdir(path) == -1)
-			ft_putendl_fd(strerror(errno), 2);
+			print_execute_err_1("cd", "HOME not set");
 		return (ERROR);
 	}
 	else if (cmdline[1][0] == '$')
 	{
 		path = find_value(&cmdline[1][1], envs);
 		if (chdir(path) == -1)
-			ft_putendl_fd(strerror(errno), 2);
+			ft_putendl_fd(strerror(errno), STDERR);
 		return (ERROR);
 	}
 	return (SUCCESS);

@@ -72,7 +72,8 @@ int				ft_unset(char **cmdline);
 
 // errors
 void	        print_errno_err(char *err_msg);
-int             print_execute_err(char *token, char *err_msg);
+int		        print_execute_err_1(char *token, char *err_msg);
+int             print_execute_err_2(char *token1, char *token2, char *err_msg);
 void	        print_identifier_err(char *token1, char *token2);
 
 
