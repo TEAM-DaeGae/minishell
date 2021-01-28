@@ -44,17 +44,15 @@ typedef struct	s_list
 }				t_list;
 */
 
+// parser.c
 void	parse(char *input_temp);
 void	parse_all_char(char *input, t_data *data, t_list *head);
 void	add_node(t_data *data, t_list *head, char *input, int symbol);
 void	put_buff_into_cmdline(t_data *data);
 void	*initialize(char *input, t_data *data, t_list **head);
 int		count_token(char *input);
-
 int		check_white_space(char *input);
-
 void	exec_proc(t_list *proc);
-int		ft_exec_builtin(t_list *cur_node);
 
 // parse_error.c
 void    parse_error(t_data *ptr1, t_list *ptr2, char *comment);
