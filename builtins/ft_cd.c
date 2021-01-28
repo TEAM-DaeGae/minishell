@@ -6,11 +6,32 @@
 /*   By: daelee <daelee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/08 10:56:00 by daelee            #+#    #+#             */
-/*   Updated: 2021/01/29 03:19:41 by daelee           ###   ########.fr       */
+/*   Updated: 2021/01/29 03:41:26 by daelee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+int			ft_cd_home(char *path, char **cmdline, char **envs)
+{
+	if (cmdline[1] == NULL || (ft_double_strlen(cmdline) == 2))
+	{
+		path = find_value("HOME", envs);
+		if (chdir(path) == -1)
+			print_execute_err_1("cd", "HOME not set");
+	}
+	else if (ft_double_strlen(cmdline) != 2)
+		print_execute_err_2("cd", "~", "No such file or directory");
+	return (SUCCESS);
+}
+
+int			ft_cd_envv(char *path, char **cmdline, char **envs)
+{
+	path = find_value(&cmdline[1][1], envs);
+	if (chdir(path) == -1)
+		ft_putendl_fd(strerror(errno), STDERR);
+	return (SUCCESS);
+}
 
 int			ft_cd(char **cmdline, char **envs)
 {
@@ -34,19 +55,9 @@ int			ft_cd(char **cmdline, char **envs)
 		free(cur_pwd);
 		free(old_pwd);
 	}
-	else if (cmdline[1] == NULL || ((ft_double_strlen(cmdline) == 2) && (cmdline[1][0] == '~')))
-	{
-		path = find_value("HOME", envs);
-		if (chdir(path) == -1)
-			print_execute_err_1("cd", "HOME not set");
-		return (ERROR);
-	}
+	else if (cmdline[1][0] == '~')
+		ft_cd_home(path, cmdline, envs);
 	else if (cmdline[1][0] == '$')
-	{
-		path = find_value(&cmdline[1][1], envs);
-		if (chdir(path) == -1)
-			ft_putendl_fd(strerror(errno), STDERR);
-		return (ERROR);
-	}
+		ft_cd_envv(path, cmdline, envs);
 	return (SUCCESS);
 }
