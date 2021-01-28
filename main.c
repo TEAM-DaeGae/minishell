@@ -6,7 +6,7 @@
 /*   By: daelee <daelee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/07 09:46:05 by daelee            #+#    #+#             */
-/*   Updated: 2021/01/18 01:14:47 by gaekim           ###   ########.fr       */
+/*   Updated: 2021/01/29 04:36:41 by gaekim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ int		main(int argc, char **argv, char **envp)
 		}
  		else if (!check_white_space(input))
  			parse(input);
-        free(input);
+		free(input);
 	}
 	return (0);
 }
