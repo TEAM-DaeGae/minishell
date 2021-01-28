@@ -13,7 +13,6 @@
 #include "minishell.h"
 
 int		g_exit_status = 0;
-int		g_signal = 1;
 char	**g_envp = NULL;
 
 void	show_daegae(void)
@@ -24,7 +23,7 @@ void	show_daegae(void)
 	fd = open("utils/ascii_art", O_RDONLY);
 	while (get_next_line(fd, &line))
 	{
-		ft_putstr_fd("\033[36m", 1);
+		ft_putstr_fd("\033[36m", STDIN_FILENO);
 		ft_putendl_fd(line, STDOUT_FILENO);
 		free(line);
 	}
@@ -38,9 +37,9 @@ void	show_prompt(void)
 {
 	static char	*curpath;
 
-	ft_putstr_fd(" \033[1;96m", 1);
-	ft_putstr_fd(getcwd(curpath, MAXSIZE), 1);
-	ft_putstr_fd("\033[1;93m $\033[0m ", 1);
+	ft_putstr_fd(" \033[1;96m", STDIN_FILENO);
+	ft_putstr_fd(getcwd(curpath, MAXSIZE), STDIN_FILENO);
+	ft_putstr_fd("\033[1;93m $\033[0m ", STDIN_FILENO);
 }
 
 int		main(int argc, char **argv, char **envp)

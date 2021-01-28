@@ -1,43 +1,47 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils_setup.c                                      :+:      :+:    :+:   */
+/*   utils_main.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: daelee <daelee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/12 23:29:46 by daelee            #+#    #+#             */
-/*   Updated: 2021/01/14 12:51:39 by daelee           ###   ########.fr       */
+/*   Updated: 2021/01/24 21:41:45 by daelee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
 extern 	char **g_envp;
-extern	int g_signal;
 extern	int g_exit_status;
 
 void    set_signal(void)
 {
     signal(SIGINT, handle_signal);
 	signal(SIGQUIT, handle_signal);
-	signal(SIGTERM, handle_signal);
 }
 
 void	handle_child_signal(int signo)
 {
 	if (signo == SIGINT)
-		write(2, "\n", 1);
+		write(STDERR_FILENO, "\n", 1);
 }
 
 void	handle_signal(int signo)
 {
-	(void)signo;
-	g_exit_status = 256;
-	write(STDERR_FILENO, "\b\b", 2);
-	if (signo != SIGTERM)
+	if (signo == SIGINT)
+	{
+		write(STDERR_FILENO, "\b\b", 2);
 		write(STDERR_FILENO, "  \n", 3);
-	if (g_signal)
 		show_prompt();
+	}
+	else if (signo == SIGQUIT)
+	{
+		signo = wait(&signo);
+		write(STDERR_FILENO, "\b\b  \b\b", 6);
+		if (signo != -1)
+			write(STDERR_FILENO, "^\\Quit: 3\n", 10);
+	}
 }
 
 char	**copy_envp(char **envs)
