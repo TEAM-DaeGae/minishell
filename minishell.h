@@ -26,23 +26,6 @@
 # define BASH_ERR_EXE 126 // 명령 실행 불가, 명령은 존재하지만 excutable 이 아니거나 퍼미션 문제
 # define BASH_ERR_NOF 127 // not found, 파일이 존재하지 않음
 
-typedef struct	s_cmd
-{
-	char	**cmdline;
-	int		flag;
-	char	quote;
-}				t_cmd;
-
-typedef struct	s_data
-{
-	t_list	*lst;
-	t_cmd	*cmd;
-	char	*buff;
-	int		i;
-	int		j;
-	int		k;
-}				t_data;
-
 //setup
 void    		set_signal(void);
 char			**copy_envp(char **envs);
@@ -68,10 +51,7 @@ void			ft_exit(char **cmdline);
 int		    	ft_export(char **cmdline);
 int				ft_unset(char **cmdline);
 
-
-
 // errors
 int				ft_puterror_fd(char *s1, char *s2, int fd);
-
 
 #endif
