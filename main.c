@@ -6,7 +6,7 @@
 /*   By: daelee <daelee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/07 09:46:05 by daelee            #+#    #+#             */
-/*   Updated: 2021/01/29 03:48:04 by daelee           ###   ########.fr       */
+/*   Updated: 2021/01/29 11:58:55 by daelee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,8 +49,8 @@ int		main(int argc, char **argv, char **envp)
 
 	char    **cmdline = malloc(sizeof(char *) * 4);
      cmdline[0] = ft_strdup("cd");
-     cmdline[1] = ft_strdup("~");
-     cmdline[2] = ft_strdup("asdsas");
+     cmdline[1] = ft_strdup("$ABCDFEIBSIDBSB");
+     cmdline[2] = ft_strdup(0);
      cmdline[3] = ft_strdup(0);
 	 
 	(void)argc;

@@ -6,7 +6,7 @@
 /*   By: daelee <daelee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/08 10:56:00 by daelee            #+#    #+#             */
-/*   Updated: 2021/01/29 03:41:26 by daelee           ###   ########.fr       */
+/*   Updated: 2021/01/29 11:53:58 by daelee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,14 +14,9 @@
 
 int			ft_cd_home(char *path, char **cmdline, char **envs)
 {
-	if (cmdline[1] == NULL || (ft_double_strlen(cmdline) == 2))
-	{
-		path = find_value("HOME", envs);
-		if (chdir(path) == -1)
-			print_execute_err_1("cd", "HOME not set");
-	}
-	else if (ft_double_strlen(cmdline) != 2)
-		print_execute_err_2("cd", "~", "No such file or directory");
+	path = find_value("HOME", envs);
+	if (chdir(path) == -1)
+		print_execute_err_1("cd", "HOME not set");
 	return (SUCCESS);
 }
 
@@ -29,7 +24,7 @@ int			ft_cd_envv(char *path, char **cmdline, char **envs)
 {
 	path = find_value(&cmdline[1][1], envs);
 	if (chdir(path) == -1)
-		ft_putendl_fd(strerror(errno), STDERR);
+		chdir(find_value("HOME", envs));
 	return (SUCCESS);
 }
 
@@ -41,7 +36,7 @@ int			ft_cd(char **cmdline, char **envs)
 	char	*tmp;
 
 	path = 0;
-	if (cmdline[1][0] != '~' && cmdline[1][0] != '$')
+	if (cmdline[1] != NULL && cmdline [1][0] != '~' && cmdline[1][0] != '$')
 	{
 		path = cmdline[1];
 		if (chdir(path) == -1)
@@ -55,7 +50,7 @@ int			ft_cd(char **cmdline, char **envs)
 		free(cur_pwd);
 		free(old_pwd);
 	}
-	else if (cmdline[1][0] == '~')
+	else if (cmdline[1] == NULL || cmdline[1][0] == '~')
 		ft_cd_home(path, cmdline, envs);
 	else if (cmdline[1][0] == '$')
 		ft_cd_envv(path, cmdline, envs);
