@@ -6,7 +6,7 @@
 /*   By: daelee <daelee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/07 09:46:05 by daelee            #+#    #+#             */
-/*   Updated: 2021/01/29 11:58:55 by daelee           ###   ########.fr       */
+/*   Updated: 2021/01/30 13:13:05 by daelee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 
 int		g_exit_status = 0;
 char	**g_envp = NULL;
+t_list 	*g_proc_list;   // parse_proc에서 복사함
+int 	g_parse_error = 1; // 1이면 정상, 0이면 에러 발생
 
 void	show_daegae(void)
 {
