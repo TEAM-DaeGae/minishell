@@ -12,7 +12,7 @@
 
 #include "minishell.h"
 
-int			exec_builtin(char **cmdline)
+int			exec_cmds(char **cmdline)
 {
     char	*builtin;
     
@@ -32,8 +32,7 @@ int			exec_builtin(char **cmdline)
 	else if (!ft_strcmp(builtin, "exit"))
 		ft_exit(cmdline);
 	else
-		return (0);
-	free_double_arr(cmdline);
+		exec_bin(cmdline);
 	g_exit_status = 0;
 	return (1);
 }
@@ -46,7 +45,7 @@ void		exec_bin(char **cmdline)
 
 	if (!(path = find_path(cmdline[0], g_envp)))
 	{
-		free_double_arr(cmdline);
+		//free_double_arr(cmdline);
 		return ;
 	}
 	child = fork();
@@ -63,12 +62,6 @@ void		exec_bin(char **cmdline)
 	wait(&status);
 	signal(SIGINT, handle_signal);
 	free(path);
-	free_double_arr(cmdline);
+	//free_double_arr(cmdline);
 	g_exit_status = status % 256;
-}
-
-void			exec_cmds(char **cmdline)
-{
-    if (exec_builtin(cmdline) == 0)
-		exec_bin(cmdline);
 }

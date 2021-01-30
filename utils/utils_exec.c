@@ -12,17 +12,17 @@
 
 #include "minishell.h"
 
-void	free_double_arr(char **arr)
-{
-	int		idx;
+// void	free_double_arr(char **arr)
+// {
+// 	int		idx;
 
-	if (!arr)
-		return ;
-	idx = -1;
-	while (arr[++idx])
-		free(arr[idx]);
-	free(arr);
-}
+// 	if (!arr)
+// 		return ;
+// 	idx = -1;
+// 	while (arr[++idx])
+// 		free(arr[idx]);
+// 	free(arr);
+// }
 
 char		*find_value(char *key, char **envs)
 {
@@ -55,11 +55,11 @@ char		*find_path(char *cmdline, char **envs)
 		free(temp);
 		if (stat(new_path, &s) == 0)
 		{
-			free_double_arr(paths);
+			//free_double_arr(paths);
 			return (new_path);
 		}
 		free(new_path);
 	}
-	free_double_arr(paths);
+	//free_double_arr(paths);
 	return (ft_strdup(cmdline));
 }

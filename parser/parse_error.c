@@ -1,4 +1,3 @@
-//include "minishell_gaekim.h"
 #include "minishell.h"
 
 static void	clear_ptr1(t_data *ptr1)

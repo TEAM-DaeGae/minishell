@@ -29,8 +29,6 @@ SRCS	= 	main.c \
 			parser/parser.c \
 			parser/parse_error.c \
 
-LEAKS	=	-g3 -fsanitize=address
-
 LIBFT	=	libft.a
 
 LIBS	=	-L./Libft -lft
@@ -51,7 +49,7 @@ $(LIBFT):
 	$(MAKE) -C ./Libft
 
 $(NAME)	: $(LIBFT)
-	$(CC) $(SRCS) $(LIBS) $(HEADER) $(FLAG) -o $(NAME) 
+	$(CC) $(SRCS) $(LIBS) $(HEADER) $(FLAG) $(DEBUG) -o $(NAME) 
 
 clean	:
 	$(MAKE) -C ./Libft clean

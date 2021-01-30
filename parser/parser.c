@@ -1,4 +1,3 @@
-//#include "minishell_gaekim.h"
 #include "minishell.h"
 
 int		count_token(char *input)
@@ -73,11 +72,10 @@ void	exec_proc(t_list *head) // 인자는 연결리스트의 헤드포인터
 		cmd = cur_proc->content; // (t_cmd *)형태로 자료형변환을 위해 옮겨담음.
 		if (cmd->cmdline[0]) // 명령어가 있으면 실행
 		{
+			// if (cmd->flag == 1)
+			//  	ft_pipe(cur_proc, cmd);
 			if (cmd->flag == 0)
 				exec_cmds(cmd->cmdline);
-				//exec_builtin(cmd->cmdline); // cur_proc->content->cmdline
-			// else if (cmd->flag == 1)
-			// 	ft_pipe(cur_proc, cmd);
 		}
 		cur_proc = cur_proc->next;
 	}

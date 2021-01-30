@@ -88,9 +88,9 @@ void			free_double_arr(char **arr);
 char			*find_path(char *cmdline, char **envs);
 
 // exec
-void			exec_cmds(char **cmdline);
+//void			exec_cmds(char **cmdline);
 void			exec_bin(char **cmdline);
-int				exec_builtin(char **cmdline);
+int				exec_cmds(char **cmdline);
 int				ft_env(char **envs);
 void			ft_pwd(void);
 void			ft_echo(char **cmdline);
