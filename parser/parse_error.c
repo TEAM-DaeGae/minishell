@@ -57,7 +57,7 @@ void	free_cmdline(void *content)
 	}
 }
 
-void    parse_error(t_data *ptr1, t_list *ptr2, char *comment)
+void    *parse_error(t_data *ptr1, t_list *ptr2, char *comment)
 {
 	if (ptr1)
 		clear_ptr1(ptr1);
@@ -74,4 +74,6 @@ void    parse_error(t_data *ptr1, t_list *ptr2, char *comment)
 		g_exit_status = 1 * 256;
 	
     g_parse_error = 0; // return NULL 대신 error 플래그로 추가함.
+
+	return (NULL);
 }

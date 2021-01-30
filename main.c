@@ -47,8 +47,7 @@ void	show_prompt(void)
 int		main(int argc, char **argv, char **envp)
 {
 	char	*input;
-	t_list	*data_list;
-	 
+
 	(void)argc;
 	(void)argv;
 	g_envp = copy_envp(envp);

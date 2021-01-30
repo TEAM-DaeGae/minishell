@@ -89,6 +89,5 @@ char			*ft_strcpy(char *dest, char *src);
 int				ft_strcmp(char *s1, char *s2);
 int				ft_double_strlen(char **str);
 int				ft_isdigit_str(char *str);
-void 			**ft_calloc_double(size_t count, size_t size);
 
 #endif

@@ -37,7 +37,7 @@ LIBS	=	-L./Libft -lft
 
 HEADER	=	-I./
 
-FLAG	= 	
+FLAG	= 	-Wall -Wextra -Werror
 
 CC		=	gcc
 

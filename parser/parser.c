@@ -24,17 +24,17 @@ void	*initialize(char *input, t_data *data, t_list **head)
 	*head = ft_lstnew(NULL);
 	data->lstlast = *head;
 	if (!(data->cmd = ft_calloc(1, sizeof(t_cmd))))
-		return ((void *)0);
-	if (!(data->cmd->cmdline = ft_calloc_double(count_token(input) + 1, sizeof(char *)))) // 보류: char**이 calloc으로 가능?
-		return ((void *)0);
-	data->cmd->flag = 0; // 0 -> ; 또는 NULL, 1 -> 파이프(|)
+		return ((void *)parse_error(data, NULL, MALLOC_ERROR));
+	if (!(data->cmd->cmdline = ft_calloc(count_token(input) + 1, sizeof(char *)))) // 보류: char**이 calloc으로 가능?
+		return ((void *)parse_error(data, NULL, MALLOC_ERROR));
+	data->cmd->flag = 0;
 	data->cmd->quote = 0;
 	if (!(data->buff = ft_calloc(ft_strlen(input) + 1, sizeof(char))))
-		return ((void *)0);
+		return ((void *)parse_error(data, NULL, MALLOC_ERROR));
 	data->i = -1;
 	data->j = 0;
 	data->k = 0;
-	return (0);
+	return (NULL);
 }
 
 void	put_buff_into_cmdline(t_data *data)
@@ -101,7 +101,7 @@ void	parse_all_char(char *input, t_data *data, t_list *head)
 }
 
 // parse_error에 가는 상황(에러상황)의 경우, exec_proc으로 안 가고 main함수로 돌아가서 free만 하고 끝내야 한다.
-void	parse(char *input_temp)
+void	*parse(char *input_temp)
 {
 	t_data	data;
 	t_list	*head;
@@ -128,6 +128,8 @@ void	parse(char *input_temp)
 	// g_parse_error == 0인 경우, exec_cmd로 가지 않고 함수 종료.
 	if (g_parse_error)
 		exec_proc(head);
+
+	return (NULL);
 }
 
 int		check_white_space(char *input)

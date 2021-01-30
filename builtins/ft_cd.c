@@ -12,7 +12,7 @@
 
 #include "minishell.h"
 
-int			ft_cd_home(char *path, char **cmdline, char **envs)
+int			ft_cd_home(char *path, char **envs)
 {
 	path = find_value("HOME", envs);
 	if (chdir(path) == -1)
@@ -51,7 +51,7 @@ int			ft_cd(char **cmdline, char **envs)
 		free(old_pwd);
 	}
 	else if (cmdline[1] == NULL || cmdline[1][0] == '~')
-		ft_cd_home(path, cmdline, envs);
+		ft_cd_home(path, envs);
 	else if (cmdline[1][0] == '$')
 		ft_cd_envv(path, cmdline, envs);
 	return (SUCCESS);
