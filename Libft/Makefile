@@ -6,7 +6,7 @@
 #    By: daelee <daelee@student.42seoul.kr>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/04/17 00:17:56 by gaekim            #+#    #+#              #
-#    Updated: 2021/01/29 00:26:57 by daelee           ###   ########.fr        #
+#    Updated: 2021/01/30 13:55:30 by daelee           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,7 +23,7 @@ SRCS = ft_isalnum.c ft_isalpha.c ft_isascii.c ft_isdigit.c ft_isprint.c \
 		ft_lstdelone.c ft_lstclear.c ft_lstiter.c ft_lstmap.c \
 		ft_strtok.c ft_strcpy.c ft_strncmp.c \
 		get_next_line.c \
-		ft_double_strlen.c ft_isdigit_str.c
+		ft_double_strlen.c ft_isdigit_str.c ft_calloc_double.c \
 
 OBJS = $(SRCS:%.c=%.o)
 

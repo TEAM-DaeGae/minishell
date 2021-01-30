@@ -6,7 +6,7 @@
 /*   By: daelee <daelee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/17 00:11:45 by gaekim            #+#    #+#             */
-/*   Updated: 2021/01/29 00:27:16 by daelee           ###   ########.fr       */
+/*   Updated: 2021/01/30 13:54:44 by daelee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,5 +89,6 @@ char			*ft_strcpy(char *dest, char *src);
 int				ft_strcmp(char *s1, char *s2);
 int				ft_double_strlen(char **str);
 int				ft_isdigit_str(char *str);
+void 			**ft_calloc_double(size_t count, size_t size);
 
 #endif

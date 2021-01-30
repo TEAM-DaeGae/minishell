@@ -1,7 +1,5 @@
-#include "minishell_gaekim.h"
-
-extern int	g_exit_status;
-extern int	g_parse_error;
+//include "minishell_gaekim.h"
+#include "minishell.h"
 
 static void	clear_ptr1(t_data *ptr1)
 {

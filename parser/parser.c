@@ -1,5 +1,5 @@
-#include "minishell_gaekim.h"
-#include "../minishell.h"
+//#include "minishell_gaekim.h"
+#include "minishell.h"
 
 int		count_token(char *input)
 {
@@ -25,7 +25,7 @@ void	*initialize(char *input, t_data *data, t_list **head)
 	data->lstlast = *head;
 	if (!(data->cmd = ft_calloc(1, sizeof(t_cmd))))
 		return ((void *)0);
-	if (!(data->cmd->cmdline = ft_calloc(count_token(input) + 1, sizeof(char *)))) // 보류: char**이 calloc으로 가능?
+	if (!(data->cmd->cmdline = ft_calloc_double(count_token(input) + 1, sizeof(char *)))) // 보류: char**이 calloc으로 가능?
 		return ((void *)0);
 	data->cmd->flag = 0; // 0 -> ; 또는 NULL, 1 -> 파이프(|)
 	data->cmd->quote = 0;
@@ -74,9 +74,10 @@ void	exec_proc(t_list *head) // 인자는 연결리스트의 헤드포인터
 		if (cmd->cmdline[0]) // 명령어가 있으면 실행
 		{
 			if (cmd->flag == 0)
-				exec_builtin(cmd->cmdline); // cur_proc->content->cmdline
-			else if (cmd->flag == 1)
-				ft_pipe(cur_proc, cmd);
+				exec_cmds(cmd->cmdline);
+				//exec_builtin(cmd->cmdline); // cur_proc->content->cmdline
+			// else if (cmd->flag == 1)
+			// 	ft_pipe(cur_proc, cmd);
 		}
 		cur_proc = cur_proc->next;
 	}
