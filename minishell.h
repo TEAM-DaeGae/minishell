@@ -26,23 +26,6 @@
 extern 	char **g_envp;
 extern 	int  g_exit_status;
 
-typedef struct	s_cmd
-{
-	char	**cmdline;
-	int		flag;
-	char	quote;
-}				t_cmd;
-
-typedef struct	s_data
-{
-	t_list	*lst;
-	t_cmd	*cmd;
-	char	*buff;
-	int		i;
-	int		j;
-	int		k;
-}				t_data;
-
 //setup
 void    		set_signal(void);
 char			**copy_envp(char **envs);
@@ -69,12 +52,10 @@ int		    	ft_export(char **cmdline);
 int	            check_export(char *str, char ***envs);
 int				ft_unset(char **cmdline);
 
-
 // errors
 void	        print_errno_err(char *err_msg);
 int		        print_execute_err_1(char *token, char *err_msg);
 int             print_execute_err_2(char *token1, char *token2, char *err_msg);
 void	        print_identifier_err(char *token1, char *token2);
-
 
 #endif

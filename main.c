@@ -46,12 +46,6 @@ int		main(int argc, char **argv, char **envp)
 {
 	char	*input;
 	t_list	*data_list;
-
-	char    **cmdline = malloc(sizeof(char *) * 4);
-     cmdline[0] = ft_strdup("cd");
-     cmdline[1] = ft_strdup("$ABCDFEIBSIDBSB");
-     cmdline[2] = ft_strdup(0);
-     cmdline[3] = ft_strdup(0);
 	 
 	(void)argc;
 	(void)argv;
@@ -68,12 +62,9 @@ int		main(int argc, char **argv, char **envp)
 			ft_putstr_fd("exit\n", STDIN);
 			exit(EXIT_SUCCESS);
 		}
-		exec_builtin(cmdline);
-		// else if (parsing(input))
-		// {
-		
-		// }
-    free(input);
+ 		else if (!check_white_space(input))
+ 			parse(input);
+		free(input);
 	}
 	return (0);
 }
