@@ -6,15 +6,11 @@
 /*   By: daelee <daelee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/14 12:11:52 by daelee            #+#    #+#             */
-/*   Updated: 2021/01/14 15:01:37 by daelee           ###   ########.fr       */
+/*   Updated: 2021/01/29 02:42:57 by daelee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-extern 	char **g_envp;
-extern 	int  g_exit_status;
-char    **cmdline;
 
 void	free_double_arr(char **arr)
 {

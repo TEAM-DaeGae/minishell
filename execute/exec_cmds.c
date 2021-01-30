@@ -6,33 +6,30 @@
 /*   By: daelee <daelee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/08 09:46:25 by daelee            #+#    #+#             */
-/*   Updated: 2021/01/14 14:39:18 by daelee           ###   ########.fr       */
+/*   Updated: 2021/01/29 03:11:04 by daelee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-extern 	char **g_envp;
-extern 	int  g_exit_status;
-
-int				exec_builtin(char **cmdline)
+int			exec_builtin(char **cmdline)
 {
-    char        *builtin;
+    char	*builtin;
     
     builtin = cmdline[0];
-	if (!ft_strncmp(builtin, "cd", ft_strlen(builtin)))
+	if (!ft_strcmp(builtin, "cd"))
 		ft_cd(cmdline, g_envp);
-	else if (!ft_strncmp(builtin, "echo", ft_strlen(builtin)))
+	else if (!ft_strcmp(builtin, "echo"))
 		ft_echo(cmdline);
-	else if (!ft_strncmp(builtin, "pwd", ft_strlen(builtin)))
+	else if (!ft_strcmp(builtin, "pwd"))
 	 	ft_pwd();
-	else if (!ft_strncmp(builtin, "env", ft_strlen(builtin)))
+	else if (!ft_strcmp(builtin, "env"))
 		ft_env(g_envp);
-	else if (!ft_strncmp(builtin, "export", ft_strlen(builtin)))
+	else if (!ft_strcmp(builtin, "export"))
 		ft_export(cmdline);
-	else if (!ft_strncmp(builtin, "unset", ft_strlen(builtin)))
+	else if (!ft_strcmp(builtin, "unset"))
 		ft_unset(cmdline);
-	else if (!ft_strncmp(builtin, "exit", ft_strlen(builtin)))
+	else if (!ft_strcmp(builtin, "exit"))
 		ft_exit(cmdline);
 	else
 		return (0);
@@ -41,7 +38,7 @@ int				exec_builtin(char **cmdline)
 	return (1);
 }
 
-void			exec_bin(char **cmdline)
+void		exec_bin(char **cmdline)
 {
 	int		status;
 	char	*path;
@@ -56,7 +53,10 @@ void			exec_bin(char **cmdline)
 	if (child == 0)
 	{
 		if (execve(path, cmdline, g_envp) == -1)
-			exit(ft_puterror_fd(cmdline[0], ": command not found", 2));
+		{
+			print_execute_err_1(cmdline[0], "command not found");
+			exit(127);
+		}
 		exit(EXIT_SUCCESS);
 	}
 	signal(SIGINT, handle_child_signal);
@@ -64,7 +64,7 @@ void			exec_bin(char **cmdline)
 	signal(SIGINT, handle_signal);
 	free(path);
 	free_double_arr(cmdline);
-	g_exit_status = status / 256;
+	g_exit_status = status % 256;
 }
 
 void			exec_cmds(char **cmdline)
