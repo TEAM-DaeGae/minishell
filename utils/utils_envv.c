@@ -1,28 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils_exec.c                                       :+:      :+:    :+:   */
+/*   utils_envv.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: daelee <daelee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/14 12:11:52 by daelee            #+#    #+#             */
-/*   Updated: 2021/01/29 02:42:57 by daelee           ###   ########.fr       */
+/*   Updated: 2021/01/31 17:43:17 by daelee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-// void	free_double_arr(char **arr)
-// {
-// 	int		idx;
+char **copy_envp(char **envs)
+{
+	char **new;
+	int i;
 
-// 	if (!arr)
-// 		return ;
-// 	idx = -1;
-// 	while (arr[++idx])
-// 		free(arr[idx]);
-// 	free(arr);
-// }
+	i = 0;
+	while (envs[++i] != NULL)
+		i++;
+	if (!(new = malloc(sizeof(char *) * (i + 1))))
+		return (NULL);
+	i = -1;
+	while (envs[++i])
+		new[i] = ft_strdup(envs[i]);
+	new[i] = NULL;
+	return (new);
+}
 
 char		*find_value(char *key, char **envs)
 {
