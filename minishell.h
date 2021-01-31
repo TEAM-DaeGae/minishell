@@ -26,14 +26,14 @@ extern int g_exit_status;
 # define STDOUT		1
 # define STDERR		2
 
+# define EXIT_SUCCESS 1
+# define EXIT_FAILURE 0
+
 //gaekim.h ~ setup 전 까지
 extern t_list *g_proc_list;
 extern int g_parse_error;
 
-#define EXIT_SHELL_SUCCESS 1
-#define EXIT_SHELL_FAILURE 0
-
-#define SYNTAX_ERROR "Syntax error: unexpected token!"
+#define SYNTAX_ERROR "Syntax error: near unexpected token!"
 #define QUOTE_ERROR "The number of Quotes is odd!"
 #define MALLOC_ERROR "Memory malloc fail!"
 #define PIPE_ERROR "Pipe function is failed!"
@@ -58,6 +58,14 @@ typedef struct s_data
 	int 	j;
 	int		k;
 }				t_data;
+
+/* libft.h 중복
+typedef struct	s_list
+{
+	void			*content;
+	struct s_list	*next;
+}				t_list;
+*/
 
 // parser.c
 void	*parse(char *input_temp);
@@ -88,7 +96,6 @@ void			free_double_arr(char **arr);
 char			*find_path(char *cmdline, char **envs);
 
 // exec
-//void			exec_cmds(char **cmdline);
 void			exec_bin(char **cmdline);
 int				exec_cmds(char **cmdline);
 int				ft_env(char **envs);
