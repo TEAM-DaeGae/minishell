@@ -6,7 +6,7 @@
 #    By: daelee <daelee@student.42seoul.kr>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/03/09 18:24:09 by daelee            #+#    #+#              #
-#    Updated: 2021/01/30 13:20:46 by daelee           ###   ########.fr        #
+#    Updated: 2021/01/31 17:44:06 by daelee           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,11 +21,11 @@ SRCS	= 	main.c \
 			builtins/ft_export.c \
 			builtins/ft_unset.c \
 			execute/exec_cmds.c \
-			utils/utils_main.c \
-			utils/utils_exec.c \
-			error/envv_err.c \
-			error/execute_err.c \
-			error/exit_err.c \
+			utils/utils_envv.c \
+			utils/utils_signal.c \
+			errors/envv_err.c \
+			errors/execute_err.c \
+			errors/exit_err.c \
 			parser/parser.c \
 			parser/parse_error.c \
 
