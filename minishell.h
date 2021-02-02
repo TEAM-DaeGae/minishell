@@ -26,8 +26,8 @@ extern int g_exit_status;
 # define STDOUT		1
 # define STDERR		2
 
-# define EXIT_SUCCESS 1
-# define EXIT_FAILURE 0
+// # define EXIT_SUCCESS 1
+// # define EXIT_FAILURE 0
 
 //gaekim.h ~ setup 전 까지
 extern t_list *g_proc_list;
@@ -96,9 +96,12 @@ void			free_double_arr(char **arr);
 char			*find_path(char *cmdline, char **envs);
 
 // exec
-void			exec_bin(char **cmdline);
-int				exec_cmds(char **cmdline);
-int				ft_env(char **envs);
+//void			exec_bin(char **cmdline);
+int 			check_builtin(char **cmdline);
+int 			exec_builtin(char **cmdline);
+int 			exec_cmds(t_list *cur_proc, t_cmd *cmd);
+
+int 			ft_env(char **envs);
 void			ft_pwd(void);
 void			ft_echo(char **cmdline);
 int			    ft_cd(char **cmdline, char **envs);
@@ -106,6 +109,7 @@ void			ft_exit(char **cmdline);
 int		    	ft_export(char **cmdline);
 int	            check_export(char *str, char ***envs);
 int				ft_unset(char **cmdline);
+
 
 // errors
 void	        print_errno_err(char *err_msg);

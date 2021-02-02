@@ -65,17 +65,18 @@ void	exec_proc(t_list *head) // 인자는 연결리스트의 헤드포인터
 	t_list	*cur_proc;
 	t_cmd	*cmd;
 
-	cur_proc = head->next;
-	g_proc_list = head;
+	//if (cur_proc == NULL)
+	cur_proc  = head->next;
+	//g_proc_list = head;
 	while (cur_proc != NULL)
 	{
 		cmd = cur_proc->content; // (t_cmd *)형태로 자료형변환을 위해 옮겨담음.
 		if (cmd->cmdline[0]) // 명령어가 있으면 실행
 		{
-			// if (cmd->flag == 1)
-			//  	ft_pipe(cur_proc, cmd);
-			if (cmd->flag == 0)
-				exec_cmds(cmd->cmdline);
+			if (check_builtin(cmd->cmdline) == 1)
+				exec_builtin(cmd->cmdline);
+			else
+				exec_cmds(cur_proc, cmd); //flag == 1 이면 파이프, comline == {ls, -al}
 		}
 		cur_proc = cur_proc->next;
 	}
