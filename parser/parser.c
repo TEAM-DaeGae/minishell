@@ -69,18 +69,15 @@ void	exec_proc(t_list *head) // 인자는 연결리스트의 헤드포인터
 	while (cur_proc != NULL)
 	{
 		cmd = cur_proc->content; // (t_cmd *)형태로 자료형변환을 위해 옮겨담음.
-		if (cmd->cmdline[0]) // 명령어가 있으면 실행
+		if (cmd->cmdline[0])
 		{
 			if (check_builtin(cmd->cmdline) == 1)
 				exec_builtin(cmd->cmdline);
 			else
-				exec_cmds(cur_proc, cmd); //flag == 1 이면 파이프, comline == {ls, -al}
+				exec_cmds(cur_proc, cmd);
 		}
 		cur_proc = cur_proc->next;
-
-		dprintf(2, "in while\n");
 	}
-	dprintf(2, "exec_process end \n");
 	ft_lstclear(&head, free_cmdline);
 }
 

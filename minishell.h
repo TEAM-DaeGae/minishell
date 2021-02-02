@@ -97,7 +97,6 @@ void			free_double_arr(char **arr);
 char			*find_path(char *cmdline, char **envs);
 
 // exec
-//void			exec_bin(char **cmdline);
 int 			check_builtin(char **cmdline);
 int 			exec_builtin(char **cmdline);
 int 			exec_cmds(t_list *cur_proc, t_cmd *cmd);

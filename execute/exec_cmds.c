@@ -6,7 +6,7 @@
 /*   By: daelee <daelee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/08 09:46:25 by daelee            #+#    #+#             */
-/*   Updated: 2021/02/03 01:05:26 by daelee           ###   ########.fr       */
+/*   Updated: 2021/02/03 02:04:40 by daelee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,10 +52,6 @@ int exec_cmds(t_list *cur_proc, t_cmd *cmd)
 	char *path;
 	t_cmd *next_cmd;
 
-	dprintf(2, "fds[0] : %d\n", cmd->fds[0]);
-	dprintf(2, "fds[1] : %d\n", cmd->fds[1]);
-
-	
 	ret = EXIT_FAILURE;
 	path = find_path(cmd->cmdline[0], g_envp);
 	next_cmd = cur_proc->content;
@@ -84,56 +80,14 @@ int exec_cmds(t_list *cur_proc, t_cmd *cmd)
 		}
 		if ((ret = execve(path, cmd->cmdline, g_envp)) < 0)
 			print_execute_err_1(cmd->cmdline[0], "command not found");
-		
 	}
 	else
 	{
-		/*
-		dup2(next_cmd->fds[0], STDIN);
-		close(next_cmd->fds[0]);
-		close(next_cmd->fds[1]);
-		*/
-		//cur_proc = cur_proc->next;
-		dprintf(2, "bef wat\n");
 		waitpid(pid, &status, 0);
-		dprintf(2, "after wat\n");
-
 		if (cmd->flag == 1)
-		{
-			close(next_cmd->fds[0]);
 			close(next_cmd->fds[1]);
-		}
+		if (cmd->fds[0] != 0) // 앞에 파이프가 열려있는 상태
+			close(cmd->fds[0]);
 	}
-	// if (WIFEXITED(status))
-	// 	ret = WEXITSTATUS(status);
 	return (ret);
 }
-
-// void		exec_bin(char **cmdline)
-// {
-// 	int		status;
-// 	char	*path;
-// 	pid_t	child;
-
-// 	if (!(path = find_path(cmdline[0], g_envp)))
-// 	{
-// 		//free_double_arr(cmdline);
-// 		return ;
-// 	}
-// 	child = fork();
-// 	if (child == 0)
-// 	{
-// 		if (execve(path, cmdline, g_envp) == -1)
-// 		{
-// 			print_execute_err_1(cmdline[0], "command not found");
-// 			exit(127);
-// 		}
-// 		exit(EXIT_SUCCESS);
-// 	}
-// 	signal(SIGINT, handle_child_signal);
-// 	wait(&status);
-// 	signal(SIGINT, handle_signal);
-// 	free(path);
-// 	//free_double_arr(cmdline);
-// 	g_exit_status = status % 256;
-// }
