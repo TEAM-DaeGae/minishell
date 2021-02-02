@@ -6,37 +6,40 @@
 /*   By: daelee <daelee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/12 23:29:46 by daelee            #+#    #+#             */
-/*   Updated: 2021/02/03 02:03:22 by daelee           ###   ########.fr       */
+/*   Updated: 2021/02/03 02:12:42 by daelee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void    set_signal(void)
-{
-    signal(SIGINT, handle_signal);
-	signal(SIGQUIT, handle_signal);
-}
-
-void	handle_child_signal(int signo)
-{
-	if (signo == SIGINT)
-		write(STDERR, "\n", 1);
-}
-
 void	handle_signal(int signo)
 {
+	pid_t pid;
+	int status;
+
+	pid = waitpid(-1, &status, WNOHANG);
 	if (signo == SIGINT)
 	{
-		write(STDERR, "\b\b", 2);
-		write(STDERR, "  \n", 3);
-		show_prompt();
+		if (pid == -1)
+		{
+			ft_putstr_fd("\b\b  \b\b\n", STDOUT);
+			show_prompt();
+			g_exit_status = 1;
+		}
+		else
+			ft_putchar_fd('\n', STDOUT);
 	}
 	else if (signo == SIGQUIT)
 	{
-		signo = wait(&signo);
-		write(STDERR, "\b\b  \b\b", 6);
-		if (signo != -1)
-			write(STDERR, "^\\Quit: 3\n", 10);
+		if (pid == -1)
+			ft_putstr_fd("\b\b  \b\b", STDOUT);
+		else
+			ft_putstr_fd("Quit: 3\n", STDOUT);
 	}
+}
+
+void set_signal(void)
+{
+	signal(SIGINT, handle_signal);
+	signal(SIGQUIT, handle_signal);
 }

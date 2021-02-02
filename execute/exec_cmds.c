@@ -6,7 +6,7 @@
 /*   By: daelee <daelee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/08 09:46:25 by daelee            #+#    #+#             */
-/*   Updated: 2021/02/03 02:04:40 by daelee           ###   ########.fr       */
+/*   Updated: 2021/02/03 02:20:11 by daelee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,7 @@ int exec_cmds(t_list *cur_proc, t_cmd *cmd)
 			close(cmd->fds[0]);
 			close(cmd->fds[1]);
 		}
-		if ((ret = execve(path, cmd->cmdline, g_envp)) < 0)
+		if ((ret = execve(path, cmd->cmdline, g_envp)) == -1)
 			print_execute_err_1(cmd->cmdline[0], "command not found");
 	}
 	else

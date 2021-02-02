@@ -89,9 +89,8 @@ char			**copy_envp(char **envs);
 void            show_prompt(void);
 void        	show_daegae(void);
 void			handle_signal(int signo);
-void			handle_child_signal(int signo);
 
-// utils_exec.c
+// utils_envv.c
 char			*find_value(char *key, char **envs);
 void			free_double_arr(char **arr);
 char			*find_path(char *cmdline, char **envs);
