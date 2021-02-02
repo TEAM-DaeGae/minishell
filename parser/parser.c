@@ -77,7 +77,10 @@ void	exec_proc(t_list *head) // 인자는 연결리스트의 헤드포인터
 				exec_cmds(cur_proc, cmd); //flag == 1 이면 파이프, comline == {ls, -al}
 		}
 		cur_proc = cur_proc->next;
+
+		dprintf(2, "in while\n");
 	}
+	dprintf(2, "exec_process end \n");
 	ft_lstclear(&head, free_cmdline);
 }
 

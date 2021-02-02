@@ -44,7 +44,7 @@ typedef struct s_cmd
 	char	**cmdline;  
 	int		flag; 
 	char	quote;
-	int 	fds[];
+	int 	fds[2];
 } 				t_cmd;
 
 /*
