@@ -41,9 +41,10 @@ extern int g_parse_error;
 
 typedef struct s_cmd
 {
-	char	**cmdline;
-	int		flag;
+	char	**cmdline;  
+	int		flag; 
 	char	quote;
+	int 	fds[];
 } 				t_cmd;
 
 /*

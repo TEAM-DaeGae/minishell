@@ -6,7 +6,7 @@
 /*   By: daelee <daelee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/08 09:46:25 by daelee            #+#    #+#             */
-/*   Updated: 2021/02/02 20:58:32 by daelee           ###   ########.fr       */
+/*   Updated: 2021/02/02 22:55:09 by daelee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,9 +57,9 @@ int exec_cmds(t_list *cur_proc, t_cmd *cmd)
 
 	ret = EXIT_FAILURE;
 	path = find_path(cmd->cmdline[0], g_envp);
-	if (cmd->flag == 1)
+	if (cmd->flag == 1) //flag==1 일때만 파이프 열어줌
 	{
-		if (pipe(fds))
+		if (pipe(fds) == -1)
 			return (EXIT_FAILURE);
 	}
 	pid = fork();
@@ -67,18 +67,22 @@ int exec_cmds(t_list *cur_proc, t_cmd *cmd)
 		return (EXIT_FAILURE);
 	else if (pid == 0)
 	{
+		close(fds[1]);
 		if (cmd->flag == 1 && dup2(fds[0], STDIN) < 0)
 			return (EXIT_FAILURE);
+		close(fds[0]);
 		if ((ret = execve(path, cmd->cmdline, g_envp)) < 0)
 			print_execute_err_1(cmd->cmdline[0], "command not found");
-		close(fds[0]);
-		close(fds[1]);
 	}
-	waitpid(pid, &status, 0);
-	close(fds[0]);
-	dup2(fds[1], STDOUT);
-	cur_proc = cur_proc->next;
-	close(fds[1]);
+	else
+	{
+		close(fds[0]);
+		dup2(fds[1], STDOUT);
+		close(fds[1]);
+		cur_proc = cur_proc->next;
+		waitpid(pid, &status, 0);
+	}
+
 	// if (WIFEXITED(status))
 	// 	ret = WEXITSTATUS(status);
 	return (ret);

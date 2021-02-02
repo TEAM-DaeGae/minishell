@@ -65,9 +65,7 @@ void	exec_proc(t_list *head) // 인자는 연결리스트의 헤드포인터
 	t_list	*cur_proc;
 	t_cmd	*cmd;
 
-	//if (cur_proc == NULL)
 	cur_proc  = head->next;
-	//g_proc_list = head;
 	while (cur_proc != NULL)
 	{
 		cmd = cur_proc->content; // (t_cmd *)형태로 자료형변환을 위해 옮겨담음.
