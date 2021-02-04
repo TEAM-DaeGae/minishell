@@ -97,18 +97,17 @@ char			*find_path(char *cmdline, char **envs);
 // exec
 int 			check_builtin(char **cmdline);
 void			exec_proc(t_list *proc);
-int 			exec_builtin( char **cmdline);
+int 			exec_builtin(t_cmd *cmd);
 int 			exec_cmds(t_list *cur_proc, t_cmd *cmd);
 
 int 			ft_env(char **envs);
 int				ft_pwd(void);
-int				ft_echo(char **cmdline);
-int			    ft_cd(char **cmdline, char **envs);
-void			ft_exit(char **cmdline);
-int		    	ft_export(char **cmdline);
+int 			ft_echo(t_cmd *cmd);
+int 			ft_cd(t_cmd *cmd, char **envs);
+void 			ft_exit(t_cmd *cmd);
+int 			ft_export(t_cmd *cmd);
 int	            check_export(char *str, char ***envs);
-int				ft_unset(char **cmdline);
-
+int 			ft_unset(t_cmd *cmd);
 
 // errors
 void	        print_errno_err(char *err_msg);

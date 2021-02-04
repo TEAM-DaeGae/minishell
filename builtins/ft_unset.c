@@ -6,7 +6,7 @@
 /*   By: daelee <daelee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/12 20:12:47 by daelee            #+#    #+#             */
-/*   Updated: 2021/01/14 14:08:36 by daelee           ###   ########.fr       */
+/*   Updated: 2021/02/04 22:01:26 by daelee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,16 +64,16 @@ int			unset_env(char *str, char ***envs)
 	return (SUCCESS);
 }
 
-int		ft_unset(char **cmdline)
+int 	ft_unset(t_cmd *cmd)
 {
 	int	res;
 	int	i;
 
 	i = 0;
 	res = 1;
-	while (cmdline[++i])
+	while (cmd->cmdline[++i])
 	{
-		if (isvalid_env(cmdline[i]) && unset_env(cmdline[i], &g_envp))
+		if (isvalid_env(cmd->cmdline[i]) && unset_env(cmd->cmdline[i], &g_envp))
 			;
 		else
 			res = 0;
