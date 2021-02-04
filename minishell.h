@@ -26,9 +26,6 @@ extern int g_exit_status;
 # define STDOUT		1
 # define STDERR		2
 
-// # define EXIT_SUCCESS 1
-// # define EXIT_FAILURE 0
-
 // gaekim.h 시작 (setup 전 까지)
 extern t_list *g_proc_list;
 extern int g_parse_error; // 1이면 정상, -1이면 에러 발생
