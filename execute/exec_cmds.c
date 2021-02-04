@@ -6,7 +6,7 @@
 /*   By: daelee <daelee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/08 09:46:25 by daelee            #+#    #+#             */
-/*   Updated: 2021/02/04 14:21:08 by daelee           ###   ########.fr       */
+/*   Updated: 2021/02/04 15:03:20 by daelee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,13 +64,12 @@ int exec_child_proc(t_cmd *cmd, t_cmd *next_cmd)
 		close(cmd->fds[0]);
 	}
 	if (check_builtin(cmd->cmdline) == TRUE)
-	{
-		if ((exec_builtin(cmd->cmdline)) == 1)
-			close(cmd->fds[0]);
-		}
+		exec_builtin(cmd->cmdline);
 	else (ret = execve(path, cmd->cmdline, g_envp));
 	if (ret == -1)
 		print_execute_err_1(cmd->cmdline[0], "command not found");
+	if (cmd->fds[0] != 0) // 앞에 파이프가 열려있는 상태
+		close(cmd->fds[0]);
 	return (ret);
 }
 
@@ -113,7 +112,7 @@ void exec_proc(t_list *head) // 인자는 연결리스트의 헤드포인터
 		cmd = cur_proc->content; // (t_cmd *)형태로 자료형변환을 위해 옮겨담음.
 		if (cmd->cmdline[0])
 		{
-			if (check_builtin(cmd->cmdline) == TRUE)
+			if ((check_builtin(cmd->cmdline)) == TRUE && cmd->flag == 0)
 				exec_builtin(cmd->cmdline);
 			else
 				exec_cmds(cur_proc, cmd);
