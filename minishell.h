@@ -29,7 +29,7 @@ extern int g_exit_status;
 // # define EXIT_SUCCESS 1
 // # define EXIT_FAILURE 0
 
-//gaekim.h ~ setup 전 까지
+// gaekim.h 시작 (setup 전 까지)
 extern t_list *g_proc_list;
 extern int g_parse_error; // 1이면 정상, -1이면 에러 발생
 
@@ -60,23 +60,17 @@ typedef struct s_data
 	int		k;
 }				t_data;
 
-/* libft.h 중복
-typedef struct	s_list
-{
-	void			*content;
-	struct s_list	*next;
-}				t_list;
-*/
-
 // parser.c
 void	*parse(char *input_temp);
 void	parse_all_char(char *input, t_data *data, t_list *head);
 int		add_node(t_data *data, t_list *head, char *input, int symbol);
 void	put_buff_into_cmdline(t_data *data);
+void	exec_proc(t_list *proc);
+
+// parse_utils.c
 void	*initialize(char *input, t_data *data, t_list **head);
 int		count_token(char *input);
 int		check_white_space(char *input);
-void	exec_proc(t_list *proc);
 
 // parse_error.c
 void	*parse_error(t_data *ptr1, t_list *ptr2, char *comment);
