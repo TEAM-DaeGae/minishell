@@ -6,7 +6,7 @@
 /*   By: daelee <daelee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/07 09:46:05 by daelee            #+#    #+#             */
-/*   Updated: 2021/02/03 02:14:33 by daelee           ###   ########.fr       */
+/*   Updated: 2021/02/04 13:53:33 by daelee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,20 +46,19 @@ void	show_prompt(void)
 
 int 		get_command_line(char **input)
 {
-	int 	res;
+	int 	ret;
 	char 	*input2;
 	char 	*tmp;
 
 	*input = ft_strdup("");
 	while (TRUE)
 	{
-		if ((res = get_next_line(STDIN, &input2)) == -1)
-			print_errno_err("get_next_line fail");
+		ret = get_next_line(STDIN, &input2);
 		tmp = ft_strjoin(*input, input2);
 		free(input2);
 		free(*input);
 		*input = tmp;
-		if (res == 0)
+		if (ret == 0)
 		{
 			ft_putstr_fd("  \b\b", STDOUT);
 			if (ft_strlen(*input) != 0)
@@ -68,23 +67,23 @@ int 		get_command_line(char **input)
 		}
 		break;
 	}
-	return (res);
+	return (ret);
 }
 
 int			main(int argc, char **argv, char **envp)
 {
 	char	*input;
-	int 	res;
+	int 	ret;
 
 	(void)argv;
 	g_envp = copy_envp(envp);
 	set_signal();
 	show_daegae();
-	res = argc;
-	while (res)
+	ret = argc;
+	while (ret)
 	{
 		show_prompt();
-		res = get_command_line(&input);
+		ret = get_command_line(&input);
  		if (!check_white_space(input))
  			parse(input);
 		free(input);

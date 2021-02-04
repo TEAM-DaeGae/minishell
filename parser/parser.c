@@ -60,27 +60,6 @@ void	add_node(t_data *data, t_list *head, char *input, int symbol)
 	data->k = 0;	
 }
 
-void	exec_proc(t_list *head) // 인자는 연결리스트의 헤드포인터
-{
-	t_list	*cur_proc;
-	t_cmd	*cmd;
-
-	cur_proc  = head->next;
-	while (cur_proc != NULL)
-	{
-		cmd = cur_proc->content; // (t_cmd *)형태로 자료형변환을 위해 옮겨담음.
-		if (cmd->cmdline[0])
-		{
-			if (check_builtin(cmd->cmdline) == 1)
-				exec_builtin(cmd->cmdline);
-			else
-				exec_cmds(cur_proc, cmd);
-		}
-		cur_proc = cur_proc->next;
-	}
-	ft_lstclear(&head, free_cmdline);
-}
-
 void	parse_all_char(char *input, t_data *data, t_list *head)
 {	
 	if (data->cmd->quote == input[data->i])

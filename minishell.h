@@ -76,7 +76,6 @@ void	put_buff_into_cmdline(t_data *data);
 void	*initialize(char *input, t_data *data, t_list **head);
 int		count_token(char *input);
 int		check_white_space(char *input);
-void	exec_proc(t_list *proc);
 
 // parse_error.c
 void	*parse_error(t_data *ptr1, t_list *ptr2, char *comment);
@@ -97,12 +96,13 @@ char			*find_path(char *cmdline, char **envs);
 
 // exec
 int 			check_builtin(char **cmdline);
-int 			exec_builtin(char **cmdline);
+void			exec_proc(t_list *proc);
+int 			exec_builtin( char **cmdline);
 int 			exec_cmds(t_list *cur_proc, t_cmd *cmd);
 
 int 			ft_env(char **envs);
-void			ft_pwd(void);
-void			ft_echo(char **cmdline);
+int				ft_pwd(void);
+int				ft_echo(char **cmdline);
 int			    ft_cd(char **cmdline, char **envs);
 void			ft_exit(char **cmdline);
 int		    	ft_export(char **cmdline);
