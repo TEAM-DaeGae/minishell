@@ -42,7 +42,8 @@ extern int g_parse_error;
 typedef struct s_cmd
 {
 	char	**cmdline;  
-	int		flag; 
+	int		flag;
+	int		preflag;
 	char	quote;
 	int 	fds[2];
 } 				t_cmd;
@@ -96,9 +97,11 @@ char			*find_path(char *cmdline, char **envs);
 
 // exec
 int 			check_builtin(char **cmdline);
-void			exec_proc(t_list *proc);
-int 			exec_builtin(t_cmd *cmd);
+void 			exec_process(t_list *proc);
 int 			exec_cmds(t_list *cur_proc, t_cmd *cmd);
+int 			exec_pipe(t_cmd *cmd);
+int 			exec_builtin(t_cmd *cmd);
+int 			exec_execve(t_cmd *cmd);
 
 int 			ft_env(char **envs);
 int				ft_pwd(void);

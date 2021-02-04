@@ -28,6 +28,8 @@ void	*initialize(char *input, t_data *data, t_list **head)
 		return ((void *)parse_error(data, NULL, MALLOC_ERROR));
 	data->cmd->flag = 0;
 	data->cmd->quote = 0;
+	data->cmd->fds[0] = 0;
+	data->cmd->fds[1] = 0;
 	if (!(data->buff = ft_calloc(ft_strlen(input) + 1, sizeof(char))))
 		return ((void *)parse_error(data, NULL, MALLOC_ERROR));
 	data->i = -1;
@@ -103,7 +105,7 @@ void	*parse(char *input_temp)
 
 	// g_parse_error == 0인 경우, exec_cmd로 가지 않고 함수 종료.
 	if (g_parse_error)
-		exec_proc(head);
+		exec_process(head);
 
 	return (NULL);
 }
