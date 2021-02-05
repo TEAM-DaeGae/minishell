@@ -6,7 +6,7 @@
 /*   By: daelee <daelee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/11 11:44:44 by daelee            #+#    #+#             */
-/*   Updated: 2021/02/05 16:20:04 by daelee           ###   ########.fr       */
+/*   Updated: 2021/02/05 16:34:13 by daelee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,21 +65,23 @@ int	        check_export(char *str, char ***envs)
 int 		ft_export(t_cmd *cmd)
 {
 	int     i;
-	int     ret;
+	int     res;
 
 	i = 0;
-	ret = 0;
-	if (cmd->preflag == 1)
-		return (1);
+	res = 1;
 	if (ft_double_strlen(cmd->cmdline) == 1)
-		ret = print_export(g_envp);
+		res = print_export(g_envp);
 	else
 	{
 		while (cmd->cmdline[++i])
-			ret = check_export(cmd->cmdline[i], &g_envp);
+		{
+			if (check_export(cmd->cmdline[i], &g_envp))
+				;
+			else
+				res = 0;
+		}
 	}
-	ret = g_exit_status;
-	if (g_exit_status)
+	if (res)
 		return (1);
 	else
 		return (0);
