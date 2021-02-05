@@ -58,10 +58,19 @@ void	put_buff_into_cmdline(t_data *data)
 
 void	parse_all_char(char *input, t_data *data, t_list *head)
 {	
-	if (data->cmd->quote == input[data->i])
-		data->cmd->quote = 0;
-	else if (data->cmd->quote == 0 && (input[data->i] == '\'' || input[data->i] == '\"'))
+	if (data->cmd->quote == input[data->i]) // '이나 "이 한 번 더 나온다면 (묶음 완성)
+	{
+		data->cmd->quote = 0; // 묶음 완성됐으므로 quote 초기화
+		if (input[data->i] == '\'') // '에 한해서만 닫는 '를 buff에 담아줌
+			data->buff[data->j++] = input[data->i];
+	}
+	else if (data->cmd->quote == 0 && input[data->i] == '\"') // "이면 quote에만 저장하고 buff엔 담지 않음
 		data->cmd->quote = input[data->i];
+	else if (data->cmd->quote == 0 && input[data->i] == '\'') // '이면 quote에 저장하고 buff에도 담음 (여는 ' 저장)
+	{
+		data->cmd->quote = input[data->i];
+		data->buff[data->j++] = input[data->i];
+	}
 	else if (data->cmd->quote == 0 && input[data->i] == ' ')
 		put_buff_into_cmdline(data);
 	else if (data->cmd->quote == 0 && input[data->i] == ';')
