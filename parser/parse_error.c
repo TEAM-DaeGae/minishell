@@ -65,8 +65,10 @@ void    *parse_error(t_data *ptr1, t_list *ptr2, char *comment)
 		ft_lstclear(&(ptr2->next), free_cmdline);
 		free(ptr2);
 	}
+
 	ft_putstr_fd("minishell: ", STDERR_FILENO);
 	ft_putendl_fd(comment, STDERR_FILENO);
+	
 	if (!ft_strncmp(comment, SYNTAX_ERROR, ft_strlen(SYNTAX_ERROR)))
 		g_exit_status = 2 * 256;
 	else
