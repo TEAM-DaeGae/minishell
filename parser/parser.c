@@ -79,6 +79,6 @@ void	*parse(char *input_temp)
 	free(data.buff);
 	// g_parse_error <= 0인 경우, exec_cmd로 가지 않고 함수 종료.
 	if (g_parse_error == 1)
-		exec_proc(head);
+		exec_process(head);
 	return (NULL);
 }

@@ -6,7 +6,7 @@
 /*   By: daelee <daelee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/08 09:46:25 by daelee            #+#    #+#             */
-/*   Updated: 2021/02/05 13:25:20 by daelee           ###   ########.fr       */
+/*   Updated: 2021/02/05 15:02:33 by daelee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ void exec_child_process(t_cmd *cmd, t_cmd *next_cmd)
 	exit(ret);
 }
 
-int exec_fork(t_list *cur_proc, t_cmd *cmd)
+int exec_pipe(t_list *cur_proc, t_cmd *cmd)
 {
 	pid_t pid;
 	int ret;
@@ -105,7 +105,7 @@ void exec_process(t_list *head) // 인자는 연결리스트의 헤드포인터
 			if ((check_builtin(cmd->cmdline) == TRUE) && cmd->flag == 0)
 				exec_builtin(cmd);
 			else
-				exec_fork(cur_proc, cmd);
+				exec_pipe(cur_proc, cmd);
 		}
 		cur_proc = cur_proc->next;
 	}

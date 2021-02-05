@@ -6,7 +6,7 @@
 /*   By: daelee <daelee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/08 10:59:48 by daelee            #+#    #+#             */
-/*   Updated: 2021/02/05 14:43:02 by daelee           ###   ########.fr       */
+/*   Updated: 2021/02/05 15:07:24 by daelee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ int 	ft_echo(t_cmd *cmd, char **envs)
 	ret = EXIT_SUCCESS;
 	while (cmd->cmdline[++i])
 	{
-		while (cmd->cmdline[i++] && (option++ + 1) == i &&
+		while (cmd->cmdline[i] && (option + 1) == i &&
 			   !ft_strcmp(cmd->cmdline[i], "-n"))
 		{
 			if (cmd->cmdline[i + 1] == NULL)
