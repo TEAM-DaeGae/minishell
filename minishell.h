@@ -74,11 +74,13 @@ void *parse_error(t_data *ptr1, t_list *ptr2, char *comment);
 void free_cmdline(void *content);
 void free_double_str(char **ptr);
 
-//setup
-void set_signal(void);
+// main.c
 char **copy_envp(char **envs);
 void show_prompt(void);
 void show_daegae(void);
+
+// utils_signal.c
+void set_signal(void);
 void handle_signal(int signo);
 
 // utils_envv.c
@@ -86,9 +88,12 @@ char *find_value(char *key, char **envs);
 void free_double_arr(char **arr);
 char *find_path(char *cmdline, char **envs);
 
+// utils_execute.c
+int 	check_builtin(char **cmdline);
+int 	remove_char(char *str, char c);
+
 // exec
 void exec_process(t_list *proc);
-int check_builtin(char **cmdline);
 int exec_builtin(t_cmd *cmd);
 int exec_pipe(t_list *cur_proc, t_cmd *cmd);
 void exec_child_process(t_cmd *cmd, t_cmd *next_cmd);
