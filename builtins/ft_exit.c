@@ -6,7 +6,7 @@
 /*   By: daelee <daelee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/11 09:52:14 by daelee            #+#    #+#             */
-/*   Updated: 2021/02/04 22:00:15 by daelee           ###   ########.fr       */
+/*   Updated: 2021/02/05 16:31:32 by daelee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@ void 		ft_exit(t_cmd *cmd)
 	int		argc;
 
 	argc = 0;
+	if (cmd->preflag == 1)
+		return ;
 	while (cmd->cmdline[argc] != NULL)
 		argc++;
 	if (argc == 1)

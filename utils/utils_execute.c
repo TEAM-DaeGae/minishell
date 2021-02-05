@@ -6,13 +6,13 @@
 /*   By: daelee <daelee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/05 01:22:58 by daelee            #+#    #+#             */
-/*   Updated: 2021/02/05 01:23:33 by daelee           ###   ########.fr       */
+/*   Updated: 2021/02/05 22:49:30 by daelee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int check_builtin(char **cmdline)
+int     check_builtin(char **cmdline)
 {
     char *builtin;
 
@@ -23,4 +23,21 @@ int check_builtin(char **cmdline)
     || !ft_strcmp(builtin, "unset") || !ft_strcmp(builtin, "exit")) \
         return (TRUE);
     return (FALSE);
+}
+
+int     remove_char(char *str, char c)
+{
+    int new;
+    int i;
+
+    new = 0;
+    i = 0;
+    while (str[i])
+    {
+        if (str[i] != c)
+            str[new ++] = str[i];
+        i++;
+    }
+    str[new] = 0;
+    return (TRUE);
 }

@@ -6,7 +6,7 @@
 /*   By: daelee <daelee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/08 09:46:25 by daelee            #+#    #+#             */
-/*   Updated: 2021/02/05 15:02:33 by daelee           ###   ########.fr       */
+/*   Updated: 2021/02/05 16:03:25 by daelee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,7 @@ int exec_pipe(t_list *cur_proc, t_cmd *cmd)
 	if (cmd->flag == 1)
 	{
 		next_cmd = cur_proc->next->content;
+		next_cmd->preflag = 1;
 		pipe(next_cmd->fds);
 	}
 	pid = fork();
