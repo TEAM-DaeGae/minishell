@@ -28,6 +28,7 @@ SRCS	= 	main.c \
 			errors/exit_err.c \
 			parser/parser.c \
 			parser/parse_error.c \
+			parser/parse_utils.c \
 
 LIBFT	=	libft.a
 

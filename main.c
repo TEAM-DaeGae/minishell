@@ -15,7 +15,6 @@
 int		g_exit_status = 0;
 char	**g_envp = NULL;
 t_list 	*g_proc_list;   // parse_proc에서 복사함
-int 	g_parse_error = 1; // 1이면 정상, 0이면 에러 발생
 
 void	show_daegae(void)
 {
