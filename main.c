@@ -6,7 +6,7 @@
 /*   By: daelee <daelee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/07 09:46:05 by daelee            #+#    #+#             */
-/*   Updated: 2021/01/30 13:13:05 by daelee           ###   ########.fr       */
+/*   Updated: 2021/02/04 20:16:16 by daelee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,28 +43,49 @@ void	show_prompt(void)
 	ft_putstr_fd("\033[1;93m $\033[0m ", STDIN);
 }
 
-int		main(int argc, char **argv, char **envp)
+int 		get_command_line(char **input)
+{
+	int 	ret;
+	char 	*input2;
+	char 	*tmp;
+
+	*input = ft_strdup("");
+	while (TRUE)
+	{
+		ret = get_next_line(STDIN, &input2);
+		tmp = ft_strjoin(*input, input2);
+		free(input2);
+		free(*input);
+		*input = tmp;
+		if (ret == 0)
+		{
+			ft_putstr_fd("  \b\b", STDOUT);
+			if (ft_strlen(*input) != 0)
+				continue;
+			ft_putstr_fd("exit\n", STDOUT);
+		}
+		break;
+	}
+	return (ret);
+}
+
+int			main(int argc, char **argv, char **envp)
 {
 	char	*input;
+	int 	ret;
 
-	(void)argc;
 	(void)argv;
 	g_envp = copy_envp(envp);
 	set_signal();
 	show_daegae();
-	while (1)
+	ret = argc;
+	while (ret)
 	{
 		show_prompt();
-		if (!get_next_line(STDIN, &input) && !ft_strlen(input))
-		{
-			free(input);
-			ft_putstr_fd("  \b\b", STDIN);
-			ft_putstr_fd("exit\n", STDIN);
-			exit(EXIT_SUCCESS);
-		}
- 		else if (!check_white_space(input))
+		ret = get_command_line(&input);
+ 		if (!check_white_space(input))
  			parse(input);
 		free(input);
 	}
-	return (0);
+	return (g_exit_status & 255);
 }

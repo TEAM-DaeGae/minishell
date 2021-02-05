@@ -2,30 +2,6 @@
 
 int g_parse_error;
 
-void	exec_proc(t_list *head) // 인자는 연결리스트의 헤드포인터
-{
-	t_list	*cur_proc;
-	t_cmd	*cmd;
-
-	cur_proc = head->next;
-	g_proc_list = head;
-	while (cur_proc != NULL)
-	{
-		cmd = cur_proc->content; // (t_cmd *)형태로 자료형변환을 위해 옮겨담음.
-		if (cmd->cmdline[0]) // 명령어가 있으면 실행
-		{
-			if (cmd->flag == 0)
-				exec_cmds(cmd->cmdline);
-			
-			// if (파이프 조건) 파이프 함수 실행
-			// else if (cmd->has_redir) // 파이프 다음 조건식으로 하기
-			// 	exec_redir(cmd->cmdline); // envp는 넘기지 않아도..?
-		}
-		cur_proc = cur_proc->next;
-	}
-	ft_lstclear(&head, free_cmdline);
-}
-
 int		add_node(t_data *data, t_list *head, char *input, int symbol)
 {
 	data->cmd->flag = symbol;
@@ -103,6 +79,6 @@ void	*parse(char *input_temp)
 	free(data.buff);
 	// g_parse_error <= 0인 경우, exec_cmd로 가지 않고 함수 종료.
 	if (g_parse_error == 1)
-		exec_proc(head);
+		exec_process(head);
 	return (NULL);
 }

@@ -6,33 +6,47 @@
 /*   By: daelee <daelee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/08 10:59:48 by daelee            #+#    #+#             */
-/*   Updated: 2021/01/29 02:28:30 by daelee           ###   ########.fr       */
+/*   Updated: 2021/02/05 15:07:24 by daelee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void		ft_echo(char **cmdline)
+void 		ft_echo_envv(t_cmd *cmd, char **envs, int i)
 {
-	int		i;
-	int		option;
+	(void)i;
+	char *value;
+	value = find_value(&(cmd->cmdline[1][1]), envs);
+	ft_putstr_fd(value, STDIN);
+}
+
+int 	ft_echo(t_cmd *cmd, char **envs)
+{
+	int i;
+	int option;
+	int ret;
 
 	i = 0;
 	option = 0;
-	while (cmdline[++i])
+	ret = EXIT_SUCCESS;
+	while (cmd->cmdline[++i])
 	{
-		while (cmdline[i] && (option + 1) == i &&
-		!ft_strcmp(cmdline[i], "-n"))
+		while (cmd->cmdline[i] && (option + 1) == i &&
+			   !ft_strcmp(cmd->cmdline[i], "-n"))
 		{
-			if (cmdline[i + 1] == NULL)
-				return ;
+			if (cmd->cmdline[i + 1] == NULL)
+				return (ret);
 			option++;
 			i++;
 		}
-		ft_putstr_fd(cmdline[i], STDIN);
-		if (cmdline[i + 1] != NULL)
+		if (cmd->cmdline[i][0] == '$')
+			ft_echo_envv(cmd, envs, i);
+		else
+			ft_putstr_fd(cmd->cmdline[i], STDIN);
+		if (cmd->cmdline[i + 1] != NULL)
 			ft_putstr_fd(" ", STDIN);
 	}
 	if (option == 0)
 		ft_putstr_fd("\n", STDIN);
+	return (ret);
 }

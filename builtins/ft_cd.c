@@ -6,7 +6,7 @@
 /*   By: daelee <daelee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/08 10:56:00 by daelee            #+#    #+#             */
-/*   Updated: 2021/01/29 11:53:58 by daelee           ###   ########.fr       */
+/*   Updated: 2021/02/04 22:03:23 by daelee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,15 +20,15 @@ int			ft_cd_home(char *path, char **envs)
 	return (SUCCESS);
 }
 
-int			ft_cd_envv(char *path, char **cmdline, char **envs)
+int 		ft_cd_envv(char *path, t_cmd *cmd, char **envs)
 {
-	path = find_value(&cmdline[1][1], envs);
+	path = find_value(&(cmd->cmdline[1][1]), envs);
 	if (chdir(path) == -1)
 		chdir(find_value("HOME", envs));
 	return (SUCCESS);
 }
 
-int			ft_cd(char **cmdline, char **envs)
+int 		ft_cd(t_cmd *cmd, char **envs)
 {
 	char	*path;
 	char	*cur_pwd;
@@ -36,9 +36,9 @@ int			ft_cd(char **cmdline, char **envs)
 	char	*tmp;
 
 	path = 0;
-	if (cmdline[1] != NULL && cmdline [1][0] != '~' && cmdline[1][0] != '$')
+	if (cmd->cmdline[1] != NULL && cmd->cmdline[1][0] != '~' && cmd->cmdline[1][0] != '$')
 	{
-		path = cmdline[1];
+		path = cmd->cmdline[1];
 		if (chdir(path) == -1)
 			print_execute_err_2("cd", path, strerror(errno));
 		if (!(tmp = malloc(sizeof(char) * MAXSIZE)))
@@ -50,9 +50,9 @@ int			ft_cd(char **cmdline, char **envs)
 		free(cur_pwd);
 		free(old_pwd);
 	}
-	else if (cmdline[1] == NULL || cmdline[1][0] == '~')
+	else if (cmd->cmdline[1] == NULL || cmd->cmdline[1][0] == '~')
 		ft_cd_home(path, envs);
-	else if (cmdline[1][0] == '$')
-		ft_cd_envv(path, cmdline, envs);
+	else if (cmd->cmdline[1][0] == '$')
+		ft_cd_envv(path, cmd, envs);
 	return (SUCCESS);
 }

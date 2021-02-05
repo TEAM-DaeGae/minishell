@@ -1,25 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_pwd.c                                           :+:      :+:    :+:   */
+/*   utils_execute.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: daelee <daelee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/01/08 11:00:19 by daelee            #+#    #+#             */
-/*   Updated: 2021/02/04 14:10:56 by daelee           ###   ########.fr       */
+/*   Created: 2021/02/05 01:22:58 by daelee            #+#    #+#             */
+/*   Updated: 2021/02/05 01:23:33 by daelee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int			ft_pwd(void)
+int check_builtin(char **cmdline)
 {
-	char	*pwd;
-	int 	ret;
+    char *builtin;
 
-	ret = EXIT_SUCCESS;
-	pwd = getcwd(0, MAXSIZE);
-	ft_putendl_fd(pwd, 1);
-	free(pwd);
-	return (ret);
+    builtin = cmdline[0];
+    if (!ft_strcmp(builtin, "cd") || !ft_strcmp(builtin, "echo") \
+    || !ft_strcmp(builtin, "pwd") || !ft_strcmp(builtin, "env") \
+    || !ft_strcmp(builtin, "export") || !ft_strcmp(builtin, "export") \
+    || !ft_strcmp(builtin, "unset") || !ft_strcmp(builtin, "exit")) \
+        return (TRUE);
+    return (FALSE);
 }
