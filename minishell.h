@@ -104,7 +104,7 @@ void 			exec_child_process(t_cmd *cmd, t_cmd *next_cmd);
 
 int 			ft_env(char **envs);
 int				ft_pwd(void);
-int 			ft_echo(t_cmd *cmd);
+int 			ft_echo(t_cmd *cmd, char **envs);
 int 			ft_cd(t_cmd *cmd, char **envs);
 void 			ft_exit(t_cmd *cmd);
 int 			ft_export(t_cmd *cmd);

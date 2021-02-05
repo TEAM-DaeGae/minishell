@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   exec_cmds.c                                        :+:      :+:    :+:   */
+/*   exec_process.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: daelee <daelee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/08 09:46:25 by daelee            #+#    #+#             */
-/*   Updated: 2021/02/05 01:33:23 by daelee           ###   ########.fr       */
+/*   Updated: 2021/02/05 13:25:20 by daelee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,7 @@ int exec_builtin(t_cmd *cmd)
 	if (!ft_strcmp(builtin, "cd"))
 		ret = ft_cd(cmd, g_envp);
 	else if (!ft_strcmp(builtin, "echo"))
-		ret = ft_echo(cmd);
+		ret = ft_echo(cmd, g_envp);
 	else if (!ft_strcmp(builtin, "pwd"))
 		ret = ft_pwd();
 	else if (!ft_strcmp(builtin, "env"))
