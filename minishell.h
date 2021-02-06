@@ -26,6 +26,11 @@ extern int g_exit_status;
 #define STDOUT 1
 #define STDERR 2
 
+#define COLOR_BR_BLUE "\033[34;1m"
+#define COLOR_WHITE "\033[37m"
+#define COLOR_CYAN "\033[36m"
+#define END_COLOR "\033[0m"
+
 extern t_list *g_proc_list;
 extern int g_parse_error; // 1이면 정상, -1이면 에러 발생
 

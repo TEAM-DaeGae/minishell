@@ -6,7 +6,7 @@
 /*   By: daelee <daelee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/07 09:46:05 by daelee            #+#    #+#             */
-/*   Updated: 2021/02/04 20:16:16 by daelee           ###   ########.fr       */
+/*   Updated: 2021/02/06 10:17:05 by daelee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,23 +24,24 @@ void	show_daegae(void)
 	fd = open("utils/ascii_art", O_RDONLY);
 	while (get_next_line(fd, &line))
 	{
-		ft_putstr_fd("\033[36m", STDIN);
+		ft_putstr_fd(COLOR_CYAN, STDIN);
 		ft_putendl_fd(line, STDOUT);
 		free(line);
 	}
 	ft_putendl_fd(line, STDOUT);
 	close(fd);
 	free(line);
-	ft_putendl_fd("\033[0m", 1);
+	ft_putendl_fd(END_COLOR, STDOUT);
 }
 
 void	show_prompt(void)
 {
 	static char	*curpath;
 
-	ft_putstr_fd(" \033[1;96m", STDIN);
+	ft_putstr_fd(COLOR_BR_BLUE, STDOUT);
 	ft_putstr_fd(getcwd(curpath, MAXSIZE), STDIN);
-	ft_putstr_fd("\033[1;93m $\033[0m ", STDIN);
+	ft_putstr_fd(COLOR_WHITE, STDOUT);
+	ft_putstr_fd("$ ", STDOUT);
 }
 
 int 		get_command_line(char **input)
