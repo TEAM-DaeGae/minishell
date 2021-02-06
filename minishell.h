@@ -96,6 +96,7 @@ char *find_path(char *cmdline, char **envs);
 // utils_execute.c
 int 	check_builtin(char **cmdline);
 int 	remove_char(char *str, char c);
+int check_export(char *str, char ***envs);
 
 // exec
 void exec_process(t_list *proc);
@@ -109,7 +110,6 @@ int ft_echo(t_cmd *cmd, char **envs);
 int ft_cd(t_cmd *cmd, char **envs);
 void ft_exit(t_cmd *cmd);
 int ft_export(t_cmd *cmd);
-int check_export(char *str, char ***envs);
 int ft_unset(t_cmd *cmd);
 
 // errors

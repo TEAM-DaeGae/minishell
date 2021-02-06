@@ -6,13 +6,11 @@
 /*   By: daelee <daelee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/12 20:12:47 by daelee            #+#    #+#             */
-/*   Updated: 2021/02/05 16:34:16 by daelee           ###   ########.fr       */
+/*   Updated: 2021/02/06 18:08:28 by daelee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-extern char	**g_envp;
 
 int		isvalid_env(char *name)
 {

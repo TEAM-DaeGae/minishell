@@ -6,7 +6,7 @@
 /*   By: daelee <daelee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/08 09:46:25 by daelee            #+#    #+#             */
-/*   Updated: 2021/02/05 16:03:25 by daelee           ###   ########.fr       */
+/*   Updated: 2021/02/06 18:07:31 by daelee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,12 +58,10 @@ int exec_pipe(t_list *cur_proc, t_cmd *cmd)
 	pid = fork();
 	if (pid == 0)
 		exec_child_process(cmd, next_cmd);
-	// printf("fds 0 : %d\n", cmd->fds[0]);
-	// printf("fds 1 : %d\n", cmd->fds[1]);
 	waitpid(pid, &status, 0);
 	if (cmd->flag == 1)
 		close(next_cmd->fds[1]);
-	if (cmd->fds[0] != 0) // 앞에 파이프가 열려있는 상태
+	if (cmd->fds[0] != 0)
 		close(cmd->fds[0]);
 	return (ret);
 }

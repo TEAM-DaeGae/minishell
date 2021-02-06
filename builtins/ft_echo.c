@@ -6,7 +6,7 @@
 /*   By: daelee <daelee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/08 10:59:48 by daelee            #+#    #+#             */
-/*   Updated: 2021/02/05 22:56:30 by daelee           ###   ########.fr       */
+/*   Updated: 2021/02/06 17:37:02 by daelee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,11 +39,11 @@ int		 	ft_echo(t_cmd *cmd, char **envs)
 {
 	int 	i;
 	int 	option_n;
-	int 	res;
+	int 	ret;
 
 	option_n = 0;
 	i = 1;
-	res = 0;
+	ret = 0;
 	while (check_option_n(cmd->cmdline[i]))
 	{
 		option_n = 1;
@@ -52,8 +52,8 @@ int		 	ft_echo(t_cmd *cmd, char **envs)
 	while (cmd->cmdline[i])
 	{
 		if (cmd->cmdline[i][0] == '\'')
-			res = remove_char(cmd->cmdline[i], '\'');
-		if (cmd->cmdline[i][0] == '$' && res != TRUE)
+			ret = remove_char(cmd->cmdline[i], '\'');
+		if (cmd->cmdline[i][0] == '$' && ret != TRUE)
 			ft_echo_envv(cmd, envs, i);
 		else
 			ft_putstr_fd(cmd->cmdline[i], STDOUT);
