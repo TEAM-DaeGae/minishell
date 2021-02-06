@@ -6,13 +6,13 @@
 /*   By: daelee <daelee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/08 11:05:25 by daelee            #+#    #+#             */
-/*   Updated: 2021/01/29 02:29:44 by daelee           ###   ########.fr       */
+/*   Updated: 2021/02/06 21:35:35 by daelee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int		ft_env(char **envs)
+void ft_env(char **envs)
 {
 	int	i;
 
@@ -23,5 +23,5 @@ int		ft_env(char **envs)
 		write(STDOUT, "\n", 1);
 		i++;
 	}
-	return (1);
+	g_exit_status = 0;
 }

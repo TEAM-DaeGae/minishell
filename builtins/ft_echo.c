@@ -6,7 +6,7 @@
 /*   By: daelee <daelee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/08 10:59:48 by daelee            #+#    #+#             */
-/*   Updated: 2021/02/05 22:56:30 by daelee           ###   ########.fr       */
+/*   Updated: 2021/02/06 20:43:51 by daelee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,25 +35,23 @@ int 	check_option_n(char *token)
 	return (TRUE);
 }
 
-int		 	ft_echo(t_cmd *cmd, char **envs)
+void ft_echo(t_cmd *cmd, char **envs)
 {
 	int 	i;
-	int 	option_n;
-	int 	res;
+	int 	ret;
 
-	option_n = 0;
 	i = 1;
-	res = 0;
+	ret = 0;
 	while (check_option_n(cmd->cmdline[i]))
 	{
-		option_n = 1;
+		ret = -1;
 		i++;
 	}
 	while (cmd->cmdline[i])
 	{
 		if (cmd->cmdline[i][0] == '\'')
-			res = remove_char(cmd->cmdline[i], '\'');
-		if (cmd->cmdline[i][0] == '$' && res != TRUE)
+			ret = remove_char(cmd->cmdline[i], '\'');
+		if (cmd->cmdline[i][0] == '$' && ret != TRUE)
 			ft_echo_envv(cmd, envs, i);
 		else
 			ft_putstr_fd(cmd->cmdline[i], STDOUT);
@@ -61,7 +59,6 @@ int		 	ft_echo(t_cmd *cmd, char **envs)
 			ft_putchar_fd(' ', STDOUT);
 		i++;
 	}
-	if (!option_n)
+	if (ret != -1)
 		ft_putchar_fd('\n', STDOUT);
-	return (g_exit_status = 0);
 }

@@ -96,21 +96,21 @@ char *find_path(char *cmdline, char **envs);
 // utils_execute.c
 int 	check_builtin(char **cmdline);
 int 	remove_char(char *str, char c);
+int check_export(char *str, char ***envs);
 
 // exec
 void exec_process(t_list *proc);
-int exec_builtin(t_cmd *cmd);
+void exec_builtin(t_cmd *cmd);
 int exec_pipe(t_list *cur_proc, t_cmd *cmd);
 void exec_child_process(t_cmd *cmd, t_cmd *next_cmd);
 
-int ft_env(char **envs);
-int ft_pwd(void);
-int ft_echo(t_cmd *cmd, char **envs);
-int ft_cd(t_cmd *cmd, char **envs);
+void ft_env(char **envs);
+void ft_pwd(void);
+void ft_echo(t_cmd *cmd, char **envs);
+void ft_cd(t_cmd *cmd, char **envs);
 void ft_exit(t_cmd *cmd);
-int ft_export(t_cmd *cmd);
-int check_export(char *str, char ***envs);
-int ft_unset(t_cmd *cmd);
+void ft_export(t_cmd *cmd);
+void ft_unset(t_cmd *cmd);
 
 // errors
 void print_errno_err(char *err_msg);

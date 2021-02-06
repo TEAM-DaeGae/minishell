@@ -6,17 +6,15 @@
 /*   By: daelee <daelee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/11 11:44:44 by daelee            #+#    #+#             */
-/*   Updated: 2021/02/05 16:34:13 by daelee           ###   ########.fr       */
+/*   Updated: 2021/02/06 20:49:18 by daelee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-extern char	**g_envp;
-
-int	        print_export(char **envs)
+void	print_export(char **envs)
 {
-	int	    i;
+	int	i;
 
 	i = -1;
 	while (envs[++i])
@@ -24,16 +22,15 @@ int	        print_export(char **envs)
 		ft_putstr_fd(envs[i], STDIN);
 		write(STDOUT, "\n", 1);
 	}
-	return (SUCCESS);
 }
 
-void        add_export(char *str, char **new, int i)
+void	add_export(char *str, char **new, int i)
 {
 	new[i] = ft_strdup(str);
 	new[i + 1] = NULL;
 }
 
-int	        check_export(char *str, char ***envs)
+int			check_export(char *str, char ***envs)
 {
 	int		i;
 	char	**new;
@@ -44,7 +41,6 @@ int	        check_export(char *str, char ***envs)
 	while ((*envs)[++i] != NULL)
 		if (!ft_strncmp((*envs)[i], str, ft_strlen(str)))
 		{
-			free((*envs)[i]);
 			(*envs)[i] = ft_strdup(str);
 			return (SUCCESS);
 		}
@@ -52,37 +48,49 @@ int	        check_export(char *str, char ***envs)
 		return (ERROR);
 	i = -1;
 	while ((*envs)[++i])
-	{
 		new[i] = ft_strdup((*envs)[i]);
-		free((*envs)[i]);
-	}
 	add_export(str, new, i);
-	free(*envs);
 	*envs = new;
 	return (SUCCESS);
 }
 
-int 		ft_export(t_cmd *cmd)
+int 	isvalid_export(char *key)
+{
+	int i;
+
+	i = -1;
+	while (key[++i])
+	{
+		if (key[i] >= '0' && key[i] <= '9')
+			return (FALSE);
+	}
+	return (TRUE);
+}
+
+void ft_export(t_cmd *cmd)
 {
 	int     i;
-	int     res;
+	int ret;
 
+	ret = 0;
 	i = 0;
-	res = 1;
+	if (cmd->preflag == 1)
+		return ;
 	if (ft_double_strlen(cmd->cmdline) == 1)
-		res = print_export(g_envp);
+		print_export(g_envp);
 	else
 	{
+		remove_char(cmd->cmdline[1], '\'');
 		while (cmd->cmdline[++i])
 		{
-			if (check_export(cmd->cmdline[i], &g_envp))
-				;
-			else
-				res = 0;
+			if (isvalid_export(ft_strtok(cmd->cmdline[i], '=')) == FALSE)
+			{
+				print_identifier_err("export", cmd->cmdline[i]);
+				g_exit_status = 1;
+			}
+			ret = check_export(cmd->cmdline[i], &g_envp);
 		}
 	}
-	if (res)
-		return (1);
-	else
-		return (0);
+	if (ret != SUCCESS)
+		g_exit_status = 1;
 }
