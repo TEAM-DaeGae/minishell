@@ -1,9 +1,9 @@
 #include "minishell.h"
 
-int		check_white_space(char *input)
+int check_white_space(char *input)
 {
-	int	space;
-	int	i;
+	int space;
+	int i;
 
 	space = 0;
 	i = 0;
@@ -11,8 +11,7 @@ int		check_white_space(char *input)
 		return (1);
 	while (input[i])
 	{
-		if (input[i] == '\r' || input[i] == '\v'
-			|| input[i] == '\t' || input[i] == '\f')
+		if (input[i] == '\r' || input[i] == '\v' || input[i] == '\t' || input[i] == '\f')
 			return (1);
 		else if (input[i] == ' ')
 			space++;
@@ -23,10 +22,10 @@ int		check_white_space(char *input)
 	return (0);
 }
 
-int		count_token(char *input)
+int count_token(char *input)
 {
-	int		count_token;
-	char	*p;
+	int count_token;
+	char *p;
 
 	count_token = 1;
 	if (!(p = ft_calloc(ft_strlen(input) + 1, sizeof(char))))
@@ -41,13 +40,13 @@ int		count_token(char *input)
 	return (count_token);
 }
 
-void	*initialize(char *input, t_data *data, t_list **head)
+void *initialize(char *input, t_data *data, t_list **head)
 {
 	*head = ft_lstnew(NULL);
 	data->lstlast = *head;
 	if (!(data->cmd = ft_calloc(1, sizeof(t_cmd))))
 		return ((void *)parse_error(data, NULL, MALLOC_ERROR));
-	if (!(data->cmd->cmdline = ft_calloc(count_token(input) + 1, sizeof(char *)))) // 보류: char**이 calloc으로 가능?
+	if (!(data->cmd->cmdlines = ft_calloc(count_token(input) + 1, sizeof(char *)))) // 보류: char**이 calloc으로 가능?
 		return ((void *)parse_error(data, NULL, MALLOC_ERROR));
 	data->cmd->flag = 0;
 	data->cmd->quote = 0;

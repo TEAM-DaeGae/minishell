@@ -6,7 +6,7 @@
 /*   By: daelee <daelee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/08 09:46:25 by daelee            #+#    #+#             */
-/*   Updated: 2021/02/06 20:43:00 by daelee           ###   ########.fr       */
+/*   Updated: 2021/02/07 00:14:14 by daelee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void exec_child_process(t_cmd *cmd, t_cmd *next_cmd)
 	char *path;
 
 	ret = EXIT_SUCCESS;
-	path = find_path(cmd->cmdline[0], g_envp);
+	path = find_path(cmd->cmdlines[0], g_envp);
 	if (cmd->flag == 1)
 	{
 		dup2(next_cmd->fds[1], STDOUT);
@@ -29,12 +29,12 @@ void exec_child_process(t_cmd *cmd, t_cmd *next_cmd)
 		dup2(cmd->fds[0], STDIN);
 		close(cmd->fds[0]);
 	}
-	if (check_builtin(cmd->cmdline) == TRUE)
-		exec_builtin(cmd);
+	if (check_builtin(cmd->cmdlines) == TRUE)
+		exec_builtin(cmd, cmd->cmdlines);
 	else
-		(ret = execve(path, cmd->cmdline, g_envp));
+		(ret = execve(path, cmd->cmdlines, g_envp));
 	if (ret == -1)
-		print_execute_err_1(cmd->cmdline[0], "command not found");
+		print_execute_err_1(cmd->cmdlines[0], "command not found");
 	exit(ret);
 }
 
@@ -47,7 +47,7 @@ int exec_pipe(t_list *cur_proc, t_cmd *cmd)
 	char *path;
 
 	ret = EXIT_SUCCESS;
-	path = find_path(cmd->cmdline[0], g_envp);
+	path = find_path(cmd->cmdlines[0], g_envp);
 	next_cmd = cur_proc->content;
 	if (cmd->flag == 1)
 	{
@@ -66,25 +66,25 @@ int exec_pipe(t_list *cur_proc, t_cmd *cmd)
 	return (ret);
 }
 
-void exec_builtin(t_cmd *cmd)
+void exec_builtin(t_cmd *cmd, char **cmdline)
 {
 	char *builtin;
 
-	builtin = cmd->cmdline[0];
+	builtin = cmd->cmdlines[0];
 	if (!ft_strcmp(builtin, "cd"))
-		ft_cd(cmd, g_envp);
+		ft_cd(cmdline, g_envp);
 	else if (!ft_strcmp(builtin, "echo"))
-		ft_echo(cmd, g_envp);
+		ft_echo(cmdline, g_envp);
 	else if (!ft_strcmp(builtin, "pwd"))
 		ft_pwd();
 	else if (!ft_strcmp(builtin, "env"))
 		ft_env(g_envp);
 	else if (!ft_strcmp(builtin, "export"))
-		ft_export(cmd);
+		ft_export(cmd, cmdline);
 	else if (!ft_strcmp(builtin, "unset"))
-		ft_unset(cmd);
+		ft_unset(cmd, cmdline);
 	else if (!ft_strcmp(builtin, "exit"))
-		ft_exit(cmd);
+		ft_exit(cmd, cmdline);
 }
 
 void exec_process(t_list *head) // 인자는 연결리스트의 헤드포인터
@@ -96,10 +96,10 @@ void exec_process(t_list *head) // 인자는 연결리스트의 헤드포인터
 	while (cur_proc != NULL)
 	{
 		cmd = cur_proc->content; // (t_cmd *)형태로 자료형변환을 위해 옮겨담음.
-		if (cmd->cmdline[0])
+		if (cmd->cmdlines[0])
 		{
-			if ((check_builtin(cmd->cmdline) == TRUE) && cmd->flag == 0)
-				exec_builtin(cmd);
+			if ((check_builtin(cmd->cmdlines) == TRUE) && cmd->flag == 0)
+				exec_builtin(cmd, cmd->cmdlines);
 			else
 				exec_pipe(cur_proc, cmd);
 		}

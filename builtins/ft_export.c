@@ -6,7 +6,7 @@
 /*   By: daelee <daelee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/11 11:44:44 by daelee            #+#    #+#             */
-/*   Updated: 2021/02/06 20:49:18 by daelee           ###   ########.fr       */
+/*   Updated: 2021/02/06 23:47:27 by daelee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ int 	isvalid_export(char *key)
 	return (TRUE);
 }
 
-void ft_export(t_cmd *cmd)
+void ft_export(t_cmd *cmd, char **cmdline)
 {
 	int     i;
 	int ret;
@@ -76,19 +76,19 @@ void ft_export(t_cmd *cmd)
 	i = 0;
 	if (cmd->preflag == 1)
 		return ;
-	if (ft_double_strlen(cmd->cmdline) == 1)
+	if (ft_double_strlen(cmdline) == 1)
 		print_export(g_envp);
 	else
 	{
-		remove_char(cmd->cmdline[1], '\'');
-		while (cmd->cmdline[++i])
+		remove_char(cmdline[1], '\'');
+		while (cmdline[++i])
 		{
-			if (isvalid_export(ft_strtok(cmd->cmdline[i], '=')) == FALSE)
+			if (isvalid_export(ft_strtok(cmdline[i], '=')) == FALSE)
 			{
-				print_identifier_err("export", cmd->cmdline[i]);
+				print_identifier_err("export", cmdline[i]);
 				g_exit_status = 1;
 			}
-			ret = check_export(cmd->cmdline[i], &g_envp);
+			ret = check_export(cmdline[i], &g_envp);
 		}
 	}
 	if (ret != SUCCESS)
