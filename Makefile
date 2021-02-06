@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: daelee <daelee@student.42seoul.kr>         +#+  +:+       +#+         #
+#    By: gaekim <gaekim@student.42seoul.kr>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/03/09 18:24:09 by daelee            #+#    #+#              #
-#    Updated: 2021/01/31 17:44:06 by daelee           ###   ########.fr        #
+#    Updated: 2021/02/06 07:28:01 by gaekim           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -28,7 +28,11 @@ SRCS	= 	main.c \
 			errors/exit_err.c \
 			parser/parser.c \
 			parser/parse_error.c \
-			parser/parse_utils.c \
+			parser/utils_parse.c \
+			redirection/cmd_redir.c \
+			redirection/exec_redir.c \
+			redirection/utils_redir.c \
+			redirection/utils_redir2.c
 
 LIBFT	=	libft.a
 

@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   minishell.h                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: gaekim <gaekim@student.42seoul.kr>         +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/02/05 19:04:46 by gaekim            #+#    #+#             */
+/*   Updated: 2021/02/06 07:40:20 by gaekim           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef MINISHELL_H
 # define MINISHELL_H
 
@@ -57,6 +69,42 @@ typedef struct s_data
 	int		k;
 }				t_data;
 
+# define BREDIR	60
+# define REDIR	62
+# define DREDIR	6
+// BREDIR = '<', REDIR = '>', DREDIR = >>
+
+typedef struct	s_redir
+{
+	int			argc; // redir 기호 개수 + 1 (>>는 2개로 카운트)
+	char		**argv;
+	char		**cmds;
+	char		*types;
+}				t_redir;
+
+// exec_redir.c
+void		init_redir(char *command, t_redir *re);
+int			parse_redir_final(t_redir *r, int j);
+int			parse_redir(char *command, t_redir *r);
+void		open_unnecessary_files(t_redir *r);
+void    exec_redir(char **cmdline);
+
+// utils_redir2.c
+char    *ft_strjoin_c(char *s, char c);
+char    *change_from_double_to_single_cmdline(char **cmdline);
+char	*remove_single_quotes(char *str);
+
+// cmd_redir.c
+void			cmd_redir(t_redir *r);
+
+// utils_redir.c
+int		is_single_redir(char *command, int i);
+int		find_redir_type(char *command, int i);
+int		has_redir_syntax_error(char *str);
+int		ft_puterror_fd(char *s1, char *s2, int fd);
+char	*substr_and_trim(char *command, int start, int num, char *charset);
+void	free_double_arr(char **arr);
+
 // parser.c
 void	*parse(char *input_temp);
 void	parse_all_char(char *input, t_data *data, t_list *head);
@@ -64,7 +112,7 @@ int		add_node(t_data *data, t_list *head, char *input, int symbol);
 void	put_buff_into_cmdline(t_data *data);
 void	exec_proc(t_list *proc);
 
-// parse_utils.c
+// utils_parse.c
 void	*initialize(char *input, t_data *data, t_list **head);
 int		count_token(char *input);
 int		check_white_space(char *input);
@@ -89,7 +137,7 @@ char			*find_path(char *cmdline, char **envs);
 
 // exec
 void			exec_bin(char **cmdline);
-int				exec_cmds(char **cmdline);
+int				exec_builtin(char **cmdline);
 int				ft_env(char **envs);
 void			ft_pwd(void);
 void			ft_echo(char **cmdline);

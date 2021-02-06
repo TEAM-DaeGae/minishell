@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   parser.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: gaekim <gaekim@student.42seoul.kr>         +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/02/05 19:03:33 by gaekim            #+#    #+#             */
+/*   Updated: 2021/02/06 20:51:45 by gaekim           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
 
 int g_parse_error;
@@ -12,14 +24,19 @@ void	exec_proc(t_list *head) // 인자는 연결리스트의 헤드포인터
 	while (cur_proc != NULL)
 	{
 		cmd = cur_proc->content; // (t_cmd *)형태로 자료형변환을 위해 옮겨담음.
+
+		printf("i'm exec_proc! line 28\n");
+		printf("cmdline[0]:%s\n", cmd->cmdline[0]);
+		printf("has_redir:%d\n", cmd->has_redir);
+
 		if (cmd->cmdline[0]) // 명령어가 있으면 실행
 		{
-			if (cmd->flag == 0)
-				exec_cmds(cmd->cmdline);
+			if (cmd->flag == 0 && cmd->has_redir == 0)
+				exec_builtin(cmd->cmdline);
 			
 			// if (파이프 조건) 파이프 함수 실행
-			// else if (cmd->has_redir) // 파이프 다음 조건식으로 하기
-			// 	exec_redir(cmd->cmdline); // envp는 넘기지 않아도..?
+			else if (cmd->has_redir == 1) // 파이프 다음 조건식으로 하기
+			 	exec_redir(cmd->cmdline); // envp는 넘기지 않아도..?
 		}
 		cur_proc = cur_proc->next;
 	}
