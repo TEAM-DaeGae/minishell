@@ -6,14 +6,19 @@
 /*   By: daelee <daelee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/08 10:56:00 by daelee            #+#    #+#             */
-/*   Updated: 2021/02/06 18:07:21 by daelee           ###   ########.fr       */
+/*   Updated: 2021/02/06 21:39:00 by daelee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int			ft_cd_home(char *path, char **envs)
+int ft_cd_home(char *path, t_cmd *cmd, char **envs)
 {
+	if (cmd->cmdline[1][1] == '~')
+	{
+		print_execute_err_2("cd", cmd->cmdline[1], "No such file or directory");
+		g_exit_status = 1;
+	}
 	path = find_value("HOME", envs);
 	if (chdir(path) == -1)
 		print_execute_err_1("cd", "HOME not set");
@@ -43,25 +48,26 @@ void		set_oldpwd_pwd(char **envs)
 	free(old_pwd);
 }
 
-int 		ft_cd(t_cmd *cmd, char **envs)
+void ft_cd(t_cmd *cmd, char **envs)
 {
 	char	*path;
+	int 	ret;
 
 	path = 0;
+	ret = 0;
 	if (cmd->cmdline[1] != NULL && cmd->cmdline[1][0] != '~' && cmd->cmdline[1][0] != '$')
 	{
 		path = cmd->cmdline[1];
 		if (chdir(path) == -1)
-		{
-			g_exit_status = 1;
-			print_execute_err_2("cd", path, strerror(errno));
-		}
+			ret = print_execute_err_2("cd", path, strerror(errno));
 		set_oldpwd_pwd(envs);
 	}
 	else if (cmd->cmdline[1] == NULL || cmd->cmdline[1][0] == '~')
-		ft_cd_home(path, envs);
+		ft_cd_home(path, cmd, envs);
 	else if (cmd->cmdline[1][0] == '$')
 		ft_cd_envv(path, cmd, envs);
-	g_exit_status = 0;
-	return (SUCCESS);
+	if (ret == ERROR)
+		g_exit_status = 1;
+	else
+		g_exit_status = 0;
 }

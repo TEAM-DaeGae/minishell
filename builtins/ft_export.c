@@ -6,13 +6,13 @@
 /*   By: daelee <daelee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/11 11:44:44 by daelee            #+#    #+#             */
-/*   Updated: 2021/02/06 19:06:15 by daelee           ###   ########.fr       */
+/*   Updated: 2021/02/06 20:49:18 by daelee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int		print_export(char **envs)
+void	print_export(char **envs)
 {
 	int	i;
 
@@ -22,7 +22,6 @@ int		print_export(char **envs)
 		ft_putstr_fd(envs[i], STDIN);
 		write(STDOUT, "\n", 1);
 	}
-	return (SUCCESS);
 }
 
 void	add_export(char *str, char **new, int i)
@@ -68,17 +67,17 @@ int 	isvalid_export(char *key)
 	return (TRUE);
 }
 
-int 		ft_export(t_cmd *cmd)
+void ft_export(t_cmd *cmd)
 {
 	int     i;
-	int     ret;
+	int ret;
 
-	i = 0;
 	ret = 0;
+	i = 0;
 	if (cmd->preflag == 1)
-		return (1);
+		return ;
 	if (ft_double_strlen(cmd->cmdline) == 1)
-		ret = print_export(g_envp);
+		print_export(g_envp);
 	else
 	{
 		remove_char(cmd->cmdline[1], '\'');
@@ -92,8 +91,6 @@ int 		ft_export(t_cmd *cmd)
 			ret = check_export(cmd->cmdline[i], &g_envp);
 		}
 	}
-	if (ret)
-		return (1);
-	else
-		return (0);
+	if (ret != SUCCESS)
+		g_exit_status = 1;
 }

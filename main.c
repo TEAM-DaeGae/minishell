@@ -6,7 +6,7 @@
 /*   By: daelee <daelee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/07 09:46:05 by daelee            #+#    #+#             */
-/*   Updated: 2021/02/06 10:17:05 by daelee           ###   ########.fr       */
+/*   Updated: 2021/02/06 20:39:43 by daelee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,5 +88,6 @@ int			main(int argc, char **argv, char **envp)
  			parse(input);
 		free(input);
 	}
+	printf("err code : %d \n", g_exit_status);
 	return (g_exit_status & 255);
 }
