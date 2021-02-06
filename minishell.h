@@ -42,13 +42,13 @@ extern int g_parse_error; // 1이면 정상, -1이면 에러 발생
 
 typedef struct s_cmd
 {
-	char **cmdline;
+	char **cmdlines;
 	int flag; // 0 = semicolon or NULL, 1 = pipe
 	int preflag;
 	char quote;
 	int fds[2];
 	int has_redir; // 1 = redir 최소 1개 있다. 0 = redir 아예 없다.
-} t_cmd;
+} 	t_cmd;
 
 /*
 ** i: input index | j: buff index | k: cmdline index
@@ -100,17 +100,17 @@ int check_export(char *str, char ***envs);
 
 // exec
 void exec_process(t_list *proc);
-void exec_builtin(t_cmd *cmd);
+void exec_builtin(t_cmd *cmd, char **cmdline);
 int exec_pipe(t_list *cur_proc, t_cmd *cmd);
 void exec_child_process(t_cmd *cmd, t_cmd *next_cmd);
 
 void ft_env(char **envs);
 void ft_pwd(void);
-void ft_echo(t_cmd *cmd, char **envs);
-void ft_cd(t_cmd *cmd, char **envs);
-void ft_exit(t_cmd *cmd);
-void ft_export(t_cmd *cmd);
-void ft_unset(t_cmd *cmd);
+void ft_cd(char **cmdline, char **envs);
+void ft_echo(char **cmdline, char **g_envp);
+void ft_exit(t_cmd *cmd, char **cmdline);
+void ft_export(t_cmd *cmd, char **cmdline);
+void ft_unset(t_cmd *cmd, char **cmdline);
 
 // errors
 void print_errno_err(char *err_msg);

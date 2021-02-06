@@ -6,16 +6,16 @@
 /*   By: daelee <daelee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/08 10:59:48 by daelee            #+#    #+#             */
-/*   Updated: 2021/02/06 20:43:51 by daelee           ###   ########.fr       */
+/*   Updated: 2021/02/06 23:46:14 by daelee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void 		ft_echo_envv(t_cmd *cmd, char **envs, int i)
+void ft_echo_envv(char **cmdline, char **envs, int i)
 {
 	char 	*value;
-	value = find_value(&(cmd->cmdline[i][1]), envs);
+	value = find_value(&(cmdline[i][1]), envs);
 	ft_putstr_fd(value, STDIN);
 }
 
@@ -35,27 +35,27 @@ int 	check_option_n(char *token)
 	return (TRUE);
 }
 
-void ft_echo(t_cmd *cmd, char **envs)
+void ft_echo(char **cmdline, char **envs)
 {
 	int 	i;
 	int 	ret;
 
 	i = 1;
 	ret = 0;
-	while (check_option_n(cmd->cmdline[i]))
+	while (check_option_n(cmdline[i]))
 	{
 		ret = -1;
 		i++;
 	}
-	while (cmd->cmdline[i])
+	while (cmdline[i])
 	{
-		if (cmd->cmdline[i][0] == '\'')
-			ret = remove_char(cmd->cmdline[i], '\'');
-		if (cmd->cmdline[i][0] == '$' && ret != TRUE)
-			ft_echo_envv(cmd, envs, i);
+		if (cmdline[i][0] == '\'')
+			ret = remove_char(cmdline[i], '\'');
+		if (cmdline[i][0] == '$' && ret != TRUE)
+			ft_echo_envv(cmdline, envs, i);
 		else
-			ft_putstr_fd(cmd->cmdline[i], STDOUT);
-		if (cmd->cmdline[i + 1] != NULL)
+			ft_putstr_fd(cmdline[i], STDOUT);
+		if (cmdline[i + 1] != NULL)
 			ft_putchar_fd(' ', STDOUT);
 		i++;
 	}

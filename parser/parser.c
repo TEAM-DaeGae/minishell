@@ -2,41 +2,41 @@
 
 int g_parse_error;
 
-int		add_node(t_data *data, t_list *head, char *input, int symbol)
+int add_node(t_data *data, t_list *head, char *input, int symbol)
 {
 	data->cmd->flag = symbol;
 	if (*(data->buff))
 		put_buff_into_cmdline(data);
-	if ((data->cmd->cmdline)[0] == 0 && data->cmd->flag <= 1)
+	if ((data->cmd->cmdlines)[0] == 0 && data->cmd->flag <= 1)
 		return (ERROR);
 	else
 	{
 		// head에 t_list *p(content:data->cmd, next:NULL)를 복사
 		ft_lstadd_back(&head, ft_lstnew(data->cmd));
 		data->cmd = ft_calloc(1, sizeof(t_cmd));
-		data->cmd->cmdline = ft_calloc(count_token(input) + 1, sizeof(char *));
+		data->cmd->cmdlines = ft_calloc(count_token(input) + 1, sizeof(char *));
 		data->lstlast = ft_lstlast(head);
 	}
 	data->k = 0;
 	return (SUCCESS);
 }
 
-void	put_buff_into_cmdline(t_data *data)
+void put_buff_into_cmdline(t_data *data)
 {
 	if (*(data->buff) == 0)
-		return ;
-	data->cmd->cmdline[(data->k)] = ft_strdup(data->buff);
-	data->cmd->cmdline[(data->k) + 1] = NULL;
+		return;
+	data->cmd->cmdlines[(data->k)] = ft_strdup(data->buff);
+	data->cmd->cmdlines[(data->k) + 1] = NULL;
 	(data->k)++;
 	ft_bzero(data->buff, ft_strlen(data->buff) + 1);
-	data->j= 0;
+	data->j = 0;
 }
 
-void	parse_all_char(char *input, t_data *data, t_list *head)
-{	
+void parse_all_char(char *input, t_data *data, t_list *head)
+{
 	if (data->cmd->quote == input[data->i]) // '이나 "이 한 번 더 나온다면 (묶음 완성)
 	{
-		data->cmd->quote = 0; // 묶음 완성됐으므로 quote 초기화
+		data->cmd->quote = 0;		// 묶음 완성됐으므로 quote 초기화
 		if (input[data->i] == '\'') // '에 한해서만 닫는 '를 buff에 담아줌
 			data->buff[data->j++] = input[data->i];
 	}
@@ -64,11 +64,11 @@ void	parse_all_char(char *input, t_data *data, t_list *head)
 }
 
 // parse_error에 가는 상황(에러상황)의 경우, exec_proc으로 안 가고 main함수로 돌아가서 free만 하고 끝내야 한다.
-void	*parse(char *input_temp)
+void *parse(char *input_temp)
 {
-	t_data	data;
-	t_list	*head;
-	char	*input;
+	t_data data;
+	t_list *head;
+	char *input;
 
 	input = ft_strtrim(input_temp, " ");
 	initialize(input, &data, &head);

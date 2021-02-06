@@ -1,6 +1,6 @@
 #include "minishell.h"
 
-static void	clear_ptr1(t_data *ptr1)
+static void clear_ptr1(t_data *ptr1)
 {
 	if (ptr1->buff)
 	{
@@ -11,10 +11,10 @@ static void	clear_ptr1(t_data *ptr1)
 	{
 		if (ptr1->cmd)
 		{
-			if (ptr1->cmd->cmdline)
+			if (ptr1->cmd->cmdlines)
 			{
-				free_double_str(ptr1->cmd->cmdline);
-				ptr1->cmd->cmdline = NULL;
+				free_double_str(ptr1->cmd->cmdlines);
+				ptr1->cmd->cmdlines = NULL;
 			}
 			free(ptr1->cmd);
 			ptr1->cmd = NULL;
@@ -22,7 +22,7 @@ static void	clear_ptr1(t_data *ptr1)
 	}
 }
 
-void	free_double_str(char **ptr)
+void free_double_str(char **ptr)
 {
 	int idx;
 
@@ -40,23 +40,23 @@ void	free_double_str(char **ptr)
 	}
 }
 
-void	free_cmdline(void *content)
+void free_cmdline(void *content)
 {
-	t_cmd	*command;
+	t_cmd *command;
 
 	command = (t_cmd *)content;
 	if (command)
 	{
-		if (command->cmdline)
+		if (command->cmdlines)
 		{
-			free_double_str(command->cmdline);
-			command->cmdline = NULL;
+			free_double_str(command->cmdlines);
+			command->cmdlines = NULL;
 		}
 		free(command);
 	}
 }
 
-void    *parse_error(t_data *ptr1, t_list *ptr2, char *comment)
+void *parse_error(t_data *ptr1, t_list *ptr2, char *comment)
 {
 	if (ptr1)
 		clear_ptr1(ptr1);
@@ -68,13 +68,13 @@ void    *parse_error(t_data *ptr1, t_list *ptr2, char *comment)
 
 	ft_putstr_fd("minishell: ", STDERR_FILENO);
 	ft_putendl_fd(comment, STDERR_FILENO);
-	
+
 	if (!ft_strncmp(comment, SYNTAX_ERROR, ft_strlen(SYNTAX_ERROR)))
 		g_exit_status = 2 * 256;
 	else
 		g_exit_status = 1 * 256;
-	
-    g_parse_error = 0; // return NULL 대신 error 플래그로 추가함.
+
+	g_parse_error = 0; // return NULL 대신 error 플래그로 추가함.
 
 	return (NULL);
 }
