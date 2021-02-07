@@ -6,7 +6,7 @@
 /*   By: gaekim <gaekim@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/07 21:59:29 by gaekim            #+#    #+#             */
-/*   Updated: 2021/02/07 22:03:27 by gaekim           ###   ########.fr       */
+/*   Updated: 2021/02/08 00:44:25 by gaekim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ static void	clear_ptr1(t_data *ptr1)
 	}
 }
 
-void 		free_double_str(char **ptr)
+void		free_double_str(char **ptr)
 {
 	int	idx;
 
@@ -52,7 +52,7 @@ void 		free_double_str(char **ptr)
 	}
 }
 
-void 		free_cmdline(void *content)
+void		free_cmdline(void *content)
 {
 	t_cmd	*command;
 
@@ -68,7 +68,7 @@ void 		free_cmdline(void *content)
 	}
 }
 
-void *parse_error(t_data *ptr1, t_list *ptr2, char *comment)
+void		*parse_error(t_data *ptr1, t_list *ptr2, char *comment)
 {
 	if (ptr1)
 		clear_ptr1(ptr1);
