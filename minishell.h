@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   minishell.h                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: gaekim <gaekim@student.42seoul.kr>         +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/02/07 21:56:32 by gaekim            #+#    #+#             */
+/*   Updated: 2021/02/07 23:02:36 by gaekim           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef MINISHELL_H
 #define MINISHELL_H
 
@@ -13,6 +25,7 @@
 
 extern char **g_envp;
 extern int g_exit_status;
+extern int 		g_parse_error;
 
 #define MAXSIZE 1024
 
@@ -31,37 +44,69 @@ extern int g_exit_status;
 #define COLOR_CYAN "\033[36m"
 #define END_COLOR "\033[0m"
 
-extern t_list *g_proc_list;
-extern int g_parse_error; // 1이면 정상, -1이면 에러 발생
-
 #define SYNTAX_ERROR "Syntax error: near unexpected token!"
 #define QUOTE_ERROR "The number of Quotes is odd!"
 #define MALLOC_ERROR "Memory malloc fail!"
 #define PIPE_ERROR "Pipe function is failed!"
 #define FORK_ERROR "Fork function is failed!"
 
+# define BREDIR	60
+# define REDIR	62
+# define DREDIR	6
+
+typedef struct	s_redir
+{
+	int			argc;
+	char		**argv;
+	char		**cmds;
+	char		*types;
+}				t_redir;
+
 typedef struct s_cmd
 {
-	char **cmdlines;
-	int flag; // 0 = semicolon or NULL, 1 = pipe
-	int preflag;
-	char quote;
-	int fds[2];
-	int has_redir; // 1 = redir 최소 1개 있다. 0 = redir 아예 없다.
-} 	t_cmd;
+	char	**cmdlines;
+	int		flag;
+	int		preflag;
+	char	quote;
+	int		fds[2];
+	int 	has_redir;
+} 				t_cmd;
 
 /*
 ** i: input index | j: buff index | k: cmdline index
 */
 typedef struct s_data
 {
-	t_list *lstlast;
-	t_cmd *cmd;
-	char *buff;
-	int i;
-	int j;
-	int k;
-} t_data;
+	t_list	*lstlast;
+	t_cmd	*cmd;
+	char	*buff;
+	int		i;
+	int 	j;
+	int		k;
+} 				t_data;
+
+// exec_redir.c
+void		init_redir(char *command, t_redir *re);
+int			parse_redir_final(t_redir *r, int j);
+int			parse_redir(char *command, t_redir *r);
+void		open_unnecessary_files(t_redir *r);
+void    exec_redir(t_cmd *cmd, char **cmdline);
+
+// utils_redir2.c
+char    *ft_strjoin_c(char *s, char c);
+char    *change_from_double_to_single_cmdline(char **cmdline);
+char	*remove_single_quotes(char *str);
+
+// cmd_redir.c
+void			cmd_redir(t_cmd *cmd, t_redir *r);
+
+// utils_redir.c
+int		is_single_redir(char *command, int i);
+int		find_redir_type(char *command, int i);
+int		has_redir_syntax_error(char *str);
+int		ft_puterror_fd(char *s1, char *s2, int fd);
+char	*substr_and_trim(char *command, int start, int num, char *charset);
+void	free_double_arr(char **arr);
 
 // parser.c
 void *parse(char *input_temp);
@@ -69,7 +114,7 @@ void parse_all_char(char *input, t_data *data, t_list *head);
 int add_node(t_data *data, t_list *head, char *input, int symbol);
 void put_buff_into_cmdline(t_data *data);
 
-// parse_utils.c
+// utils_parse.c
 void *initialize(char *input, t_data *data, t_list **head);
 int count_token(char *input);
 int check_white_space(char *input);
