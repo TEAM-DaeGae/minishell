@@ -6,7 +6,7 @@
 /*   By: gaekim <gaekim@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/07 09:46:05 by daelee            #+#    #+#             */
-/*   Updated: 2021/02/07 22:06:19 by gaekim           ###   ########.fr       */
+/*   Updated: 2021/02/08 01:36:28 by gaekim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 int		g_exit_status = 0;
 char	**g_envp = NULL;
 
-void	show_daegae(void)
+void		show_daegae(void)
 {
 	int		fd;
 	char	*line;
@@ -33,7 +33,7 @@ void	show_daegae(void)
 	ft_putendl_fd(END_COLOR, STDOUT);
 }
 
-void	show_prompt(void)
+void		show_prompt(void)
 {
 	static char	*curpath;
 
@@ -43,11 +43,11 @@ void	show_prompt(void)
 	ft_putstr_fd("$ ", STDOUT);
 }
 
-int 		get_command_line(char **input)
+int			get_command_line(char **input)
 {
-	int 	ret;
-	char 	*input2;
-	char 	*tmp;
+	int		ret;
+	char	*input2;
+	char	*tmp;
 
 	*input = ft_strdup("");
 	while (TRUE)
@@ -64,7 +64,7 @@ int 		get_command_line(char **input)
 				continue;
 			ft_putstr_fd("exit\n", STDOUT);
 		}
-		break;
+		break ;
 	}
 	return (ret);
 }
@@ -72,7 +72,7 @@ int 		get_command_line(char **input)
 int			main(int argc, char **argv, char **envp)
 {
 	char	*input;
-	int 	ret;
+	int		ret;
 
 	(void)argv;
 	g_envp = copy_envp(envp);
@@ -83,8 +83,8 @@ int			main(int argc, char **argv, char **envp)
 	{
 		show_prompt();
 		ret = get_command_line(&input);
- 		if (!check_white_space(input))
- 			parse(input);
+		if (!check_white_space(input))
+			parse(input);
 		free(input);
 	}
 	return (g_exit_status & 255);

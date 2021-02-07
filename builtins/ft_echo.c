@@ -3,25 +3,26 @@
 /*                                                        :::      ::::::::   */
 /*   ft_echo.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: daelee <daelee@student.42seoul.kr>         +#+  +:+       +#+        */
+/*   By: gaekim <gaekim@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/08 10:59:48 by daelee            #+#    #+#             */
-/*   Updated: 2021/02/06 23:46:14 by daelee           ###   ########.fr       */
+/*   Updated: 2021/02/08 01:39:13 by gaekim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void ft_echo_envv(char **cmdline, char **envs, int i)
+void		ft_echo_envv(char **cmdline, char **envs, int i)
 {
-	char 	*value;
+	char	*value;
+
 	value = find_value(&(cmdline[i][1]), envs);
 	ft_putstr_fd(value, STDIN);
 }
 
-int 	check_option_n(char *token)
+int			check_option_n(char *token)
 {
-	int i;
+	int	i;
 
 	if (ft_strncmp(token, "-n", 2) != 0)
 		return (FALSE);
@@ -35,10 +36,10 @@ int 	check_option_n(char *token)
 	return (TRUE);
 }
 
-void ft_echo(char **cmdline, char **envs)
+void		ft_echo(char **cmdline, char **envs)
 {
-	int 	i;
-	int 	ret;
+	int	i;
+	int	ret;
 
 	i = 1;
 	ret = 0;

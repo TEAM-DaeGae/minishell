@@ -6,7 +6,7 @@
 /*   By: gaekim <gaekim@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/07 21:59:34 by gaekim            #+#    #+#             */
-/*   Updated: 2021/02/07 22:32:55 by gaekim           ###   ########.fr       */
+/*   Updated: 2021/02/08 01:36:31 by gaekim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,8 @@ int		check_white_space(char *input)
 		return (1);
 	while (input[i])
 	{
-		if (input[i] == '\r' || input[i] == '\v' || input[i] == '\t' || input[i] == '\f')
+		if (input[i] == '\r' || input[i] == '\v' || input[i] == '\t'
+			|| input[i] == '\f')
 			return (1);
 		else if (input[i] == ' ')
 			space++;
@@ -57,14 +58,15 @@ void	*initialize(char *input, t_data *data, t_list **head)
 	*head = ft_lstnew(NULL);
 	data->lstlast = *head;
 	if (!(data->cmd = ft_calloc(1, sizeof(t_cmd))))
-		return ((void *)parse_error(data, NULL, MALLOC_ERROR));
-	if (!(data->cmd->cmdlines = ft_calloc(count_token(input) + 1, sizeof(char *))))
-		return ((void *)parse_error(data, NULL, MALLOC_ERROR));
+		return (parse_error(data, NULL, MALLOC_ERROR));
+	if (!(data->cmd->cmdlines = ft_calloc(count_token(input) + 1,
+			sizeof(char *))))
+		return (parse_error(data, NULL, MALLOC_ERROR));
 	data->cmd->flag = 0;
 	data->cmd->quote = 0;
 	data->cmd->has_redir = 0;
 	if (!(data->buff = ft_calloc(ft_strlen(input) + 1, sizeof(char))))
-		return ((void *)parse_error(data, NULL, MALLOC_ERROR));
+		return (parse_error(data, NULL, MALLOC_ERROR));
 	data->i = -1;
 	data->j = 0;
 	data->k = 0;

@@ -6,16 +6,16 @@
 /*   By: gaekim <gaekim@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/08 09:46:25 by daelee            #+#    #+#             */
-/*   Updated: 2021/02/07 23:03:55 by gaekim           ###   ########.fr       */
+/*   Updated: 2021/02/08 01:39:13 by gaekim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void exec_child_process(t_cmd *cmd, t_cmd *next_cmd)
+void		exec_child_process(t_cmd *cmd, t_cmd *next_cmd)
 {
-	int ret;
-	char *path;
+	int		ret;
+	char	*path;
 
 	ret = EXIT_SUCCESS;
 	path = find_path(cmd->cmdlines[0], g_envp);
@@ -38,13 +38,13 @@ void exec_child_process(t_cmd *cmd, t_cmd *next_cmd)
 	exit(ret);
 }
 
-int exec_pipe(t_list *cur_proc, t_cmd *cmd)
+int			exec_pipe(t_list *cur_proc, t_cmd *cmd)
 {
-	pid_t pid;
-	int ret;
-	int status;
-	t_cmd *next_cmd;
-	char *path;
+	pid_t	pid;
+	int		ret;
+	int		status;
+	t_cmd	*next_cmd;
+	char	*path;
 
 	ret = EXIT_SUCCESS;
 	path = find_path(cmd->cmdlines[0], g_envp);
@@ -66,9 +66,9 @@ int exec_pipe(t_list *cur_proc, t_cmd *cmd)
 	return (ret);
 }
 
-void exec_builtin(t_cmd *cmd, char **cmdline)
+int			exec_builtin(t_cmd *cmd, char **cmdline)
 {
-	char *builtin;
+	char	*builtin;
 
 	builtin = cmd->cmdlines[0];
 	if (!ft_strcmp(builtin, "cd"))
@@ -85,12 +85,15 @@ void exec_builtin(t_cmd *cmd, char **cmdline)
 		ft_unset(cmd, cmdline);
 	else if (!ft_strcmp(builtin, "exit"))
 		ft_exit(cmd, cmdline);
+	else
+		return (0);
+	return (1);
 }
 
-void exec_process(t_list *head)
+void		exec_process(t_list *head)
 {
-	t_list *cur_proc;
-	t_cmd *cmd;
+	t_list	*cur_proc;
+	t_cmd	*cmd;
 
 	cur_proc = head->next;
 	while (cur_proc != NULL)
@@ -98,12 +101,15 @@ void exec_process(t_list *head)
 		cmd = cur_proc->content;
 		if (cmd->cmdlines[0])
 		{
+			if (cmd->has_redir == 1 && cmd->flag == 0)
+			{
+				exec_redir(cmd, cmd->cmdlines);
+				break ;
+			}
 			if ((check_builtin(cmd->cmdlines) == TRUE) && cmd->flag == 0)
 				exec_builtin(cmd, cmd->cmdlines);
 			else
 				exec_pipe(cur_proc, cmd);
-			// if (cmd->has_redir == 1 && cmd->flag == 0)
-			// 	exec_redir(cmd, cmd->cmdlines);
 		}
 		cur_proc = cur_proc->next;
 	}

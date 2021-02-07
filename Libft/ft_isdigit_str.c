@@ -3,18 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   ft_isdigit_str.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: daelee <daelee@student.42seoul.kr>         +#+  +:+       +#+        */
+/*   By: gaekim <gaekim@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/11 09:56:14 by daelee            #+#    #+#             */
-/*   Updated: 2021/01/11 09:58:12 by daelee           ###   ########.fr       */
+/*   Updated: 2021/02/08 01:39:13 by gaekim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int         ft_isdigit_str(char *str)
+int		ft_isdigit_str(char *str)
 {
-	int     idx;
+	int	idx;
 
 	idx = 0;
 	while (str[idx])

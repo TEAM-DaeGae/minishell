@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   ft_cd.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: daelee <daelee@student.42seoul.kr>         +#+  +:+       +#+        */
+/*   By: gaekim <gaekim@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/08 10:56:00 by daelee            #+#    #+#             */
-/*   Updated: 2021/02/06 23:44:34 by daelee           ###   ########.fr       */
+/*   Updated: 2021/02/08 01:39:13 by gaekim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int ft_cd_home(char *path, char **cmdline, char **envs)
+int			ft_cd_home(char *path, char **cmdline, char **envs)
 {
 	if (cmdline[1][1] == '~')
 	{
@@ -25,7 +25,7 @@ int ft_cd_home(char *path, char **cmdline, char **envs)
 	return (SUCCESS);
 }
 
-int 		ft_cd_envv(char *path, char **cmdline, char **envs)
+int			ft_cd_envv(char *path, char **cmdline, char **envs)
 {
 	path = find_value(&(cmdline[1][1]), envs);
 	if (chdir(path) == -1)
@@ -37,7 +37,7 @@ void		set_oldpwd_pwd(char **envs)
 {
 	char	*cur_pwd;
 	char	*old_pwd;
-	char 	*tmp;
+	char	*tmp;
 
 	tmp = malloc(sizeof(char) * MAXSIZE);
 	cur_pwd = ft_strjoin("PWD=", getcwd(tmp, MAXSIZE));
@@ -48,10 +48,10 @@ void		set_oldpwd_pwd(char **envs)
 	free(old_pwd);
 }
 
-void ft_cd(char **cmdline, char **envs)
+void		ft_cd(char **cmdline, char **envs)
 {
 	char	*path;
-	int 	ret;
+	int		ret;
 
 	path = 0;
 	ret = 0;

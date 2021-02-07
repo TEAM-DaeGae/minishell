@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   ft_export.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: daelee <daelee@student.42seoul.kr>         +#+  +:+       +#+        */
+/*   By: gaekim <gaekim@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/11 11:44:44 by daelee            #+#    #+#             */
-/*   Updated: 2021/02/06 23:47:27 by daelee           ###   ########.fr       */
+/*   Updated: 2021/02/08 01:39:13 by gaekim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	print_export(char **envs)
+void		print_export(char **envs)
 {
 	int	i;
 
@@ -24,7 +24,7 @@ void	print_export(char **envs)
 	}
 }
 
-void	add_export(char *str, char **new, int i)
+void		add_export(char *str, char **new, int i)
 {
 	new[i] = ft_strdup(str);
 	new[i + 1] = NULL;
@@ -54,9 +54,9 @@ int			check_export(char *str, char ***envs)
 	return (SUCCESS);
 }
 
-int 	isvalid_export(char *key)
+int			isvalid_export(char *key)
 {
-	int i;
+	int	i;
 
 	i = -1;
 	while (key[++i])
@@ -67,10 +67,10 @@ int 	isvalid_export(char *key)
 	return (TRUE);
 }
 
-void ft_export(t_cmd *cmd, char **cmdline)
+void		ft_export(t_cmd *cmd, char **cmdline)
 {
-	int     i;
-	int ret;
+	int	i;
+	int	ret;
 
 	ret = 0;
 	i = 0;

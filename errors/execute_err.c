@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute_err.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: daelee <daelee@student.42seoul.kr>         +#+  +:+       +#+        */
+/*   By: gaekim <gaekim@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/29 01:32:55 by daelee            #+#    #+#             */
-/*   Updated: 2021/02/06 16:48:54 by daelee           ###   ########.fr       */
+/*   Updated: 2021/02/08 01:39:13 by gaekim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,11 +18,11 @@ int		print_execute_err_1(char *token, char *err_msg)
 	ft_putstr_fd(": ", STDERR);
 	ft_putstr_fd(token, STDERR);
 	ft_putstr_fd(": ", STDERR);
-    ft_putendl_fd(err_msg, STDERR);
+	ft_putendl_fd(err_msg, STDERR);
 	return (ERROR);
 }
 
-int     print_execute_err_2(char *token1, char *token2, char *err_msg)
+int		print_execute_err_2(char *token1, char *token2, char *err_msg)
 {
 	ft_putstr_fd("minishell", STDERR);
 	ft_putstr_fd(": ", STDERR);
@@ -30,6 +30,6 @@ int     print_execute_err_2(char *token1, char *token2, char *err_msg)
 	ft_putstr_fd(": ", STDERR);
 	ft_putstr_fd(token2, STDERR);
 	ft_putstr_fd(": ", STDERR);
-    ft_putendl_fd(err_msg, STDERR);
+	ft_putendl_fd(err_msg, STDERR);
 	return (ERROR);
 }
