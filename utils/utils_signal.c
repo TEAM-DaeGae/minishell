@@ -3,19 +3,19 @@
 /*                                                        :::      ::::::::   */
 /*   utils_signal.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: daelee <daelee@student.42seoul.kr>         +#+  +:+       +#+        */
+/*   By: gaekim <gaekim@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/12 23:29:46 by daelee            #+#    #+#             */
-/*   Updated: 2021/02/03 02:12:42 by daelee           ###   ########.fr       */
+/*   Updated: 2021/02/08 01:12:12 by gaekim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	handle_signal(int signo)
+void		handle_signal(int signo)
 {
-	pid_t pid;
-	int status;
+	pid_t	pid;
+	int		status;
 
 	pid = waitpid(-1, &status, WNOHANG);
 	if (signo == SIGINT)
@@ -38,7 +38,7 @@ void	handle_signal(int signo)
 	}
 }
 
-void set_signal(void)
+void		set_signal(void)
 {
 	signal(SIGINT, handle_signal);
 	signal(SIGQUIT, handle_signal);

@@ -3,19 +3,19 @@
 /*                                                        :::      ::::::::   */
 /*   utils_envv.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: daelee <daelee@student.42seoul.kr>         +#+  +:+       +#+        */
+/*   By: gaekim <gaekim@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/01/14 12:11:52 by daelee            #+#    #+#             */
-/*   Updated: 2021/02/06 16:58:43 by daelee           ###   ########.fr       */
+/*   Created: 2021/02/08 01:04:53 by daelee            #+#    #+#             */
+/*   Updated: 2021/02/08 01:12:12 by gaekim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-char **copy_envp(char **envs)
+char			**copy_envp(char **envs)
 {
-	char **new;
-	int i;
+	char	**new;
+	int		i;
 
 	i = 0;
 	while (envs[++i] != NULL)
@@ -29,20 +29,20 @@ char **copy_envp(char **envs)
 	return (new);
 }
 
-char		*find_value(char *key, char **envs)
+char			*find_value(char *key, char **envs)
 {
-	int		i;
+	int	i;
 
 	i = -1;
 	while (envs[++i])
 	{
 		if (!ft_strncmp(envs[i], key, ft_strlen(key)))
-			return(envs[i] + ft_strlen(key) + 1);
+			return (envs[i] + ft_strlen(key) + 1);
 	}
 	return ("");
 }
 
-char		*find_path(char *cmdline, char **envs)
+char			*find_path(char *cmdline, char **envs)
 {
 	int			i;
 	char		*temp;
@@ -59,12 +59,8 @@ char		*find_path(char *cmdline, char **envs)
 		new_path = ft_strjoin(paths[i], temp);
 		free(temp);
 		if (stat(new_path, &s) == 0)
-		{
-			//free_double_arr(paths);
 			return (new_path);
-		}
 		free(new_path);
 	}
-	//free_double_arr(paths);
 	return (ft_strdup(cmdline));
 }
