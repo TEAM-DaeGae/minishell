@@ -6,7 +6,7 @@
 /*   By: gaekim <gaekim@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/07 21:56:32 by gaekim            #+#    #+#             */
-/*   Updated: 2021/02/08 01:34:46 by gaekim           ###   ########.fr       */
+/*   Updated: 2021/02/08 01:38:47 by gaekim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -162,7 +162,7 @@ char			*find_path(char *cmdline, char **envs);
 /*
 ** utils_execute.c
 */
-int				heck_builtin(char **cmdline);
+int				check_builtin(char **cmdline);
 int				remove_char(char *str, char c);
 int				check_export(char *str, char ***envs);
 
