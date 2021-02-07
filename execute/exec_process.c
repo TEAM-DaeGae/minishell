@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_process.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: daelee <daelee@student.42seoul.kr>         +#+  +:+       +#+        */
+/*   By: gaekim <gaekim@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/08 09:46:25 by daelee            #+#    #+#             */
-/*   Updated: 2021/02/07 00:14:14 by daelee           ###   ########.fr       */
+/*   Updated: 2021/02/07 23:03:55 by gaekim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,7 @@ void exec_builtin(t_cmd *cmd, char **cmdline)
 		ft_exit(cmd, cmdline);
 }
 
-void exec_process(t_list *head) // 인자는 연결리스트의 헤드포인터
+void exec_process(t_list *head)
 {
 	t_list *cur_proc;
 	t_cmd *cmd;
@@ -95,13 +95,15 @@ void exec_process(t_list *head) // 인자는 연결리스트의 헤드포인터
 	cur_proc = head->next;
 	while (cur_proc != NULL)
 	{
-		cmd = cur_proc->content; // (t_cmd *)형태로 자료형변환을 위해 옮겨담음.
+		cmd = cur_proc->content;
 		if (cmd->cmdlines[0])
 		{
 			if ((check_builtin(cmd->cmdlines) == TRUE) && cmd->flag == 0)
 				exec_builtin(cmd, cmd->cmdlines);
 			else
 				exec_pipe(cur_proc, cmd);
+			// if (cmd->has_redir == 1 && cmd->flag == 0)
+			// 	exec_redir(cmd, cmd->cmdlines);
 		}
 		cur_proc = cur_proc->next;
 	}
