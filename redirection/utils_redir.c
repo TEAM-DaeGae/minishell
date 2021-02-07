@@ -6,7 +6,7 @@
 /*   By: gaekim <gaekim@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/06 07:19:21 by gaekim            #+#    #+#             */
-/*   Updated: 2021/02/06 07:40:40 by gaekim           ###   ########.fr       */
+/*   Updated: 2021/02/08 00:41:22 by gaekim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,17 +36,10 @@ int		has_redir_syntax_error(char *str)
 	while (str[i])
 	{
 		if (ft_strchr(" \n", str[i]) == NULL)
-			return (0); // 에러 아니다
+			return (0);
 		i++;
 	}
-	return (1); // 에러다 -> 문자열 전체가 공백 or 개행으로만 이루어짐
-}
-
-int		ft_puterror_fd(char *s1, char *s2, int fd)
-{
-	ft_putstr_fd(s1, fd);
-	ft_putendl_fd(s2, fd);
-	return (127);
+	return (1);
 }
 
 char	*substr_and_trim(char *command, int start, int num, char *charset)

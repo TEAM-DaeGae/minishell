@@ -6,7 +6,7 @@
 /*   By: gaekim <gaekim@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/05 22:46:24 by gaekim            #+#    #+#             */
-/*   Updated: 2021/02/07 23:11:18 by gaekim           ###   ########.fr       */
+/*   Updated: 2021/02/08 00:41:55 by gaekim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,6 @@ static int		do_redir(t_cmd *cmd, t_redir *r)
 	char	*path;
 
 	fd = open(r->argv[r->argc - 1], O_WRONLY | O_CREAT | O_TRUNC, 0744);
-	printf("i'm do_redir! line 21\n");
-	printf("fd: %d\n", fd);
 	if (fd < 0)
 	{
 		ft_puterror_fd(r->argv[r->argc - 1], ": No such file or directory", 2);
@@ -29,8 +27,8 @@ static int		do_redir(t_cmd *cmd, t_redir *r)
 		return (ft_puterror_fd(r->cmds[0], ": command not found", 2));
 	dup2(fd, STDOUT_FILENO);
 	close(fd);
-	if (exec_builtin(cmd, r->cmds)
-			&& (execve(path, r->cmds, g_envp) == -1)) // ??
+	if (!exec_builtin(cmd, r->cmds)
+			&& (execve(path, r->cmds, g_envp) == -1))
 		return (ft_puterror_fd(r->cmds[0], ": command not found", 2));
 	free(path);
 	free_double_arr(r->cmds);
@@ -53,7 +51,7 @@ static int		do_dredir(t_cmd *cmd, t_redir *r)
 	dup2(fd, STDOUT_FILENO);
 	close(fd);
 	if (!exec_builtin(cmd, r->cmds)
-			&& (execve(path, r->cmds, g_envp) == -1)) // ??
+			&& (execve(path, r->cmds, g_envp) == -1))
 		return (ft_puterror_fd(r->cmds[0], ": command not found", 2));
 	free(path);
 	free_double_arr(r->cmds);
@@ -76,7 +74,7 @@ static int		do_bredir(t_cmd *cmd, t_redir *r)
 	dup2(fd, STDIN_FILENO);
 	close(fd);
 	if (!exec_builtin(cmd, r->cmds)
-			&& (execve(path, r->cmds, g_envp) == -1)) // ??
+			&& (execve(path, r->cmds, g_envp) == -1))
 		return (ft_puterror_fd(r->cmds[0], ": command not found", 2));
 	free(path);
 	free_double_arr(r->cmds);
@@ -94,8 +92,6 @@ void			cmd_redir(t_cmd *cmd, t_redir *r)
 	pid = fork();
 	if (pid == 0)
 	{
-		printf("i'm cmd_redir! line 95\n");
-		printf("types:%d, REDIR:%d\n", r->types[r->argc-2], REDIR);
 		if (r->types[r->argc - 2] == REDIR)
 			ret = do_redir(cmd, r);
 		else if (r->types[r->argc - 2] == DREDIR)

@@ -6,32 +6,32 @@
 /*   By: gaekim <gaekim@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/05 19:02:02 by gaekim            #+#    #+#             */
-/*   Updated: 2021/02/07 22:27:47 by gaekim           ###   ########.fr       */
+/*   Updated: 2021/02/08 00:41:55 by gaekim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void		init_redir(char *command, t_redir *re)
+void	init_redir(char *command, t_redir *re)
 {
 	int num;
 
 	num = 0;
-	while (*command) // "echo hi>a.txt"에서 char 1글자씩 검사
+	while (*command)
 	{
-		if (ft_strchr("><", *command)) // char이 '>'거나 '<'이면
+		if (ft_strchr("><", *command))
 			num++;
 		command++;
 	}
-	re->argc = num + 1; // redir 기호 개수 + 1 저장 (>>는 2개로 카운트)
+	re->argc = num + 1;
 	re->argv = (char **)malloc(sizeof(char *) * (re->argc + 1));
 	re->types = (char *)malloc(sizeof(char) * (re->argc + 1));
 	re->cmds = NULL;
 }
 
-int			parse_redir_final(t_redir *r, int j)
+int		parse_redir_final(t_redir *r, int j)
 {
-	if (has_redir_syntax_error(r->argv[j])) // redir 기호 다음의 파일이름인 argv[1] 유효성 검사
+	if (has_redir_syntax_error(r->argv[j]))
 		return (-1);
 	r->types[j] = 0;
 	j++;
@@ -40,7 +40,7 @@ int			parse_redir_final(t_redir *r, int j)
 	return (1);
 }
 
-int			parse_redir(char *command, t_redir *r)
+int		parse_redir(char *command, t_redir *r)
 {
 	int		i;
 	int		j;
@@ -49,28 +49,27 @@ int			parse_redir(char *command, t_redir *r)
 	i = -1;
 	j = 0;
 	start = 0;
-	while (command[++i]) // char 1글자씩 검사
+	while (command[++i])
 	{
 		if (ft_strchr("><", command[i]))
-		{	// 하나의 프로세스에 > 와 < 가 동시에 나오는거는 처리 안 하고 그냥 패스...
+		{
 			if (j > 0 && ((r->types[0] == BREDIR && command[i] == '>') ||
 				(r->types[0] != BREDIR && command[i] == '<')))
 				return (0);
-			// start ~ i-start-1 까지 자른 다음에, 맨앞 맨뒤 공백들 제거해서 반환 
 			r->argv[j] = substr_and_trim(command, start, i - start, " ");
 			if (j == 0)
-				r->cmds = ft_split(r->argv[j], ' '); // "echo hi " -> "echo" "hi" NULL
-			r->types[j] = find_redir_type(command, i); // < > >>를 가리키는 숫자가 저장됨
+				r->cmds = ft_split(r->argv[j], ' ');
+			r->types[j] = find_redir_type(command, i);
 			(r->types[j] == DREDIR) ? i++ : 0;
 			j++;
 			start = i + 1;
 		}
-	} // while문이 끝났을 때 i는 문자열 맨 끝의 NULL의 인덱스
+	}
 	r->argv[j] = substr_and_trim(command, start, i - start, " ");
 	return (parse_redir_final(r, j));
 }
 
-void		open_unnecessary_files(t_redir *r)
+void	open_unnecessary_files(t_redir *r)
 {
 	int		i;
 	int		fd;
@@ -91,22 +90,21 @@ void		open_unnecessary_files(t_redir *r)
 	close(fd);
 }
 
-void    exec_redir(t_cmd *cmd, char **cmdline)
+void	exec_redir(t_cmd *cmd, char **cmdline)
 {
 	int		ret;
-	t_redir r;
-	char    *line;
+	t_redir	r;
+	char	*line;
 
-	//printf("i'm exec_redir! line 109\n");
-    line = change_from_double_to_single_cmdline(cmdline);
+	line = change_from_double_to_single_cmdline(cmdline);
 	line = remove_single_quotes(line);
 	init_redir(line, &r);
 	if ((ret = parse_redir(line, &r)) <= 0)
 	{
-		if (ret < 0) // redir 기호 다음의 파일이름이 공백이나 개행으로만 이뤄져있는 경우
+		if (ret < 0)
 			ft_putendl_fd("syntax error near unexpected token `newline'", 1);
 		return ;
 	}
 	open_unnecessary_files(&r);
-	cmd_redir(cmd, &r); // 실제 > < >> 처리하는 부분
+	cmd_redir(cmd, &r);
 }
