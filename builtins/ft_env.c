@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   ft_env.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: daelee <daelee@student.42seoul.kr>         +#+  +:+       +#+        */
+/*   By: gaekim <gaekim@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/08 11:05:25 by daelee            #+#    #+#             */
-/*   Updated: 2021/02/06 21:35:35 by daelee           ###   ########.fr       */
+/*   Updated: 2021/02/08 00:41:00 by gaekim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void ft_env(char **envs)
+void	ft_env(char **envs)
 {
 	int	i;
 

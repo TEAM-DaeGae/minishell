@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_unset.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: daelee <daelee@student.42seoul.kr>         +#+  +:+       +#+        */
+/*   By: gaekim <gaekim@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/12 20:12:47 by daelee            #+#    #+#             */
-/*   Updated: 2021/02/06 23:47:36 by daelee           ###   ########.fr       */
+/*   Updated: 2021/02/08 00:41:22 by gaekim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,9 +27,9 @@ int		isvalid_env(char *name)
 	return (TRUE);
 }
 
-int			check_key_value(char *str, char *envs)
+int		check_key_value(char *str, char *envs)
 {
-	int		i;
+	int	i;
 
 	i = 0;
 	while (str[i] && envs[i] && (str[i] == envs[i]) && (envs[i] != '='))
@@ -39,7 +39,7 @@ int			check_key_value(char *str, char *envs)
 	return (FALSE);
 }
 
-int			unset_env(char *str, char ***envs)
+int		unset_env(char *str, char ***envs)
 {
 	int	i;
 	int	last;
@@ -62,7 +62,7 @@ int			unset_env(char *str, char ***envs)
 	return (SUCCESS);
 }
 
-void ft_unset(t_cmd *cmd, char **cmdline)
+void	ft_unset(t_cmd *cmd, char **cmdline)
 {
 	int	ret;
 	int	i;

@@ -3,24 +3,24 @@
 /*                                                        :::      ::::::::   */
 /*   ft_exit.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: daelee <daelee@student.42seoul.kr>         +#+  +:+       +#+        */
+/*   By: gaekim <gaekim@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/11 09:52:14 by daelee            #+#    #+#             */
-/*   Updated: 2021/02/06 23:46:35 by daelee           ###   ########.fr       */
+/*   Updated: 2021/02/08 00:41:01 by gaekim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void 	ft_exit_errcode(void)
+void	ft_exit_errcode(void)
 {
 	ft_putstr_fd("exit\n", STDERR);
 	exit(g_exit_status);
 }
 
-void ft_exit(t_cmd *cmd, char **cmdline)
+void	ft_exit(t_cmd *cmd, char **cmdline)
 {
-	int		argc;
+	int	argc;
 
 	argc = 0;
 	if (cmd->preflag == 1)
