@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_export.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gaekim <gaekim@student.42seoul.kr>         +#+  +:+       +#+        */
+/*   By: daelee <daelee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/11 11:44:44 by daelee            #+#    #+#             */
-/*   Updated: 2021/02/08 01:39:13 by gaekim           ###   ########.fr       */
+/*   Updated: 2021/02/09 14:56:53 by daelee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,13 +69,15 @@ int			isvalid_export(char *key)
 
 void		ft_export(t_cmd *cmd, char **cmdline)
 {
-	int	i;
-	int	ret;
+	int		i;
+	int		ret;
+	char 	**tmp;
 
 	ret = 0;
 	i = 0;
+	tmp = cmdline;
 	if (cmd->preflag == 1)
-		return ;
+		return;
 	if (ft_double_strlen(cmdline) == 1)
 		print_export(g_envp);
 	else
@@ -83,11 +85,12 @@ void		ft_export(t_cmd *cmd, char **cmdline)
 		remove_char(cmdline[1], '\'');
 		while (cmdline[++i])
 		{
-			if (isvalid_export(ft_strtok(cmdline[i], '=')) == FALSE)
+			if (isvalid_export(ft_strtok(tmp[i], '=')) == FALSE)
 			{
-				print_identifier_err("export", cmdline[i]);
+				print_identifier_err("export", tmp[i]);
 				g_exit_status = 1;
 			}
+			remove_char(cmdline[i], '$');
 			ret = check_export(cmdline[i], &g_envp);
 		}
 	}

@@ -3,19 +3,25 @@
 /*                                                        :::      ::::::::   */
 /*   ft_echo.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gaekim <gaekim@student.42seoul.kr>         +#+  +:+       +#+        */
+/*   By: daelee <daelee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/08 10:59:48 by daelee            #+#    #+#             */
-/*   Updated: 2021/02/08 01:39:13 by gaekim           ###   ########.fr       */
+/*   Updated: 2021/02/09 14:44:37 by daelee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
+void		print_exit_status(void)
+{
+	ft_putstr_fd(ft_itoa(g_exit_status), 1);
+}
+
 void		ft_echo_envv(char **cmdline, char **envs, int i)
 {
 	char	*value;
-
+	if (cmdline[1][0] == '$' && cmdline[1][1] == '?')
+		print_exit_status();
 	value = find_value(&(cmdline[i][1]), envs);
 	ft_putstr_fd(value, STDIN);
 }
