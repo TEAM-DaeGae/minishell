@@ -57,6 +57,6 @@
 
 ## 1.3. Flow Chart
 
-![image](https://user-images.githubusercontent.com/37580034/107723971-11d09800-6d26-11eb-866f-27e7bad3e6b9.png)
+![image-20210212113733436](/Users/daelee/Library/Application Support/typora-user-images/image-20210212113733436.png)
 
 
