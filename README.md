@@ -57,7 +57,6 @@
 
 ## 1.3. Flow Chart
 
-![image](https://user-images.githubusercontent.com/37580034/107724272-d4b8d580-6d26-11eb-9e3c-8a208f35b28a.png)
 
 
 
